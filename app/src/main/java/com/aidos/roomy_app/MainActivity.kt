@@ -2,7 +2,7 @@ package com.aidos.roomy_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.aidos.roomy_app.ui.main.MainFragment
+import com.aidos.roomy_app.ui.MainFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.aidos.roomy_app.ui.main
+package com.aidos.roomy_app.ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
