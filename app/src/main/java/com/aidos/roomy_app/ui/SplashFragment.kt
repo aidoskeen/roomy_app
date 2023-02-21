@@ -8,17 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.aidos.roomy_app.R
 
-class MainFragment : Fragment() {
+class SplashFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = SplashFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
