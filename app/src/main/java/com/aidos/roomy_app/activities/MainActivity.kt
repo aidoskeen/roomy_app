@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.ui.SplashFragment
+import com.aidos.roomy_app.ui.common_ui.LoginFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SplashFragment.newInstance())
+                .replace(R.id.container, LoginFragment.newInstance())
                 .commitNow()
         }
     }

@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.aidos.roomy_app.models.Room
 
+//Top bar shown is most of the pages
 @Composable
 fun TabBar(
     modifier: Modifier = Modifier,
@@ -41,6 +42,7 @@ fun TabBar(
         )
     }
 }
+
 @Composable
 private fun ImageOfRoom(
     item: Room,

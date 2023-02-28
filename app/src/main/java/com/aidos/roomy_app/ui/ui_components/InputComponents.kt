@@ -25,86 +25,20 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+//Field for getting input from user
 @Composable
-fun RoomyTextField(
-    modifier: Modifier,
-    fieldState: MutableState<TextFieldValue>,
+fun InputField(
+    value: TextFieldValue,
+    label: @Composable (() -> Unit)? = null,
+    onValueChange: (TextFieldValue) -> Unit,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    label: @Composable () -> Unit
+    keyboardOptions: KeyboardOptions = KeyboardOptions()
 ) {
-
+    Spacer(modifier = Modifier.height(20.dp))
     TextField(
-        modifier = modifier,
-        value = fieldState.value,
         label = label,
-        visualTransformation = visualTransformation,
-        onValueChange = { fieldState.value = it }
+        value = value,
+        onValueChange = { onValueChange(value) },
+        visualTransformation = visualTransformation
     )
-}
-
-@Composable
-fun LoginPage() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        ClickableText(
-            text = AnnotatedString("Sign up here"),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(20.dp),
-            onClick = { },
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default,
-                textDecoration = TextDecoration.Underline,
-                color = Color.Blue
-            )
-        )
-    }
-    Column(
-        modifier = Modifier.padding(20.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        val username = remember { mutableStateOf(TextFieldValue()) }
-        val password = remember { mutableStateOf(TextFieldValue()) }
-
-        Text(text = "Login", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
-
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Username") },
-            value = username.value,
-            onValueChange = { username.value = it })
-
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            label = { Text(text = "Password") },
-            value = password.value,
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onValueChange = { password.value = it })
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
-            Button(
-                onClick = { },
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(text = "Login")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-        ClickableText(
-            text = AnnotatedString("Forgot password?"),
-            onClick = { },
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default
-            )
-        )
-    }
 }
