@@ -1,32 +1,57 @@
 package com.aidos.roomy_app.ui.common_ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.databinding.FragmentDormitoriesBinding
+import com.aidos.roomy_app.ui.theme.RoomyMainTheme
+import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class DormitoriesFragment : Fragment() {
+class DormitoriesFragment : DaggerFragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private var binding: FragmentDormitoriesBinding? = null
+    private val viewModel: DormitoriesViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[DormitoriesViewModel::class.java]
+    }
     companion object {
         fun newInstance() = DormitoriesFragment()
     }
 
-    private lateinit var viewModel: DormitoriesViewModel
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_dormitories, container, false)
+        binding = FragmentDormitoriesBinding.inflate(inflater, container, false)
+        val binding = binding ?: return null
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DormitoriesViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = binding ?: return
+
+        binding.dormsComposeView.setContent {
+            RoomyMainTheme {
+                RoomyTopAppBar(
+                    backgroundColor = MaterialTheme.colors.primary,
+                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    label = "Roomy"
+                )
+            }
+        }
     }
+
+
 
 }

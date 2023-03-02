@@ -1,46 +1,71 @@
-package com.aidos.roomy_app.ui
+package com.aidos.roomy_app.ui.ui_components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.aidos.roomy_app.R
 import com.aidos.roomy_app.models.Room
+import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 
 //Top bar shown is most of the pages
 @Composable
-fun TabBar(
+fun RoomyTopAppBar(
+    backgroundColor: Color,
     modifier: Modifier = Modifier,
-    onMenuClicked: () -> Unit,
     painter: Painter,
-    description: String,
-    children: @Composable (Modifier) -> Unit
+    label: String
 ) {
-    Row(modifier) {
-        Row(Modifier.padding(top = 8.dp)) {
-            Image(
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .clickable(onClick = onMenuClicked),
-                painter = painter,
-                contentDescription = description
-            )
-            Spacer(Modifier.width(8.dp))
-        }
-        children(
-            Modifier
-                .weight(1f)
-                .align(Alignment.CenterVertically)
-        )
-    }
+    TopAppBar(
+        title = {
+            Row (
+                verticalAlignment = Alignment.CenterVertically
+                    ){
+                Image(
+                    painter = painter,
+                    contentDescription = null
+                )
+              Text(text = label)
+            }
+        },
+        backgroundColor = backgroundColor,
+        actions = {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                IconButton(
+                    onClick = { /* TODO: Open search */ }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = null
+                    )
+                }
+                IconButton(
+                    onClick = { /* TODO: Open account? */ }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = null
+                    )
+                }
+            }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -70,7 +95,9 @@ private fun RoomItemColumn(
             .padding(top = 12.dp, bottom = 12.dp)
     ) {
         Surface(
-            modifier = Modifier.size(64.dp).aspectRatio(1f),
+            modifier = Modifier
+                .size(64.dp)
+                .aspectRatio(1f),
             RoundedCornerShape(4.dp)
         ) {
             ImageOfRoom(item, painter)
@@ -109,7 +136,9 @@ private fun RoomItemRow(
             .padding(top = 12.dp, bottom = 12.dp)
     ) {
         Surface(
-            modifier = Modifier.size(64.dp).aspectRatio(1f),
+            modifier = Modifier
+                .size(64.dp)
+                .aspectRatio(1f),
             RoundedCornerShape(4.dp)
         ) {
             ImageOfRoom(item, painter)
@@ -136,5 +165,18 @@ private fun ImageContainer(
 ) {
     Surface(modifier.aspectRatio(1f), RoundedCornerShape(4.dp)) {
         content()
+    }
+}
+
+@Composable
+@Preview(name = "App Bar Preview")
+fun AppBarPreview() {
+    RoomyMainTheme {
+        RoomyTopAppBar(
+            backgroundColor = MaterialTheme.colors.primary,
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            label = "Roomy"
+        )
+
     }
 }
