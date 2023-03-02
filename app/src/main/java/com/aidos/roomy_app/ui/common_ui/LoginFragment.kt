@@ -25,7 +25,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentLoginBinding
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
-import com.aidos.roomy_app.ui.ui_components.BigButton
+import com.aidos.roomy_app.ui.ui_components.RoomyButton
 import com.aidos.roomy_app.ui.ui_components.InputField
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -35,7 +35,7 @@ class LoginFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var binding: FragmentLoginBinding? = null
-    private val mainViewModel: LoginViewModel by lazy {
+    private val loginViewModel: LoginViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
     }
 
@@ -86,13 +86,13 @@ class LoginFragment : DaggerFragment() {
                     Spacer(modifier = Modifier.height(20.dp))
 
                     //Button for signing in
-                    BigButton(
+                    RoomyButton(
                         onClick = { /*TODO*/ },
                         text = stringResource(id = R.string.login_button)
                     )
 
                     //Button for registration
-                    BigButton(
+                    RoomyButton(
                         onClick = { /*TODO*/ },
                         text = stringResource(id = R.string.registration)
                     )
