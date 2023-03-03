@@ -46,7 +46,8 @@ class DormitoriesFragment : DaggerFragment() {
                 RoomyTopAppBar(
                     backgroundColor = MaterialTheme.colors.primary,
                     painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                    label = "Roomy"
+                    label = "Roomy",
+                    onUserIconClick = { }
                 )
             }
         }

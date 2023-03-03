@@ -6,6 +6,8 @@
     <string name="login_label">Login</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="registration">Registration</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <string name="room_item_label">Room</string>
+    <string name="dorm_item_label">Dormitory</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

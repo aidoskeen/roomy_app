@@ -7,5 +7,6 @@ data class Room(
     val roomNumber: Int,
     val roomType: RoomType,
     val roomSize: RoomSize,
-    val places: List<Place> = listOf()
+    val places: List<Place> = listOf(),
+    val description: String = ""
 )

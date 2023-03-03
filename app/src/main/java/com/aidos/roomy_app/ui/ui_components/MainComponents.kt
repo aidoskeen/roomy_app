@@ -7,7 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -20,6 +19,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.enums.RoomSize
+import com.aidos.roomy_app.enums.RoomType
+import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 
@@ -29,18 +31,19 @@ fun RoomyTopAppBar(
     backgroundColor: Color,
     modifier: Modifier = Modifier,
     painter: Painter,
-    label: String
+    label: String,
+    onUserIconClick: () -> Unit
 ) {
     TopAppBar(
         title = {
-            Row (
+            Row(
                 verticalAlignment = Alignment.CenterVertically
-                    ){
+            ) {
                 Image(
                     painter = painter,
                     contentDescription = null
                 )
-              Text(text = label)
+                Text(text = label)
             }
         },
         backgroundColor = backgroundColor,
@@ -50,18 +53,13 @@ fun RoomyTopAppBar(
                     onClick = { /* TODO: Open search */ }
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = null
-                    )
-                }
-                IconButton(
-                    onClick = { /* TODO: Open account? */ }
-                ) {
-                    Icon(
+                        modifier = Modifier
+                            .clickable(onClick = onUserIconClick),
                         imageVector = Icons.Default.AccountCircle,
                         contentDescription = null
                     )
                 }
+
             }
         },
         modifier = modifier
@@ -69,8 +67,7 @@ fun RoomyTopAppBar(
 }
 
 @Composable
-private fun ImageOfRoom(
-    item: Room,
+private fun ImageInBox(
     painter: Painter
 ) {
     Box {
@@ -82,6 +79,7 @@ private fun ImageOfRoom(
         )
     }
 }
+
 @Composable
 private fun RoomItemColumn(
     modifier: Modifier = Modifier,
@@ -100,7 +98,7 @@ private fun RoomItemColumn(
                 .aspectRatio(1f),
             RoundedCornerShape(4.dp)
         ) {
-            ImageOfRoom(item, painter)
+            ImageInBox(painter)
         }
         Spacer(Modifier.height(8.dp))
         Column(
@@ -122,12 +120,57 @@ private fun RoomItemColumn(
         }
     }
 }
+@Composable
+private fun DormitoryItemRow(
+    modifier: Modifier = Modifier,
+    item: Dormitory,
+    painter: Painter,
+    label: String,
+    onItemClicked: (Dormitory) -> Unit
+) {
+    Row(
+        modifier = modifier
+            .clickable { onItemClicked(item) }
+            .padding(top = 12.dp, bottom = 12.dp)
+    ) {
+        Surface(
+            modifier = Modifier
+                .size(64.dp)
+                .aspectRatio(1f),
+            RoundedCornerShape(4.dp)
+        ) {
+            ImageInBox(painter)
+        }
+        Spacer(Modifier.width(24.dp))
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(horizontalArrangement = Arrangement.Start) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.h6)
 
+                Text(
+                    text = item.dormitoryId.toString(),
+                    style = MaterialTheme.typography.h6
+                )
+            }
+
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = item.address
+                        + " " + item.university + " Rooms: "
+                        + item.roomQuantity.toString(),
+                style = MaterialTheme.typography.caption
+            )
+        }
+    }
+}
 @Composable
 private fun RoomItemRow(
     modifier: Modifier = Modifier,
+
     item: Room,
     painter: Painter,
+    label: String,
     onItemClicked: (Room) -> Unit
 ) {
     Row(
@@ -141,30 +184,60 @@ private fun RoomItemRow(
                 .aspectRatio(1f),
             RoundedCornerShape(4.dp)
         ) {
-            ImageOfRoom(item, painter)
+            ImageInBox(painter)
         }
         Spacer(Modifier.width(24.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = item.roomNumber.toString(),
-                style = MaterialTheme.typography.h6
-            )
+            Row(horizontalArrangement = Arrangement.Start) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.h6)
+
+                Text(
+                    text = item.roomNumber.toString(),
+                    style = MaterialTheme.typography.h6
+                )
+            }
+
             Spacer(Modifier.height(4.dp))
             Text(
-                text = item.roomNumber.toString(),
+                text = item.description,
                 style = MaterialTheme.typography.caption
             )
         }
     }
 }
+@Composable
+@Preview(name = "Dormitory row preview")
+fun DormItemRowPreview() {
+    RoomyMainTheme {
+
+        val dormitory = Dormitory(
+            dormitoryId = 11,
+            address = "Sauletekio 25",
+            roomQuantity = 100,
+            rooms = listOf(),
+        "VGTU"
+        )
+
+        DormitoryItemRow(
+            item = dormitory,
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            label = stringResource(id = R.string.dorm_item_label),
+            onItemClicked = { })
+    }
+}
 
 @Composable
-private fun ImageContainer(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
-) {
-    Surface(modifier.aspectRatio(1f), RoundedCornerShape(4.dp)) {
-        content()
+@Preview(name = "Room row preview")
+fun RoomItemRowPreview() {
+    RoomyMainTheme {
+        val roomItem = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
+        RoomItemRow(
+            item = roomItem,
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            label = stringResource(id = R.string.room_item_label),
+            onItemClicked = { })
     }
 }
 
@@ -175,8 +248,8 @@ fun AppBarPreview() {
         RoomyTopAppBar(
             backgroundColor = MaterialTheme.colors.primary,
             painter = painterResource(id = R.drawable.ic_launcher_foreground),
-            label = "Roomy"
+            label = "Roomy",
+            onUserIconClick = { }
         )
-
     }
 }
