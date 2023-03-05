@@ -2,6 +2,9 @@
     <string name="app_name">Roomy</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="firstname">Name</string>
+    <string name="surname">Surname</string>
+    <string name="repeat_password">Repeat your password</string>
     <string name="login_button">Log in</string>
     <string name="login_label">Login</string>
     <string name="forgot_password">Forgot your password?</string>
