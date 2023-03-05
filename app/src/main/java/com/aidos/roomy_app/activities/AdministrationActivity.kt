@@ -4,26 +4,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
-import com.aidos.roomy_app.ui.SplashFragment
-import com.aidos.roomy_app.ui.common_ui.LoginFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class AdministrationActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val mainViewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    private val adminViewModel: AdministrationViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[AdministrationViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-
-        }
+        setContentView(R.layout.activity_administration)
     }
 }

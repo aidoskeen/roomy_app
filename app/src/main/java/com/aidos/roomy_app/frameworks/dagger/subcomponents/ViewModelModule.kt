@@ -2,6 +2,7 @@ package com.aidos.roomy_app.frameworks.dagger.subcomponents
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.aidos.roomy_app.activities.AdministrationViewModel
 import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.frameworks.dagger.ViewModelFactory
 import com.aidos.roomy_app.ui.common_ui.DormitoriesViewModel
@@ -19,6 +20,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AdministrationViewModel::class)
+    abstract fun bindAdministrationViewModel(adminViewModel: AdministrationViewModel): ViewModel
 
     @Binds
     @IntoMap
