@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 val colors = lightColors(
     primary = SweetRed,
@@ -13,8 +14,9 @@ val colors = lightColors(
     secondaryVariant = Tangerine,
     onPrimary = White,
     onSecondary = MintGreen,
-    background = Azure
-
+    background = Azure,
+    onSurface = Red,
+    onError = Red
 )
 
 @Composable

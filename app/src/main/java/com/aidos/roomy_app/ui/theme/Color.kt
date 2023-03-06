@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 val RedA100 = Color(0xFFFF8A80)
 val SweetRed = Color(0xFFEE6352)
-val RedA700 = Color(0xFFD50000)
+val Red = Color(0xFFD50000)
 
 val Azure = Color(0xFFE6FDFF)
 val Cyan100 = Color(0xFFB2EBF2)

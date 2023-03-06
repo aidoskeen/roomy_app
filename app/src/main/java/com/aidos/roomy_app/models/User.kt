@@ -37,5 +37,10 @@ sealed class User(
         username: String = "",
         password: String = "",
         val room: Room? = null
-    ) : User(id, name, surname, username, password)
+    ) : User(id, name, surname, username, password) {
+
+        fun getFullName(): String {
+            return this.name + " " + this.surname
+        }
+    }
 }
