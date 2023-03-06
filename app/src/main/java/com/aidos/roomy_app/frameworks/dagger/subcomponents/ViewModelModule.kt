@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.activities.AdministrationViewModel
 import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.frameworks.dagger.ViewModelFactory
+import com.aidos.roomy_app.ui.admin_ui.RequestsViewModel
 import com.aidos.roomy_app.ui.common_ui.DormitoriesViewModel
 import com.aidos.roomy_app.ui.common_ui.LoginViewModel
 import com.aidos.roomy_app.ui.common_ui.RegistrationViewModel
@@ -40,6 +41,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DormitoriesViewModel::class)
     abstract fun bindDormitoriesViewModel(dormitoriesViewModel: DormitoriesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RequestsViewModel::class)
+    abstract fun bindDormitoriesViewModel(dormitoriesViewModel: RequestsViewModel): ViewModel
 
 
 

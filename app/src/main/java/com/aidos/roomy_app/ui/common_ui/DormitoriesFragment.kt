@@ -22,9 +22,6 @@ class DormitoriesFragment : DaggerFragment() {
     private val viewModel: DormitoriesViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[DormitoriesViewModel::class.java]
     }
-    companion object {
-        fun newInstance() = DormitoriesFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

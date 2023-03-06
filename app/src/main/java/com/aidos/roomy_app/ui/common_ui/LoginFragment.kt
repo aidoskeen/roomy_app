@@ -35,7 +35,7 @@ class LoginFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var binding: FragmentLoginBinding? = null
-    private val loginViewModel: LoginViewModel by lazy {
+    private val viewModel: LoginViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
     }
 
