@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -49,7 +50,7 @@ fun SmallButton(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(90.dp)
             .clip(RoundedCornerShape(30.dp))
             .height(30.dp)
             .clickable(

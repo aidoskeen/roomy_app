@@ -10,13 +10,15 @@ import androidx.compose.ui.graphics.Color
 val colors = lightColors(
     primary = SweetRed,
     primaryVariant = RedA100,
-    secondary = Orange,
+    secondary = Amber400,
     secondaryVariant = Tangerine,
-    onPrimary = White,
-    onSecondary = MintGreen,
+    onPrimary = DeepOrange400,
+    onSecondary = Teal100,
     background = Azure,
-    onSurface = Red,
-    onError = Red
+    onSurface = White,
+    onError = Red,
+    onBackground = MintGreen,
+    surface = Orange
 )
 
 @Composable

@@ -45,7 +45,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(RequestsViewModel::class)
-    abstract fun bindDormitoriesViewModel(dormitoriesViewModel: RequestsViewModel): ViewModel
+    abstract fun bindRequestsViewModel(requestsViewModel: RequestsViewModel): ViewModel
 
 
 
