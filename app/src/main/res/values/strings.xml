@@ -9,13 +9,22 @@
     <string name="login_label">Login</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="registration">Registration</string>
-    <string name="room_item_label">Room:</string>
+
     <string name="dorm_item_label">Dormitory:</string>
     <string name="request_item_label">Request</string>
     <string name="button_accept">Accept</string>
     <string name="button_reject">Reject</string>
+    <string name="button_send_request">Send request</string>
     <string name="requester">Requester: </string>
     <string name="accepted">Accepted</string>
     <string name="rejected">Rejected</string>
 
+    <string name="room_booking_label">Book a room</string>
+    <string name="room_item_label">Room:</string>
+    <string name="room_size">Room size:</string>
+    <string name="room_number">Room number:</string>
+    <string name="room_type">Room type:</string>
+    <string name="room_information">Room information:</string>
+    <string name="date_of_booking">Date</string>
+    <string name="address">Address</string>
 </resources>
