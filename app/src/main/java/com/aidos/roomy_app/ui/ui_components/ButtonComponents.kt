@@ -21,6 +21,7 @@ import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 // Button for login and registration
 @Composable
 fun RoomyButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String = ""
 ) {
@@ -32,7 +33,8 @@ fun RoomyButton(
             .clickable(
                 onClick = { onClick() }
             )
-            .background(color = MaterialTheme.colors.secondary),
+            .background(color = MaterialTheme.colors.secondary)
+            .then(modifier),
         contentAlignment = Alignment.Center
     ) {
         Text(

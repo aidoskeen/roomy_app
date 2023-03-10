@@ -22,8 +22,14 @@
     <string name="room_booking_label">Book a room</string>
     <string name="room_item_label">Room:</string>
     <string name="room_size">Room size:</string>
+    <string name="small_room">Small room</string>
+    <string name="medium_room">Medium room</string>
+    <string name="big_room">Big room</string>
     <string name="room_number">Room number:</string>
     <string name="room_type">Room type:</string>
+    <string name="single_room">Single room</string>
+    <string name="double_room">Double room</string>
+    <string name="triple_room">Triple room</string>
     <string name="room_information">Room information:</string>
     <string name="date_of_booking">Date</string>
     <string name="address">Address</string>

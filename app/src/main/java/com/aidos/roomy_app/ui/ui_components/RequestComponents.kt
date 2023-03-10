@@ -100,6 +100,34 @@ fun RequestItem(
         }
     }
 }
+@Composable
+fun TextRow(
+    modifier: Modifier = Modifier,
+    label: String = "",
+    value: String = "",
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = label,
+            modifier = modifier,
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.subtitle2,
+            color = MaterialTheme.colors.onSurface
+        )
+
+        Text(
+            text = value,
+            modifier = modifier,
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.subtitle2,
+            color = MaterialTheme.colors.onSurface
+        )
+    }
+}
 
 @Composable
 fun RoomBookingForm(
@@ -136,106 +164,58 @@ fun RoomBookingForm(
 
         Divider(thickness = 1.dp)
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = stringResource(id = R.string.requester) + resident.getFullName(),
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
+        TextRow(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(id = R.string.requester),
+            value = resident.getFullName()
+        )
 
-            Text(
-                text = resident.getFullName(),
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
+        TextRow(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(id = R.string.dorm_item_label),
+            value = dormitory.university
+        )
+
+        TextRow(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(id = R.string.room_number),
+            value = room.roomNumber.toString()
+        )
+
+        val sizeStringId = when (room.roomSize) {
+            RoomSize.SMALL -> R.string.small_room
+            RoomSize.MEDIUM -> R.string.medium_room
+            RoomSize.BIG -> R.string.big_room
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = stringResource(id = R.string.room_number),
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
+        TextRow(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(id = R.string.room_size),
+            value = stringResource(id = sizeStringId)
+        )
 
-            Text(
-                text = room.roomNumber.toString(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
+        val typeStringId = when (room.roomType) {
+            RoomType.SINGLE -> R.string.small_room
+            RoomType.DOUBLE -> R.string.medium_room
+            RoomType.TRIPLE -> R.string.big_room
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = stringResource(id = R.string.dorm_item_label),
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
+        TextRow(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(id = R.string.room_type),
+            value = stringResource(id = typeStringId)
+        )
 
-            Text(
-                text = dormitory.university,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
-        }
+        TextRow(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(id = R.string.date_of_booking),
+            value = date.toString()
+        )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = stringResource(id = R.string.dorm_item_label),
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
-
-            Text(
-                text = dormitory.university,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onSurface
-            )
-        }
+        Divider(thickness = 1.dp)
 
         RoomyButton(
+            modifier = Modifier.padding(top = 20.dp),
             text = stringResource(id = R.string.button_send_request),
             onClick = { /*TODO*/ }
         )
@@ -265,4 +245,21 @@ fun RequestItemPreview() {
         )
 
     }
+}
+
+@Composable
+@Preview(name = "Booking Form review")
+fun RoomBookingReview() {
+    val place = Place(price = 100L)
+    val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
+    val resident = User.Resident("1", "Aidos", "Alimkhan")
+    val dormitory = Dormitory(1)
+    RoomyMainTheme {
+        RoomBookingForm(
+            resident = resident, 
+            dormitory = dormitory, 
+            room = room, 
+            date = Date(System.currentTimeMillis()))
+    }
+
 }
