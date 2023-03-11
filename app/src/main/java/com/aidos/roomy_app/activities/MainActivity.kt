@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
-import com.aidos.roomy_app.ui.SplashFragment
-import com.aidos.roomy_app.ui.common_ui.LoginFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.common_ui.LoginFragment">
+    tools:context=".ui.resident_ui.LoginFragment">
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/loginComposeView"

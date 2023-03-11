@@ -70,7 +70,9 @@ fun RoomyTopAppBar(
 private fun ImageInBox(
     painter: Painter
 ) {
-    Box {
+    Box (
+        modifier = Modifier.padding(start = 15.dp)
+            ){
         Image(
             painter = painter,
             contentDescription = null,
@@ -121,7 +123,7 @@ private fun RoomItemColumn(
     }
 }
 @Composable
-private fun DormitoryItemRow(
+fun DormitoryItemRow(
     modifier: Modifier = Modifier,
     item: Dormitory,
     painter: Painter,
@@ -164,6 +166,7 @@ private fun DormitoryItemRow(
         }
     }
 }
+
 @Composable
 private fun RoomItemRow(
     modifier: Modifier = Modifier,
@@ -186,6 +189,7 @@ private fun RoomItemRow(
         ) {
             ImageInBox(painter)
         }
+
         Spacer(Modifier.width(24.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(horizontalArrangement = Arrangement.Start) {
@@ -207,6 +211,7 @@ private fun RoomItemRow(
         }
     }
 }
+
 @Composable
 @Preview(name = "Dormitory row preview")
 fun DormItemRowPreview() {

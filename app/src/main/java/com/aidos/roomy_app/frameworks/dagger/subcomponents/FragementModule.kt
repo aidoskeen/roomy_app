@@ -1,10 +1,11 @@
 package com.aidos.roomy_app.frameworks.dagger.subcomponents
 
-import com.aidos.roomy_app.ui.SplashFragment
+import com.aidos.roomy_app.ui.resident_ui.SplashFragment
+import com.aidos.roomy_app.ui.admin_ui.AnnouncementFragment
 import com.aidos.roomy_app.ui.admin_ui.RequestsFragment
-import com.aidos.roomy_app.ui.common_ui.DormitoriesFragment
-import com.aidos.roomy_app.ui.common_ui.LoginFragment
-import com.aidos.roomy_app.ui.common_ui.RegistrationFragment
+import com.aidos.roomy_app.ui.resident_ui.DormitoriesFragment
+import com.aidos.roomy_app.ui.resident_ui.LoginFragment
+import com.aidos.roomy_app.ui.resident_ui.RegistrationFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -25,4 +26,7 @@ abstract class FragementModule {
 
     @ContributesAndroidInjector
     abstract fun contributeRequestsFragment(): RequestsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeAnnoucementFragment(): AnnouncementFragment
 }

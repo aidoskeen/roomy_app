@@ -7,7 +7,38 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.aidos.roomy_app.ui.common_ui.LoginFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_dormitoriesFragment"
+            app:destination="@id/dormitoriesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.RegistrationFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/dormitoriesFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.DormitoriesFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.SplashFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/invoiceFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.InvoiceFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
 </navigation>

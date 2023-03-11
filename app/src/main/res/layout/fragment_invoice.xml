@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ui.resident_ui.RegistrationFragment">
+    tools:context=".ui.resident_ui.InvoiceFragment">
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/regComposeView"
+        android:id="@+id/invComposeView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

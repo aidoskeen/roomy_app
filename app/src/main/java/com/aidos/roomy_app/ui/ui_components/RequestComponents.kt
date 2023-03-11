@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -134,7 +135,7 @@ fun RoomBookingForm(
     resident: User.Resident,
     dormitory: Dormitory,
     room: Room,
-    date: Date
+    date: String
 ) {
     Column(
         modifier = Modifier
@@ -156,6 +157,7 @@ fun RoomBookingForm(
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
+                .align(CenterHorizontally)
                 .heightIn(max = 170.dp)
                 .widthIn(max = 300.dp)
                 .aspectRatio(16f / 9f)
@@ -165,19 +167,16 @@ fun RoomBookingForm(
         Divider(thickness = 1.dp)
 
         TextRow(
-            modifier = Modifier.fillMaxWidth(),
             label = stringResource(id = R.string.requester),
             value = resident.getFullName()
         )
 
         TextRow(
-            modifier = Modifier.fillMaxWidth(),
             label = stringResource(id = R.string.dorm_item_label),
             value = dormitory.university
         )
 
         TextRow(
-            modifier = Modifier.fillMaxWidth(),
             label = stringResource(id = R.string.room_number),
             value = room.roomNumber.toString()
         )
@@ -189,33 +188,29 @@ fun RoomBookingForm(
         }
 
         TextRow(
-            modifier = Modifier.fillMaxWidth(),
             label = stringResource(id = R.string.room_size),
             value = stringResource(id = sizeStringId)
         )
 
         val typeStringId = when (room.roomType) {
-            RoomType.SINGLE -> R.string.small_room
-            RoomType.DOUBLE -> R.string.medium_room
-            RoomType.TRIPLE -> R.string.big_room
+            RoomType.SINGLE -> R.string.single_room
+            RoomType.DOUBLE -> R.string.double_room
+            RoomType.TRIPLE -> R.string.triple_room
         }
 
         TextRow(
-            modifier = Modifier.fillMaxWidth(),
             label = stringResource(id = R.string.room_type),
             value = stringResource(id = typeStringId)
         )
 
         TextRow(
-            modifier = Modifier.fillMaxWidth(),
             label = stringResource(id = R.string.date_of_booking),
-            value = date.toString()
+            value = date
         )
 
         Divider(thickness = 1.dp)
 
         RoomyButton(
-            modifier = Modifier.padding(top = 20.dp),
             text = stringResource(id = R.string.button_send_request),
             onClick = { /*TODO*/ }
         )
@@ -259,7 +254,8 @@ fun RoomBookingReview() {
             resident = resident, 
             dormitory = dormitory, 
             room = room, 
-            date = Date(System.currentTimeMillis()))
+            date = "2023/03/23"
+        )
     }
 
 }

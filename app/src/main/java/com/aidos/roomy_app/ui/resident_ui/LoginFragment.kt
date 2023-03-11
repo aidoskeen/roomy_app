@@ -1,4 +1,4 @@
-package com.aidos.roomy_app.ui.common_ui
+package com.aidos.roomy_app.ui.resident_ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,31 +22,30 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentLoginBinding
-import com.aidos.roomy_app.databinding.FragmentRegistrationBinding
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.InputField
 import com.aidos.roomy_app.ui.ui_components.RoomyButton
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class RegistrationFragment : DaggerFragment() {
+class LoginFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private var binding: FragmentRegistrationBinding? = null
-    private val viewModel: RegistrationViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[RegistrationViewModel::class.java]
+    private var binding: FragmentLoginBinding? = null
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         val binding = binding ?: return null
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -54,8 +53,9 @@ class RegistrationFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = binding ?: return
 
-        binding?.regComposeView?.setContent {
+        binding.loginComposeView.setContent {
             RoomyMainTheme {
                 Column(
                     modifier = Modifier.padding(20.dp),
@@ -65,24 +65,11 @@ class RegistrationFragment : DaggerFragment() {
 
                     val username = remember { mutableStateOf(TextFieldValue()) }
                     val password = remember { mutableStateOf(TextFieldValue()) }
-                    val repeatedPassword = remember { mutableStateOf(TextFieldValue()) }
-                    val name = remember { mutableStateOf(TextFieldValue()) }
-                    val surname = remember { mutableStateOf(TextFieldValue()) }
 
                     Text(
-                        text = stringResource(id = R.string.registration),
-                        style = TextStyle(fontSize = 40.sp)
+                        text = stringResource(id = R.string.login_label),
+                        style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive)
                     )
-                    //Name
-                    InputField(
-                        label = { Text(text = stringResource(id = R.string.firstname)) },
-                        value = name.value,
-                        onValueChange = { name.value = it })
-
-                    InputField(
-                        label = { Text(text = stringResource(id = R.string.surname)) },
-                        value = surname.value,
-                        onValueChange = { surname.value = it })
                     //Username input
                     InputField(
                         label = { Text(text = stringResource(id = R.string.username)) },
@@ -96,19 +83,14 @@ class RegistrationFragment : DaggerFragment() {
                         visualTransformation = PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         onValueChange = { password.value = it })
-                    //Repeat password
-                    InputField(
-                        label = { Text(text = stringResource(id = R.string.repeat_password)) },
-                        value = repeatedPassword.value,
-                        visualTransformation = PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                        onValueChange = { repeatedPassword.value = it })
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     //Button for signing in
                     RoomyButton(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            findNavController().navigate(R.id.action_loginFragment_to_dormitoriesFragment)
+                                  },
                         text = stringResource(id = R.string.login_button)
                     )
 
@@ -133,4 +115,7 @@ class RegistrationFragment : DaggerFragment() {
         }
     }
 
+    companion object {
+        fun newInstance() = LoginFragment()
+    }
 }
