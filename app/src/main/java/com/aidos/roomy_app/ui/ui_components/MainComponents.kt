@@ -98,7 +98,8 @@ private fun RoomItemColumn(
             modifier = Modifier
                 .size(64.dp)
                 .aspectRatio(1f),
-            RoundedCornerShape(4.dp)
+            RoundedCornerShape(4.dp),
+            color = MaterialTheme.colors.surface
         ) {
             ImageInBox(painter)
         }
@@ -130,6 +131,7 @@ fun DormitoryItemRow(
     label: String,
     onItemClicked: (Dormitory) -> Unit
 ) {
+    val textColor = MaterialTheme.colors.onSurface
     Row(
         modifier = modifier
             .clickable { onItemClicked(item) }
@@ -139,7 +141,8 @@ fun DormitoryItemRow(
             modifier = Modifier
                 .size(64.dp)
                 .aspectRatio(1f),
-            RoundedCornerShape(4.dp)
+            RoundedCornerShape(4.dp),
+            color = MaterialTheme.colors.surface
         ) {
             ImageInBox(painter)
         }
@@ -148,11 +151,15 @@ fun DormitoryItemRow(
             Row(horizontalArrangement = Arrangement.Start) {
                 Text(
                     text = label,
-                    style = MaterialTheme.typography.h6)
+                    style = MaterialTheme.typography.h6
+                        .copy(color = textColor)
+                )
 
                 Text(
                     text = item.dormitoryId.toString(),
                     style = MaterialTheme.typography.h6
+                        .copy(color = textColor)
+
                 )
             }
 
@@ -162,6 +169,7 @@ fun DormitoryItemRow(
                         + " " + item.university + " Rooms: "
                         + item.roomQuantity.toString(),
                 style = MaterialTheme.typography.caption
+                    .copy(color = textColor)
             )
         }
     }
@@ -170,7 +178,6 @@ fun DormitoryItemRow(
 @Composable
 private fun RoomItemRow(
     modifier: Modifier = Modifier,
-
     item: Room,
     painter: Painter,
     label: String,
@@ -185,7 +192,8 @@ private fun RoomItemRow(
             modifier = Modifier
                 .size(64.dp)
                 .aspectRatio(1f),
-            RoundedCornerShape(4.dp)
+            RoundedCornerShape(4.dp),
+            color = MaterialTheme.colors.surface
         ) {
             ImageInBox(painter)
         }

@@ -33,4 +33,6 @@
     <string name="room_information">Room information:</string>
     <string name="date_of_booking">Date</string>
     <string name="address">Address</string>
+    <string name="make_announcement">Make an announcement</string>
+    <string name="check_requests">View requests</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.aidos.roomy_app.ui.ui_components
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -219,7 +221,7 @@ fun RoomBookingForm(
 }
 
 @Composable
-@Preview(name = "Request review")
+@Preview(name = "Request review", uiMode = UI_MODE_NIGHT_NO)
 fun RequestItemPreview() {
     val place = Place(price = 100L)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
@@ -243,7 +245,8 @@ fun RequestItemPreview() {
 }
 
 @Composable
-@Preview(name = "Booking Form review")
+@Preview(name = "Booking Form review light", uiMode = UI_MODE_NIGHT_NO)
+@Preview(name = "Booking Form review dark", uiMode = UI_MODE_NIGHT_YES)
 fun RoomBookingReview() {
     val place = Place(price = 100L)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))

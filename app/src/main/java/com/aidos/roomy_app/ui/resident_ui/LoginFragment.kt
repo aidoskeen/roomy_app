@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -68,7 +69,7 @@ class LoginFragment : DaggerFragment() {
 
                     Text(
                         text = stringResource(id = R.string.login_label),
-                        style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive)
+                        style = MaterialTheme.typography.h2.copy(color = MaterialTheme.colors.primary)
                     )
                     //Username input
                     InputField(
@@ -93,6 +94,8 @@ class LoginFragment : DaggerFragment() {
                                   },
                         text = stringResource(id = R.string.login_button)
                     )
+
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     //Button for registration
                     RoomyButton(

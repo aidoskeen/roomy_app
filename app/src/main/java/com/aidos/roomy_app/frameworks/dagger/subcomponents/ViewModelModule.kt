@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.activities.AdministrationViewModel
 import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.frameworks.dagger.ViewModelFactory
+import com.aidos.roomy_app.ui.admin_ui.AdminMenuViewModel
 import com.aidos.roomy_app.ui.admin_ui.AnnouncementViewModel
 import com.aidos.roomy_app.ui.admin_ui.RequestsViewModel
 import com.aidos.roomy_app.ui.resident_ui.DormitoriesViewModel
@@ -52,5 +53,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AnnouncementViewModel::class)
     abstract fun bindAnnouncementViewModel(announcementViewModel: AnnouncementViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AdminMenuViewModel::class)
+    abstract fun bindAdminMenuViewModel(adminMenuViewModel: AdminMenuViewModel): ViewModel
 
 }
