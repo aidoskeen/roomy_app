@@ -24,7 +24,6 @@ fun MenuOption(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp)
                 .clickable { onClick() },
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -41,7 +40,6 @@ fun MenuOption(
 @Composable
 @Preview(name = "Menu preview")
 fun MenuOptionPreview() {
-    val dividerModifer = Modifier.padding(start = 20.dp, end = 20.dp)
     RoomyMainTheme {
         Column {
             MenuOption(
@@ -50,7 +48,6 @@ fun MenuOptionPreview() {
             )
 
             Divider(
-                modifier = dividerModifer,
                 color = MaterialTheme.colors.onSurface
             )
 
@@ -60,7 +57,6 @@ fun MenuOptionPreview() {
             )
 
             Divider(
-                modifier = dividerModifer,
                 color = MaterialTheme.colors.onSurface
             )
         }
