@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentDormitoriesBinding
 import com.aidos.roomy_app.models.Dormitory
@@ -79,7 +80,13 @@ class DormitoriesFragment : DaggerFragment() {
                             item = dormitory,
                             painter = painterResource(id = R.drawable.ic_launcher_foreground),
                             label = stringResource(id = R.string.dorm_item_label),
-                            onItemClicked = {})
+                            onItemClicked = {
+                                findNavController().navigate(R.id.action_dormitoriesFragment_to_roomsFragment,
+                                Bundle().apply
+                                 {
+                                     putSerializable(RoomsFragment.DORMITORY, dormitory)  }
+                                )
+                            })
                     }
                 }
             }

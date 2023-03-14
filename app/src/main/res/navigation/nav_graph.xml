@@ -28,7 +28,11 @@
         android:id="@+id/dormitoriesFragment"
         android:name="com.aidos.roomy_app.ui.resident_ui.DormitoriesFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_dormitoriesFragment_to_roomsFragment"
+            app:destination="@id/roomsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/splashFragment"
@@ -41,4 +45,13 @@
         android:name="com.aidos.roomy_app.ui.resident_ui.InvoiceFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/roomsFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.RoomsFragment"
+        android:label="fragment_rooms"
+        tools:layout="@layout/fragment_rooms" >
+        <argument
+            android:name="DORMITORY"
+            app:argType="com.aidos.roomy_app.models.Dormitory" />
+    </fragment>
 </navigation>

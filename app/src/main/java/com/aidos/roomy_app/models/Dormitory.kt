@@ -6,4 +6,4 @@ data class Dormitory(
     val roomQuantity: Long = 0,
     val rooms: List<Room> = listOf(),
     val university: String = "Vilnius Tech"
-)
+) : java.io.Serializable
