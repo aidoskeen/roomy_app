@@ -1,12 +1,14 @@
 package com.aidos.roomy_app.models
 
+import java.io.Serializable
+
 sealed class User(
     val id: String,
     val name: String,
     val surname: String,
     val username: String,
     val password: String
-) {
+) : Serializable {
 
     fun copy(
         id: String = this.id,
@@ -37,7 +39,7 @@ sealed class User(
         username: String = "",
         password: String = "",
         val room: Room? = null
-    ) : User(id, name, surname, username, password) {
+    ) : User(id, name, surname, username, password), Serializable {
 
         fun getFullName(): String {
             return this.name + " " + this.surname

@@ -37,4 +37,7 @@ abstract class FragementModule {
 
     @ContributesAndroidInjector
     abstract fun contributeRoomsFragment(): RoomsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeBookingFragment(): BookingFragment
 }

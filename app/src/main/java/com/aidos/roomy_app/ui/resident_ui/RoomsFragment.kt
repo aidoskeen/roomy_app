@@ -21,9 +21,12 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentRoomsBinding
 import com.aidos.roomy_app.models.Dormitory
+import com.aidos.roomy_app.models.Room
+import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.RoomItemRow
 import dagger.android.support.DaggerFragment
@@ -58,7 +61,7 @@ class RoomsFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-
+        val resident = User.Resident("1", name = "Aidos", surname = "Alimkhan")
         binding.roomsComposeView.setContent {
             RoomyMainTheme {
                 Column(
@@ -85,11 +88,12 @@ class RoomsFragment : DaggerFragment() {
                             )
                         )
                     } else {
-                        dormitory.rooms.forEach {  room ->
+                        dormitory.rooms.forEach { room ->
                             RoomItemRow(
                                 item = room,
                                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                                onItemClicked = { })
+                                onItemClicked = { navigateToBooking(room = room, resident = resident) }
+                            )
 
                             Divider(modifier = Modifier.padding(start = 20.dp, end = 20.dp))
                         }
@@ -97,5 +101,15 @@ class RoomsFragment : DaggerFragment() {
                 }
             }
         }
+    }
+
+    private fun navigateToBooking(room: Room, resident: User.Resident) {
+        findNavController().navigate(R.id.action_roomsFragment_to_bookingFragment,
+            Bundle().apply
+            {
+                putSerializable(BookingFragment.ROOM, room)
+                putSerializable(BookingFragment.RESIDENT, resident)
+            }
+        )
     }
 }

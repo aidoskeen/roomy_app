@@ -8,10 +8,7 @@ import com.aidos.roomy_app.frameworks.dagger.ViewModelFactory
 import com.aidos.roomy_app.ui.admin_ui.AdminMenuViewModel
 import com.aidos.roomy_app.ui.admin_ui.AnnouncementViewModel
 import com.aidos.roomy_app.ui.admin_ui.RequestsViewModel
-import com.aidos.roomy_app.ui.resident_ui.DormitoriesViewModel
-import com.aidos.roomy_app.ui.resident_ui.LoginViewModel
-import com.aidos.roomy_app.ui.resident_ui.RegistrationViewModel
-import com.aidos.roomy_app.ui.resident_ui.RoomsViewModel
+import com.aidos.roomy_app.ui.resident_ui.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -64,5 +61,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RoomsViewModel::class)
     abstract fun bindRoomsViewModel(roomsViewModel: RoomsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BookingViewModel::class)
+    abstract fun bindBookingViewModel(bookingViewModel: BookingViewModel): ViewModel
 
 }

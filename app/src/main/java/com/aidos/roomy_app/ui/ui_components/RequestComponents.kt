@@ -135,7 +135,6 @@ fun TextRow(
 @Composable
 fun RoomBookingForm(
     resident: User.Resident,
-    dormitory: Dormitory,
     room: Room,
     date: String
 ) {
@@ -171,11 +170,6 @@ fun RoomBookingForm(
         TextRow(
             label = stringResource(id = R.string.requester),
             value = resident.getFullName()
-        )
-
-        TextRow(
-            label = stringResource(id = R.string.dorm_item_label),
-            value = dormitory.university
         )
 
         TextRow(
@@ -251,11 +245,9 @@ fun RoomBookingReview() {
     val place = Place(price = 100L)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
     val resident = User.Resident("1", "Aidos", "Alimkhan")
-    val dormitory = Dormitory(1)
     RoomyMainTheme {
         RoomBookingForm(
-            resident = resident, 
-            dormitory = dormitory, 
+            resident = resident,
             room = room, 
             date = "2023/03/23"
         )
