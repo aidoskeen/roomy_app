@@ -176,11 +176,11 @@ fun DormitoryItemRow(
 }
 
 @Composable
-private fun RoomItemRow(
+fun RoomItemRow(
     modifier: Modifier = Modifier,
     item: Room,
     painter: Painter,
-    label: String,
+    label: String = stringResource(id = R.string.room_item_label),
     onItemClicked: (Room) -> Unit
 ) {
     Row(

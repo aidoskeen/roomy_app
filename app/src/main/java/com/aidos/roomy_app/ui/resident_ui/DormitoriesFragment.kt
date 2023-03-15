@@ -12,7 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentDormitoriesBinding
+import com.aidos.roomy_app.enums.RoomSize
+import com.aidos.roomy_app.enums.RoomType
 import com.aidos.roomy_app.models.Dormitory
+import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.DormitoryItemRow
 import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
@@ -42,12 +45,15 @@ class DormitoriesFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
+        val room1 = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
+        val room2 = Room(2, RoomType.SINGLE, RoomSize.MEDIUM, listOf(), "Regular room")
+        val room3 = Room(3, RoomType.TRIPLE, RoomSize.BIG, listOf(), "Regular room")
         val dormList = listOf(
             Dormitory(
                 dormitoryId = 11,
                 address = "Sauletekio 25",
                 roomQuantity = 100,
-                rooms = listOf(),
+                rooms = listOf(room1, room2, room3),
                 "VGTU"
             ),
             Dormitory(

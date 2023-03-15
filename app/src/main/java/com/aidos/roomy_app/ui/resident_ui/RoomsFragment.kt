@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -23,6 +25,7 @@ import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentRoomsBinding
 import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
+import com.aidos.roomy_app.ui.ui_components.RoomItemRow
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -73,6 +76,24 @@ class RoomsFragment : DaggerFragment() {
                         ),
                         textAlign = TextAlign.Center
                     )
+                    val dormitory = dormitoryArgs()
+                    if (dormitory == null) {
+                        Text(
+                            text = stringResource(id = R.string.no_rooms),
+                            style = MaterialTheme.typography.subtitle2.copy(
+                                color = MaterialTheme.colors.onSurface
+                            )
+                        )
+                    } else {
+                        dormitory.rooms.forEach {  room ->
+                            RoomItemRow(
+                                item = room,
+                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                onItemClicked = { })
+
+                            Divider(modifier = Modifier.padding(start = 20.dp, end = 20.dp))
+                        }
+                    }
                 }
             }
         }
