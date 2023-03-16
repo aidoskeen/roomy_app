@@ -9,6 +9,8 @@
     <string name="login_label">Login</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="registration">Registration</string>
+    <string name="admin_login_label">I am the administrator</string>
+    <string name="user_not_authorized">User is not authorized</string>
 
     <string name="dorm_item_label">Dormitory:</string>
     <string name="request_item_label">Request</string>

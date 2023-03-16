@@ -6,7 +6,7 @@ import com.aidos.roomy_app.activities.AdministrationViewModel
 import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.frameworks.dagger.ViewModelFactory
 import com.aidos.roomy_app.ui.admin_ui.AdminMenuViewModel
-import com.aidos.roomy_app.ui.admin_ui.AnnouncementViewModel
+import com.aidos.roomy_app.ui.admin_ui.MakeAnnouncementViewModel
 import com.aidos.roomy_app.ui.admin_ui.RequestsViewModel
 import com.aidos.roomy_app.ui.resident_ui.*
 import dagger.Binds
@@ -49,8 +49,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AnnouncementViewModel::class)
-    abstract fun bindAnnouncementViewModel(announcementViewModel: AnnouncementViewModel): ViewModel
+    @ViewModelKey(MakeAnnouncementViewModel::class)
+    abstract fun bindMakeAnnouncementViewModel(makeAnnouncementViewModel: MakeAnnouncementViewModel): ViewModel
 
     @Binds
     @IntoMap

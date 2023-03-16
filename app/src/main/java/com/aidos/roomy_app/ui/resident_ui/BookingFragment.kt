@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Text
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
@@ -57,12 +59,16 @@ class BookingFragment : Fragment() {
 
         binding.composeView.setContent {
             RoomyMainTheme() {
-                if (resident != null && room != null)
-                RoomBookingForm(
-                    resident = resident,
-                    room = room,
-                    date = currentDate
-                )
+                if (resident != null) {
+                    if (room != null)
+                        RoomBookingForm(
+                            resident = resident,
+                            room = room,
+                            date = currentDate
+                        )
+                }
+                else
+                    Text(text = stringResource(id = R.string.user_not_authorized))
             }
         }
     }

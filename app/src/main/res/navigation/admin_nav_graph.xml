@@ -14,8 +14,8 @@
             android:id="@+id/action_adminMenuFragment_to_requestsFragment"
             app:destination="@id/requestsFragment" />
         <action
-            android:id="@+id/action_adminMenuFragment_to_announcementFragment"
-            app:destination="@id/announcementFragment" />
+            android:id="@+id/action_adminMenuFragment_to_announceFragment"
+            app:destination="@id/announceFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminLoginFragment"
@@ -32,8 +32,8 @@
         android:label="fragment_requests"
         tools:layout="@layout/fragment_requests" />
     <fragment
-        android:id="@+id/announcementFragment"
-        android:name="com.aidos.roomy_app.ui.admin_ui.AnnouncementFragment"
+        android:id="@+id/announceFragment"
+        android:name="com.aidos.roomy_app.ui.admin_ui.MakeAnnouncementFragment"
         android:label="fragment_announcement"
-        tools:layout="@layout/fragment_announcement" />
+        tools:layout="@layout/fragment_make_announcement" />
 </navigation>

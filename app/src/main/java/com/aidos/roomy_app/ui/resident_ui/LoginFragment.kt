@@ -1,5 +1,6 @@
 package com.aidos.roomy_app.ui.resident_ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.activities.AdministrationActivity
 import com.aidos.roomy_app.databinding.FragmentLoginBinding
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.InputField
@@ -99,8 +101,8 @@ class LoginFragment : DaggerFragment() {
 
                     //Button for registration
                     RoomyButton(
-                        onClick = { /*TODO*/ },
-                        text = stringResource(id = R.string.registration)
+                        text = stringResource(id = R.string.registration),
+                        onClick = { findNavController().navigate(R.id.action_loginFragment_to_registrationFragment) },
                     )
 
                     Spacer(modifier = Modifier.height(20.dp))
@@ -113,12 +115,23 @@ class LoginFragment : DaggerFragment() {
                             fontFamily = FontFamily.Default
                         )
                     )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    RoomyButton(
+                        color = MaterialTheme.colors.primary,
+                        text = stringResource(id = R.string.admin_login_label),
+                        onClick = {
+                            startAdminActivity()
+                        }
+                    )
                 }
             }
         }
     }
 
-    companion object {
-        fun newInstance() = LoginFragment()
+    private fun startAdminActivity() {
+        startActivity(Intent(requireContext(), AdministrationActivity::class.java));
     }
+
 }

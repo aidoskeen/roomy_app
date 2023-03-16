@@ -22,6 +22,7 @@ import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 @Composable
 fun RoomyButton(
     modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colors.secondary,
     onClick: () -> Unit,
     text: String = ""
 ) {
@@ -33,7 +34,7 @@ fun RoomyButton(
             .clickable(
                 onClick = { onClick() }
             )
-            .background(color = MaterialTheme.colors.secondary)
+            .background(color = color)
             .then(modifier),
         contentAlignment = Alignment.Center
     ) {
