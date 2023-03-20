@@ -12,8 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentAdminLoginBinding
@@ -54,8 +58,18 @@ class AdminMenuFragment : DaggerFragment() {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, end = 20.dp)
+                        .padding(start = 20.dp, end = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(25.dp),
+                        text = AnnotatedString(stringResource(id = R.string.administration_menu_title)),
+                        style = MaterialTheme.typography.h4.copy(
+                            color = MaterialTheme.colors.onSurface
+                        ),
+                        textAlign = TextAlign.Center
+                    )
                     val dividerColor = MaterialTheme.colors.onSurface
                     MenuOption(
                         text = stringResource(id = R.string.make_announcement),

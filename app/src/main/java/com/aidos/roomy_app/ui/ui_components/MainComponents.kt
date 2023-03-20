@@ -43,7 +43,10 @@ fun RoomyTopAppBar(
                     painter = painter,
                     contentDescription = null
                 )
-                Text(text = label)
+                Text(
+                    text = label,
+                    color = MaterialTheme.colors.onPrimary
+                )
             }
         },
         backgroundColor = backgroundColor,

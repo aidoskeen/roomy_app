@@ -24,7 +24,8 @@ fun MenuOption(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { onClick() },
+                .clickable { onClick() }
+                .padding(top = 15.dp, bottom = 15.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(

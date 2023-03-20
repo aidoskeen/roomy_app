@@ -29,6 +29,7 @@ import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.RoomItemRow
+import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -69,12 +70,20 @@ class RoomsFragment : DaggerFragment() {
                         .fillMaxWidth()
                         .background(color = MaterialTheme.colors.background)
                         .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    RoomyTopAppBar(
+                        backgroundColor = MaterialTheme.colors.primary,
+                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        label = "Roomy",
+                        onUserIconClick = { }
+                    )
+
                     Text(
                         modifier = Modifier
                             .padding(25.dp),
                         text = AnnotatedString(stringResource(id = R.string.dorm_item_label)),
-                        style = MaterialTheme.typography.h3.copy(
+                        style = MaterialTheme.typography.h4.copy(
                             color = MaterialTheme.colors.onSurface
                         ),
                         textAlign = TextAlign.Center

@@ -12,11 +12,12 @@ val Cyan100 = Color(0xFFB2EBF2)
 val MintGreen = Color(0xFFDBF9F4)
 val Teal100 = Color(0xFFB2DFDB)
 val TealA100 = Color(0xFFA7FFEB)
+val SeaColor = Color(0xFF00AF87)
 
 val Amber400 = Color(0xFFFFCA28)
 val Amber500 = Color(0xFFFFC107)
 
-val Orange = Color(0xFFFAC05E)
+val BrightYellow = Color(0xFFFAC05E)
 val Orange900 = Color(0xFFE65100)
 val Tangerine = Color(0xFFF79D84)
 val DeepOrange400 = Color(0xFFFF7043)

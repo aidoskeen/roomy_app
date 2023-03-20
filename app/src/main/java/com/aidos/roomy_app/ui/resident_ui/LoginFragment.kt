@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -31,6 +32,8 @@ import com.aidos.roomy_app.databinding.FragmentLoginBinding
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.InputField
 import com.aidos.roomy_app.ui.ui_components.RoomyButton
+import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -57,6 +60,8 @@ class LoginFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
+        val bottomNavBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavBar.visibility = View.GONE
 
         binding.loginComposeView.setContent {
             RoomyMainTheme {
@@ -131,7 +136,7 @@ class LoginFragment : DaggerFragment() {
     }
 
     private fun startAdminActivity() {
-        startActivity(Intent(requireContext(), AdministrationActivity::class.java));
+        startActivity(Intent(requireActivity(), AdministrationActivity::class.java));
     }
 
 }

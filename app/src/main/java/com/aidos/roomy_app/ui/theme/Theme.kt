@@ -7,17 +7,17 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 val brightColors = lightColors(
-    primary = SweetRed,
-    primaryVariant = RedA100,
+    primary = RedA100,
+    primaryVariant = SweetRed,
     secondary = Amber400,
     secondaryVariant = Tangerine,
-    onPrimary = DeepOrange400,
+    onPrimary = Orange900,
     onSecondary = Teal100,
     background = Azure,
     onSurface = Black,
     onError = Red,
     onBackground = MintGreen,
-    surface = Orange
+    surface = BrightYellow
 )
 
 val darkColors = darkColors(
@@ -31,7 +31,7 @@ val darkColors = darkColors(
     onSurface = White,
     onError = Red,
     onBackground = MintGreen,
-    surface = Orange
+    surface = BrightYellow
 )
 
 @Composable

@@ -10,33 +10,23 @@ val Typography = Typography(
     defaultFontFamily = FontFamily.Default,
     h1 = TextStyle(
         fontWeight = FontWeight.Light,
-        fontSize = 96.sp,
+        fontSize = 34.sp,
         letterSpacing = (-1.5).sp
     ),
     h2 = TextStyle(
         fontWeight = FontWeight.Light,
-        fontSize = 60.sp,
+        fontSize = 28.sp,
         letterSpacing = (-0.5).sp
     ),
     h3 = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 48.sp,
+        fontSize = 24.sp,
         letterSpacing = 0.sp
     ),
     h4 = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 34.sp,
-        letterSpacing = 0.25.sp
-    ),
-    h5 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 24.sp,
-        letterSpacing = 0.sp
-    ),
-    h6 = TextStyle(
-        fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
-        letterSpacing = 0.15.sp
+        letterSpacing = 0.25.sp
     ),
     subtitle1 = TextStyle(
         fontWeight = FontWeight.Normal,
