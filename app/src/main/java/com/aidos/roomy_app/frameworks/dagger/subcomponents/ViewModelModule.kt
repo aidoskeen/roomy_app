@@ -67,4 +67,19 @@ abstract class ViewModelModule {
     @ViewModelKey(BookingViewModel::class)
     abstract fun bindBookingViewModel(bookingViewModel: BookingViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(AnnouncementsViewModel::class)
+    abstract fun bindAnnouncementsViewModel(announcementsViewModel: AnnouncementsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MyRoomViewModel::class)
+    abstract fun bindMyRoomViewModel(myRoomViewModel: MyRoomViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    abstract fun bindProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
+
 }

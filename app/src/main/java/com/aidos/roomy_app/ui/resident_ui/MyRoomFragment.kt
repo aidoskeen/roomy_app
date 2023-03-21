@@ -1,33 +1,43 @@
 package com.aidos.roomy_app.ui.resident_ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aidos.roomy_app.R
+import androidx.lifecycle.ViewModelProvider
+import com.aidos.roomy_app.databinding.FragmentMyRoomBinding
 import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 class MyRoomFragment : DaggerFragment() {
 
     companion object {
-        fun newInstance() = MyRoomFragment()
+
     }
 
-    private lateinit var viewModel: MyRoomViewModel
+    private var binding: FragmentMyRoomBinding? = null
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: MyRoomViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MyRoomViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_room, container, false)
+        binding = FragmentMyRoomBinding.inflate(inflater, container, false)
+        val binding = binding ?: return null
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MyRoomViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = binding ?: return
 
+        binding.composeView.setContent {
+
+        }
+    }
 }
