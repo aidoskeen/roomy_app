@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,7 +59,11 @@ class RegistrationFragment : DaggerFragment() {
         binding?.regComposeView?.setContent {
             RoomyMainTheme {
                 Column(
-                    modifier = Modifier.padding(20.dp),
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .verticalScroll(
+                            rememberScrollState()
+                        ),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -111,22 +117,14 @@ class RegistrationFragment : DaggerFragment() {
                         text = stringResource(id = R.string.login_button)
                     )
 
+                    Spacer(modifier = Modifier.height(20.dp))
+
                     //Button for registration
                     RoomyButton(
                         onClick = { /*TODO*/ },
                         text = stringResource(id = R.string.registration)
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    ClickableText(
-                        text = AnnotatedString(stringResource(id = R.string.forgot_password)),
-                        onClick = { },
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily.Default
-                        )
-                    )
                 }
             }
         }

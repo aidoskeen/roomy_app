@@ -57,9 +57,47 @@
             android:id="@+id/action_roomsFragment_to_bookingFragment"
             app:destination="@id/bookingFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/bookingFragment"
         android:name="com.aidos.roomy_app.ui.resident_ui.BookingFragment"
         android:label="fragment_booking"
         tools:layout="@layout/fragment_booking" />
+
+    <fragment
+        android:id="@+id/announcementsFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.AnnouncementsFragment"
+        android:label="fragment_announcements"
+        tools:layout="@layout/fragment_announcements" />
+    <fragment
+        android:id="@+id/myRoomFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.MyRoomFragment"
+        android:label="fragment_my_room"
+        tools:layout="@layout/fragment_my_room" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.aidos.roomy_app.ui.resident_ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <action
+        android:id="@+id/action_global_dormitoriesFragment"
+        app:destination="@id/dormitoriesFragment" />
+
+    <action
+        android:id="@+id/action_global_invoiceFragment"
+        app:destination="@id/invoiceFragment" />
+
+    <action
+        android:id="@+id/action_global_announcementsFragment"
+        app:destination="@id/announcementsFragment"/>
+
+    <action
+        android:id="@+id/action_global_myRoomFragment"
+        app:destination="@id/myRoomFragment"/>
+
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"/>
 </navigation>

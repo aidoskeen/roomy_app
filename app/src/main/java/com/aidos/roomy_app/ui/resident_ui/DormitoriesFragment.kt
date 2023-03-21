@@ -19,6 +19,7 @@ import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.DormitoryItemRow
 import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -39,6 +40,8 @@ class DormitoriesFragment : DaggerFragment() {
         binding = FragmentDormitoriesBinding.inflate(inflater, container, false)
         val binding = binding ?: return null
         binding.lifecycleOwner = viewLifecycleOwner
+        val bottomNavBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavBar.visibility = View.VISIBLE
         return binding.root
     }
 
