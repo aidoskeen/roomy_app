@@ -36,11 +36,18 @@
     <string name="no_rooms">No rooms are available</string>
     <string name="date_of_booking">Date</string>
     <string name="address">Address</string>
+    <string name="make_payment">Pay for rent</string>
 
     <string name="make_announcement">Make an announcement</string>
     <string name="check_requests">View requests</string>
     <string name="administration_menu_title">Dormitory administration</string>
-
+    <string name="date_of_payment">Payment date</string>
+    <string name="invoice">Invoice for this month</string>
+    <string name="payment_title">Payment</string>
+    <string name="month">Month</string>
+    <string name="paid_status">Paid</string>
+    <string name="overdue_status">Overdue</string>
+    <string name="not_paid_status">Not paid yet</string>
     <string name="home_title">Home</string>
     <string name="my_room_title">My room</string>
     <string name="recent_announcements">News</string>

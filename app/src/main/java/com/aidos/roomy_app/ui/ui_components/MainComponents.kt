@@ -70,7 +70,7 @@ fun RoomyTopAppBar(
 }
 
 @Composable
-private fun ImageInBox(
+fun ImageInBox(
     painter: Painter
 ) {
     Box (
@@ -235,11 +235,12 @@ fun DormItemRowPreview() {
             rooms = listOf(),
         "VGTU"
         )
-
+        val label = stringResource(id = R.string.dorm_item_label)
+        val image = painterResource(id = R.drawable.ic_launcher_foreground)
         DormitoryItemRow(
             item = dormitory,
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-            label = stringResource(id = R.string.dorm_item_label),
+            painter = image,
+            label = label,
             onItemClicked = { })
     }
 }
@@ -249,10 +250,12 @@ fun DormItemRowPreview() {
 fun RoomItemRowPreview() {
     RoomyMainTheme {
         val roomItem = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
+        val label = stringResource(id = R.string.room_item_label)
+        val image = painterResource(id = R.drawable.ic_launcher_foreground)
         RoomItemRow(
             item = roomItem,
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-            label = stringResource(id = R.string.room_item_label),
+            painter = image,
+            label = label,
             onItemClicked = { })
     }
 }
@@ -260,10 +263,11 @@ fun RoomItemRowPreview() {
 @Composable
 @Preview(name = "App Bar Preview")
 fun AppBarPreview() {
+    val painter = painterResource(id = R.drawable.ic_launcher_foreground)
     RoomyMainTheme {
         RoomyTopAppBar(
             backgroundColor = MaterialTheme.colors.primary,
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            painter = painter,
             label = "Roomy",
             onUserIconClick = { }
         )
