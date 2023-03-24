@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.aidos.roomy_app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -21,12 +23,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+        if (navHostFragment != null) {
+            navController = navHostFragment.navController
         }
-        NavigationBarView.OnItemReselectedListener {
+        setContentView(R.layout.activity_main)
+        val navigationView = findViewById<NavigationBarView>(R.id.bottom_navigation)
+        navigationView.setOnItemSelectedListener {
                 item ->
             when(item.itemId) {
                 R.id.home -> {
@@ -48,5 +51,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        if (savedInstanceState == null) {
+
+        }
+
     }
 }

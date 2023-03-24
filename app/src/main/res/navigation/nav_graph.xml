@@ -73,7 +73,11 @@
         android:id="@+id/myRoomFragment"
         android:name="com.aidos.roomy_app.ui.resident_ui.MyRoomFragment"
         android:label="fragment_my_room"
-        tools:layout="@layout/fragment_my_room" />
+        tools:layout="@layout/fragment_my_room" >
+        <action
+            android:id="@+id/action_myRoomFragment_to_invoiceFragment"
+            app:destination="@id/invoiceFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"

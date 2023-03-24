@@ -5,5 +5,5 @@ data class Place(
     val available: Boolean = true,
     val price: Long,
     val livingResident: User.Resident? = null,
-    val monthlyPayment: MonthlyPayment = MonthlyPayment()
+    val monthlyPayment: MonthlyPayment = MonthlyPayment("")
 )

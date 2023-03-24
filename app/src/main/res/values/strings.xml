@@ -42,8 +42,12 @@
     <string name="check_requests">View requests</string>
     <string name="administration_menu_title">Dormitory administration</string>
     <string name="date_of_payment">Payment date</string>
+    <string name="due_date_label">Due date</string>
     <string name="invoice">Invoice for this month</string>
     <string name="payment_title">Payment</string>
+    <string name="payment_id_label">Payment ID</string>
+    <string name="rent_price_label">Rent price</string>
+    <string name="resident_label">Resident</string>
     <string name="month">Month</string>
     <string name="paid_status">Paid</string>
     <string name="overdue_status">Overdue</string>
