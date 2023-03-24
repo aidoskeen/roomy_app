@@ -40,4 +40,16 @@ abstract class FragementModule {
 
     @ContributesAndroidInjector
     abstract fun contributeBookingFragment(): BookingFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeAnnouncementsFragment(): AnnouncementsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeProfileFragment(): ProfileFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeMyRoomFragment(): MyRoomFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeInvoiceFragment(): InvoiceFragment
 }

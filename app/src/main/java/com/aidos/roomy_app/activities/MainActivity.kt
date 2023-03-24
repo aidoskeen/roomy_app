@@ -16,18 +16,17 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var navController: NavController
     private val mainViewModel: MainViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
-        if (navHostFragment != null) {
-            navController = navHostFragment.navController
-        }
         setContentView(R.layout.activity_main)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
         val navigationView = findViewById<NavigationBarView>(R.id.bottom_navigation)
         navigationView.setOnItemSelectedListener {
                 item ->
