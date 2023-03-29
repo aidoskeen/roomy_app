@@ -26,53 +26,54 @@ fun MakeAnnouncementForm(
 ) {
     val title = stringResource(id = R.string.make_announcement)
     val announcementLabel = stringResource(id = R.string.announcement_text)
+    Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+        ConstraintLayout(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            val (titleRef, inputRef, buttonRef) = createRefs()
+            createVerticalChain(titleRef, inputRef, buttonRef, chainStyle = ChainStyle.SpreadInside)
+            createEndBarrier(inputRef, margin = 20.dp)
+            Text(
+                modifier = Modifier
+                    .constrainAs(titleRef) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(inputRef.top)
+                    }
+                    .padding(vertical = 20.dp, horizontal = 20.dp),
+                text = title,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h4,
+                color = MaterialTheme.colors.onSurface
+            )
 
-    ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        val (titleRef, inputRef, buttonRef) = createRefs()
-        createVerticalChain(titleRef, inputRef, buttonRef, chainStyle = ChainStyle.SpreadInside)
-        createEndBarrier(inputRef, margin = 20.dp)
-        Text(
-            modifier = Modifier
-                .constrainAs(titleRef) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(inputRef.top)
-                }
-                .padding(vertical = 20.dp, horizontal = 20.dp),
-            text = title,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h4,
-            color = MaterialTheme.colors.onSurface
-        )
+            TextField(
+                modifier = Modifier
+                    .height(500.dp)
+                    .fillMaxWidth()
+                    .constrainAs(inputRef) {
+                        top.linkTo(titleRef.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }
+                    .padding(bottom = 20.dp),
+                value = text,
+                label = { Text(text = announcementLabel) },
+                onValueChange = { onValueChange(it) },
+                textStyle = MaterialTheme.typography.caption,
+            )
 
-        TextField(
-            modifier = Modifier
-                .height(500.dp)
-                .fillMaxWidth(0.8f)
-                .constrainAs(inputRef) {
-                    top.linkTo(titleRef.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-                .padding(bottom = 20.dp),
-            value = text,
-            label = { Text(text = announcementLabel) },
-            onValueChange = { onValueChange(it) },
-            textStyle = MaterialTheme.typography.caption,
-        )
-
-        RoomyButton(
-            modifier = Modifier
-                .constrainAs(buttonRef) {
-                top.linkTo(inputRef.bottom)
-                 bottom.linkTo(parent.bottom)
-            },
-            text = stringResource(id = R.string.button_announce),
-            onClick = onButtonClick
-        )
+            RoomyButton(
+                modifier = Modifier
+                    .constrainAs(buttonRef) {
+                        top.linkTo(inputRef.bottom)
+                        bottom.linkTo(parent.bottom)
+                    },
+                text = stringResource(id = R.string.button_announce),
+                onClick = onButtonClick
+            )
+        }
     }
 }
 
