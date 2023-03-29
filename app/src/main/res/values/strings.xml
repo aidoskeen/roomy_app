@@ -39,6 +39,8 @@
     <string name="make_payment">Pay for rent</string>
 
     <string name="make_announcement">Make an announcement</string>
+    <string name="button_announce">Announce</string>
+    <string name="announcement_text">Announcement text</string>
     <string name="check_requests">View requests</string>
     <string name="administration_menu_title">Dormitory administration</string>
     <string name="date_of_payment">Payment date</string>

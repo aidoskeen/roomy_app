@@ -4,8 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.databinding.FragmentMakeAnnouncementBinding
+import com.aidos.roomy_app.ui.theme.RoomyMainTheme
+import com.aidos.roomy_app.ui.ui_components.MakeAnnouncementForm
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -37,7 +43,14 @@ class MakeAnnouncementFragment : DaggerFragment() {
 
 
         binding.composeView.setContent {
-
+            var text by  remember { mutableStateOf("") }
+            RoomyMainTheme() {
+                MakeAnnouncementForm(
+                    text = text,
+                    onValueChange = { text = it },
+                    onButtonClick = { }
+                )
+            }
         }
     }
 
