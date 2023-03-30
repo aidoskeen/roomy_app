@@ -7,6 +7,7 @@ import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.frameworks.dagger.ViewModelFactory
 import com.aidos.roomy_app.ui.admin_ui.AdminMenuViewModel
 import com.aidos.roomy_app.ui.admin_ui.MakeAnnouncementViewModel
+import com.aidos.roomy_app.ui.admin_ui.ManageRoomsViewModel
 import com.aidos.roomy_app.ui.admin_ui.RequestsViewModel
 import com.aidos.roomy_app.ui.resident_ui.*
 import dagger.Binds
@@ -81,5 +82,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
     abstract fun bindProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ManageRoomsViewModel::class)
+    abstract fun bindManageRoomsViewModel(manageRoomsViewModel: ManageRoomsViewModel): ViewModel
 
 }
