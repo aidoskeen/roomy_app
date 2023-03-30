@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentAdminLoginBinding
 import com.aidos.roomy_app.databinding.FragmentAdminMenuBinding
@@ -67,30 +68,32 @@ class AdminMenuFragment : DaggerFragment() {
                         text = AnnotatedString(stringResource(id = R.string.administration_menu_title)),
                         style = MaterialTheme.typography.h4.copy(
                             color = MaterialTheme.colors.onSurface
-                        ),
-                        textAlign = TextAlign.Center
+                        )
                     )
                     val dividerColor = MaterialTheme.colors.onSurface
+                    val dividerModifier = Modifier.padding(horizontal = 18.dp)
                     MenuOption(
                         text = stringResource(id = R.string.make_announcement),
-                        onClick = { }
+                        onClick = {
+                            findNavController().navigate(R.id.action_adminMenuFragment_to_announceFragment)
+                        }
                     )
 
-                    Divider(color = dividerColor)
+                    Divider(modifier = dividerModifier, color = dividerColor)
+
+                    MenuOption(
+                        text = stringResource(id = R.string.check_requests),
+                        onClick = { findNavController().navigate(R.id.action_adminMenuFragment_to_requestsFragment) }
+                    )
+
+                    Divider(color = dividerColor, modifier = dividerModifier)
 
                     MenuOption(
                         text = stringResource(id = R.string.check_requests),
                         onClick = { }
                     )
 
-                    Divider(color = dividerColor)
-
-                    MenuOption(
-                        text = stringResource(id = R.string.check_requests),
-                        onClick = { }
-                    )
-
-                    Divider(color = dividerColor)
+                    Divider(modifier = dividerModifier, color = dividerColor)
 
                 }
             }

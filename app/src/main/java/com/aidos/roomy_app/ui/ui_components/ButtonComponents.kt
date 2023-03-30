@@ -29,8 +29,8 @@ fun RoomyButton(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(50.dp))
-            .height(50.dp)
+            .clip(RoundedCornerShape(25.dp))
+            .height(55.dp)
             .clickable(
                 onClick = { onClick() }
             )

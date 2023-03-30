@@ -36,10 +36,9 @@ val darkColors = darkColors(
 
 @Composable
 fun RoomyMainTheme(
-    isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-
+    val isDarkTheme: Boolean = isSystemInDarkTheme()
     MaterialTheme(
         colors = if (isDarkTheme) darkColors else brightColors,
         typography = Typography,
