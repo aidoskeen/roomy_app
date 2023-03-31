@@ -7,26 +7,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.databinding.FragmentEditRoomBinding
+import com.aidos.roomy_app.ui.theme.RoomyMainTheme
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class EditRoomFragment : Fragment() {
+class EditRoomFragment : DaggerFragment() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    companion object {
-        fun newInstance() = EditRoomFragment()
+    private val viewModel: EditRoomViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[EditRoomViewModel::class.java]
     }
-
-    private lateinit var viewModel: EditRoomViewModel
+    var binding: FragmentEditRoomBinding? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_edit_room, container, false)
+        binding = FragmentEditRoomBinding.inflate(inflater, container, false)
+        val binding = binding ?: return null
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditRoomViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val binding = binding ?: return
+
+        binding.composeView.setContent {
+            RoomyMainTheme {
+
+            }
+        }
+    }
 }

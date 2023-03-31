@@ -5,10 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.activities.AdministrationViewModel
 import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.frameworks.dagger.ViewModelFactory
-import com.aidos.roomy_app.ui.admin_ui.AdminMenuViewModel
-import com.aidos.roomy_app.ui.admin_ui.MakeAnnouncementViewModel
-import com.aidos.roomy_app.ui.admin_ui.ManageRoomsViewModel
-import com.aidos.roomy_app.ui.admin_ui.RequestsViewModel
+import com.aidos.roomy_app.ui.admin_ui.*
 import com.aidos.roomy_app.ui.resident_ui.*
 import dagger.Binds
 import dagger.Module
@@ -87,5 +84,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ManageRoomsViewModel::class)
     abstract fun bindManageRoomsViewModel(manageRoomsViewModel: ManageRoomsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditRoomViewModel::class)
+    abstract fun bindEditViewModel(editRoomViewModel: EditRoomViewModel): ViewModel
 
 }

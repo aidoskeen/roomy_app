@@ -52,4 +52,7 @@ abstract class FragementModule {
 
     @ContributesAndroidInjector
     abstract fun contributeManageRoomsFragment(): ManageRoomsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeEditRoomFragment(): EditRoomFragment
 }

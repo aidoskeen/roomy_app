@@ -45,6 +45,9 @@
     <string name="request_management">Request Management</string>
     <string name="room_management">Room management</string>
     <string name="administration_menu_title">Dormitory administration</string>
+    <string name="edit_room">Edit room details</string>
+    <string name="apply_edit_button">Apply changes</string>
+
     <string name="date_of_payment">Payment date</string>
     <string name="due_date_label">Due date</string>
     <string name="invoice">Invoice for this month</string>
