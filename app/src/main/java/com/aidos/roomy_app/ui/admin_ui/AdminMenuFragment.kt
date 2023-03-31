@@ -23,7 +23,12 @@ import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentAdminLoginBinding
 import com.aidos.roomy_app.databinding.FragmentAdminMenuBinding
+import com.aidos.roomy_app.enums.RoomSize
+import com.aidos.roomy_app.enums.RoomType
+import com.aidos.roomy_app.models.Dormitory
+import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.resident_ui.LoginViewModel
+import com.aidos.roomy_app.ui.resident_ui.RoomsFragment
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.MenuOption
 import dagger.android.support.DaggerFragment
@@ -53,7 +58,17 @@ class AdminMenuFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = binding ?: return
-        
+        val room1 = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
+        val room2 = Room(2, RoomType.SINGLE, RoomSize.MEDIUM, listOf(), "Regular room")
+        val room3 = Room(3, RoomType.TRIPLE, RoomSize.BIG, listOf(), "Regular room")
+        val dormitory = Dormitory(
+            dormitoryId = 11,
+            address = "Sauletekio 25",
+            roomQuantity = 100,
+            rooms = listOf(room1, room2, room3),
+            "VGTU"
+        )
+
         binding.composeView.setContent { 
             RoomyMainTheme {
                 Column(
@@ -89,8 +104,12 @@ class AdminMenuFragment : DaggerFragment() {
                     Divider(color = dividerColor, modifier = dividerModifier)
 
                     MenuOption(
-                        text = stringResource(id = R.string.check_requests),
-                        onClick = { }
+                        text = stringResource(id = R.string.room_management),
+                        onClick = {  findNavController().navigate(R.id.action_adminMenuFragment_to_manageRoomsFragment,
+                            Bundle().apply
+                            {
+                                putSerializable(RoomsFragment.DORMITORY, dormitory)  }
+                        ) }
                     )
 
                     Divider(modifier = dividerModifier, color = dividerColor)

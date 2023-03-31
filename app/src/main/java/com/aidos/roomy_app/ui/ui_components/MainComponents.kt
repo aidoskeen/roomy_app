@@ -1,5 +1,7 @@
 package com.aidos.roomy_app.ui.ui_components
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -224,6 +226,41 @@ fun RoomItemRow(
 }
 
 @Composable
+fun RoomRow(
+    modifier: Modifier = Modifier,
+    room: Room,
+    label: String,
+    onItemClicked: (Room) -> Unit
+) {
+    Row(
+        modifier = modifier
+            .clickable { onItemClicked(room) }
+            .padding(top = 12.dp, bottom = 12.dp)
+    ) {
+
+        Spacer(Modifier.width(24.dp))
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.h6)
+
+                Text(
+                    text = room.roomNumber.toString(),
+                    style = MaterialTheme.typography.h6
+                )
+            }
+
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = room.description,
+                style = MaterialTheme.typography.caption
+            )
+        }
+    }
+}
+
+@Composable
 @Preview(name = "Dormitory row preview")
 fun DormItemRowPreview() {
     RoomyMainTheme {
@@ -246,7 +283,8 @@ fun DormItemRowPreview() {
 }
 
 @Composable
-@Preview(name = "Room row preview")
+@Preview(name = "Room item row preview night", uiMode = UI_MODE_NIGHT_YES)
+@Preview(name = "Room item row preview day", uiMode = UI_MODE_NIGHT_NO)
 fun RoomItemRowPreview() {
     RoomyMainTheme {
         val roomItem = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
@@ -261,7 +299,22 @@ fun RoomItemRowPreview() {
 }
 
 @Composable
-@Preview(name = "App Bar Preview")
+@Preview(name = "Room row preview night", uiMode = UI_MODE_NIGHT_YES)
+@Preview(name = "Room row preview day", uiMode = UI_MODE_NIGHT_NO)
+fun RoomRowPreview() {
+    RoomyMainTheme {
+        val roomItem = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
+        val label = stringResource(id = R.string.room_item_label)
+        RoomRow(
+            room = roomItem,
+            label = label,
+            onItemClicked = { })
+    }
+}
+
+@Composable
+@Preview(name = "App Bar Preview day", uiMode = UI_MODE_NIGHT_YES)
+@Preview(name = "App Bar Preview night", uiMode = UI_MODE_NIGHT_NO)
 fun AppBarPreview() {
     val painter = painterResource(id = R.drawable.ic_launcher_foreground)
     RoomyMainTheme {

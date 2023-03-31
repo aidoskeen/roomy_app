@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_adminMenuFragment_to_announceFragment"
             app:destination="@id/announceFragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_manageRoomsFragment"
+            app:destination="@id/manageRoomsFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminLoginFragment"
@@ -36,4 +39,18 @@
         android:name="com.aidos.roomy_app.ui.admin_ui.MakeAnnouncementFragment"
         android:label="fragment_announcement"
         tools:layout="@layout/fragment_make_announcement" />
+    <fragment
+        android:id="@+id/manageRoomsFragment"
+        android:name="com.aidos.roomy_app.ui.admin_ui.ManageRoomsFragment"
+        android:label="fragment_manage_rooms"
+        tools:layout="@layout/fragment_manage_rooms" >
+        <action
+            android:id="@+id/action_manageRoomsFragment_to_editRoomFragment"
+            app:destination="@id/editRoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editRoomFragment"
+        android:name="com.aidos.roomy_app.ui.admin_ui.EditRoomFragment"
+        android:label="fragment_edit_room"
+        tools:layout="@layout/fragment_edit_room" />
 </navigation>
