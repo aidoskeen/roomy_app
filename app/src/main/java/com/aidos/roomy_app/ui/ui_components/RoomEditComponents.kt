@@ -1,15 +1,14 @@
 package com.aidos.roomy_app.ui.ui_components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,19 +19,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.enums.PaymentStatus
 import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
+import com.aidos.roomy_app.models.MonthlyPayment
 import com.aidos.roomy_app.models.Place
 import com.aidos.roomy_app.models.Room
+import com.aidos.roomy_app.models.User
+import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 
 @Composable
 fun RoomEditForm(
     image: Painter,
     room: Room,
-    place: Place,
-    onInvoiceClicked:() -> Unit
+    onValueChanged: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -51,7 +54,7 @@ fun RoomEditForm(
         )
 
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            painter = image,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -63,51 +66,64 @@ fun RoomEditForm(
         )
 
         Divider(thickness = 1.dp)
+        val roomNumberTitle = stringResource(id = R.string.room_number)
+        val typeTitle = stringResource(id = R.string.room_type)
+        val residentsOfRoom = stringResource(id = R.string.residents_in_room)
+        val roomSizeTitle = stringResource(id = R.string.room_size)
 
-        TextRow(
-            label = stringResource(id = R.string.room_number),
-            value = room.roomNumber.toString()
-        )
+        EditableTextRow(
+            label = roomNumberTitle,
+            currentValue = room.roomNumber.toString(),
+            onValueChanged = { } )
 
-        val sizeStringId = when (room.roomSize) {
-            RoomSize.SMALL -> R.string.small_room
-            RoomSize.MEDIUM -> R.string.medium_room
-            RoomSize.BIG -> R.string.big_room
+
+        val sizeString = when (room.roomSize) {
+            RoomSize.SMALL -> stringResource(R.string.small_room)
+            RoomSize.MEDIUM -> stringResource(R.string.medium_room)
+            RoomSize.BIG -> stringResource(R.string.big_room)
         }
 
-        TextRow(
-            label = stringResource(id = R.string.room_size),
-            value = stringResource(id = sizeStringId)
-        )
+        EditableTextRow(
+            label = roomSizeTitle,
+            currentValue = sizeString,
+            onValueChanged = { } )
 
-        val typeStringId = when (room.roomType) {
-            RoomType.SINGLE -> R.string.single_room
-            RoomType.DOUBLE -> R.string.double_room
-            RoomType.TRIPLE -> R.string.triple_room
+        val typeString = when (room.roomType) {
+            RoomType.SINGLE -> stringResource(id = R.string.single_room)
+            RoomType.DOUBLE -> stringResource(R.string.double_room)
+            RoomType.TRIPLE -> stringResource(R.string.triple_room)
         }
 
-        TextRow(
-            label = stringResource(id = R.string.room_type),
-            value = stringResource(id = typeStringId)
-        )
+        EditableTextRow(
+            label = typeTitle,
+            currentValue = typeString,
+            onValueChanged = { } )
 
         Divider()
 
         Text(
-            text = stringResource(id = R.string.invoice),
+            text = residentsOfRoom,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 4.dp),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h4,
+            style = MaterialTheme.typography.body2,
             color = MaterialTheme.colors.onSurface
         )
-        InvoiceItemRow(payment = place.monthlyPayment, painter = image, onItemClicked = onInvoiceClicked)
+
+        room.places.forEach { place ->
+
+            place.livingResident?.let {
+                RemovableRow(value = it.getFullName()) {
+
+                }
+            }
+        }
+
         RoomyButton(
-            text = stringResource(id = R.string.make_payment),
+            text = stringResource(id = R.string.apply_edit_button),
             onClick = { /*TODO*/ }
         )
-
     }
 }
 
@@ -115,6 +131,8 @@ fun RoomEditForm(
 fun EditableTextRow(
     modifier: Modifier = Modifier,
     label: String = "",
+    currentValue: String,
+    onValueChanged: (String) -> Unit
 ) {
     var value by remember {
         mutableStateOf("")
@@ -135,8 +153,58 @@ fun EditableTextRow(
 
         OutlinedTextField(
             value = value,
-            label = { Text(text = value) },
-            onValueChange = { newText: String -> value = newText}
+            label = { Text(text = currentValue) },
+            onValueChange = {
+                    newText: String -> value = newText
+                    onValueChanged(value)
+            }
         )
+    }
+}
+
+@Composable
+fun RemovableRow(
+    modifier: Modifier = Modifier,
+    value: String = "",
+    onIconClicked: () -> Unit
+) {
+    var value by remember {
+        mutableStateOf("")
+    }
+    val removeIcon = painterResource(id = R.drawable.ic_remove)
+    Row(
+        modifier = modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = value,
+            modifier = modifier.padding(start = 20.dp),
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.subtitle2,
+            color = MaterialTheme.colors.onSurface
+        )
+
+        Icon(
+            modifier = Modifier
+                .padding(end = 20.dp)
+                .clickable(onClick = onIconClicked),
+            painter = removeIcon,
+            contentDescription = null
+        )
+    }
+}
+
+@Composable
+@Preview(name = "Room edit form preview", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(name = "Room edit form preview day", uiMode = Configuration.UI_MODE_NIGHT_NO)
+fun PreviewRoomEditForm() {
+    val payment = MonthlyPayment(paymentId = "1","December", paymentStatus = PaymentStatus.PAID, dueDate = "2023/03/23")
+    val resident = User.Resident("1", "Aidos", "Alimkhan")
+    val place = Place(price = 100L, monthlyPayment = payment, livingResident = resident)
+    val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
+    val image = painterResource(id = R.drawable.ic_launcher_foreground)
+    RoomyMainTheme {
+        RoomEditForm(image = image, room = room, onValueChanged = { })
     }
 }

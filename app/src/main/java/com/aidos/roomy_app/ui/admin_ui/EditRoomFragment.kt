@@ -8,11 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentEditRoomBinding
+import com.aidos.roomy_app.models.Room
+import com.aidos.roomy_app.ui.resident_ui.BookingFragment
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class EditRoomFragment : DaggerFragment() {
+
+    companion object {
+        const val ROOM = "ROOM"
+    }
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -20,6 +26,8 @@ class EditRoomFragment : DaggerFragment() {
         ViewModelProvider(this, viewModelFactory)[EditRoomViewModel::class.java]
     }
     var binding: FragmentEditRoomBinding? = null
+
+    private fun roomArgs() = requireArguments().getSerializable(BookingFragment.ROOM) as? Room
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +44,7 @@ class EditRoomFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = binding ?: return
-
+        val roomToBeEdited = roomArgs()
         binding.composeView.setContent {
             RoomyMainTheme {
 
