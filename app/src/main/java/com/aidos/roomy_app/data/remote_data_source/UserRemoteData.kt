@@ -1,0 +1,20 @@
+package com.aidos.roomy_app.data.remote_data_source
+
+import com.aidos.roomy_app.models.User
+import javax.inject.Inject
+
+class UserRemoteData @Inject constructor(
+
+) : UserRemoteDataSource {
+    override suspend fun fetchUsers(): List<User> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveUsers(users: List<User>) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun removeUser(userId: String) {
+        TODO("Not yet implemented")
+    }
+}

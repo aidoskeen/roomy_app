@@ -4,7 +4,11 @@ import com.aidos.roomy_app.models.Dormitory
 
 interface DormitoryRemoteDataSource {
 
-    suspend fun loadDormitories(): List<Dormitory>
+    suspend fun getDormitories(): List<Dormitory>
 
     suspend fun saveDormitories(dormitories: List<Dormitory>)
+
+    suspend fun deleteDormitory(id: String)
+
+    suspend fun updateDormitory(id: String)
 }

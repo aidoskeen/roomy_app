@@ -7,4 +7,6 @@ interface UserRemoteDataSource {
     suspend fun fetchUsers(): List<User>
 
     suspend fun saveUsers(users: List<User>)
+
+    suspend fun removeUser(userId: String)
 }
