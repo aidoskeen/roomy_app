@@ -1,16 +1,28 @@
 package com.aidos.roomy_app.frameworks.dagger.subcomponents
 
 import com.aidos.roomy_app.data.*
-import com.aidos.roomy_app.data.remote_data_source.DormitoryRemoteDataSource
-import com.aidos.roomy_app.data.remote_data_source.PaymentsRemoteDataSource
-import com.aidos.roomy_app.data.remote_data_source.RequestRemoteDataSource
-import com.aidos.roomy_app.data.remote_data_source.UserRemoteDataSource
+import com.aidos.roomy_app.data.remote_data_source.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
 class RepositoryModule {
+    @Provides
+    @Singleton
+    fun provideDormitoryRemoteDataSource() : DormitoryRemoteDataSource = DormitoryRemoteData()
+
+    @Provides
+    @Singleton
+    fun provideUserRemoteDataSource() : UserRemoteDataSource = UserRemoteData()
+
+    @Provides
+    @Singleton
+    fun provideRequestRemoteDataSource() : RequestRemoteDataSource = RequestRemoteData()
+
+    @Provides
+    @Singleton
+    fun providePaymentRemoteDataSource() : PaymentsRemoteDataSource = PaymentRemoteData()
 
     @Provides
     @Singleton
