@@ -1,8 +1,11 @@
 package com.aidos.roomy_app.data
 
+import com.aidos.roomy_app.data.remote_data_source.PaymentsRemoteDataSource
 import com.aidos.roomy_app.models.MonthlyPayment
 
-class DefaultPaymentRepository () : PaymentRepository {
+class DefaultPaymentRepository (
+    paymentsRemoteDataSource: PaymentsRemoteDataSource
+        ) : PaymentRepository {
     override fun getPayments(): List<MonthlyPayment> {
         TODO("Not yet implemented")
     }
