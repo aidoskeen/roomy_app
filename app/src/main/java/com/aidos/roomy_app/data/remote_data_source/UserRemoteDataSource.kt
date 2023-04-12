@@ -8,5 +8,9 @@ interface UserRemoteDataSource {
 
     suspend fun saveUsers(users: List<User>)
 
+    suspend fun createUser(user: User)
+
     suspend fun removeUser(userId: String)
+
+    suspend fun getUserByLoginData(login: String, password: String): User
 }

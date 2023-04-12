@@ -9,29 +9,21 @@ import javax.inject.Singleton
 class DefaultUserRepository @Inject constructor(
     private val dataSource: UserRemoteDataSource
 ) : UserRepository {
-    override fun getAllUsers(): List<User> {
-        TODO("Not yet implemented")
+    override suspend fun getAllUsers(): List<User>  = dataSource.fetchUsers()
+
+    override suspend fun getResidents(): List<User.Resident>  = dataSource.fetchUsers().filterIsInstance(User.Resident::class.java)
+
+    override suspend fun getAdmins(): List<User.Administrator> = dataSource.fetchUsers().filterIsInstance(User.Administrator::class.java)
+
+    override suspend fun createUser(user: User) {
+        dataSource.createUser(user)
     }
 
-    override fun getResidents(): List<User.Resident> {
-        TODO("Not yet implemented")
+    override suspend fun deleteUser(id: String) {
+        dataSource.removeUser(id)
     }
 
-    override fun getAdmins(): List<User.Administrator> {
-        TODO("Not yet implemented")
-    }
-
-    override fun createUser(user: User) {
-        TODO("Not yet implemented")
-    }
-
-    override fun deleteUser(id: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getUser(id: String): User {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getUserByLoginData(login: String, password: String): User = dataSource.getUserByLoginData(login, password)
 
     override fun updateResident(id: String, resident: User.Resident) {
         TODO("Not yet implemented")

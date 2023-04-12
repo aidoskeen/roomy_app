@@ -14,7 +14,15 @@ class UserRemoteData @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun createUser(user: User) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun removeUser(userId: String) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserByLoginData(login: String, password: String): User {
         TODO("Not yet implemented")
     }
 }
