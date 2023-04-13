@@ -6,6 +6,8 @@ interface DormitoryRemoteDataSource {
 
     suspend fun getDormitories(): List<Dormitory>
 
+    suspend fun getDormitoryById(id: Int): Dormitory
+
     suspend fun saveDormitories(dormitories: List<Dormitory>)
 
     suspend fun deleteDormitory(id: String)

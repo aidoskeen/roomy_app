@@ -4,12 +4,11 @@ import com.aidos.roomy_app.models.Request
 
 interface RequestRepository {
 
-    fun getRequest(): Request
+    suspend fun getRequest(): Request
+    suspend fun getAllRequests(): List<Request>
+    suspend fun updateRequest(id: String, request: Request)
+    suspend fun removeRequest(id: String, request: Request)
 
-    fun getAllRequests(): List<Request>
-
-    fun updateRequest(id: String, request: Request)
-
-    fun removeRequest(id: String, request: Request)
 }
+
 

@@ -6,27 +6,27 @@ import javax.inject.Inject
 class PaymentRemoteData @Inject constructor(
 
 ) : PaymentsRemoteDataSource {
-    override fun getPayments(): List<MonthlyPayment> {
+    override suspend fun getPayments(): List<MonthlyPayment> {
         TODO("Not yet implemented")
     }
 
-    override fun getPayment(id: String): MonthlyPayment {
+    override suspend fun getPayment(id: String): MonthlyPayment {
         TODO("Not yet implemented")
     }
 
-    override fun createPayment(payment: MonthlyPayment) {
+    override suspend fun createPayment(payment: MonthlyPayment) {
         TODO("Not yet implemented")
     }
 
-    override fun updatePayment(id: String, updatedPayment: MonthlyPayment) {
+    override suspend fun updatePayment(id: String, updatedPayment: MonthlyPayment) {
         TODO("Not yet implemented")
     }
 
-    override fun deletePayment(id: String) {
+    override suspend fun deletePayment(id: String) {
         TODO("Not yet implemented")
     }
 
-    override fun deleteAllPayments() {
+    override suspend fun deleteAllPayments() {
         TODO("Not yet implemented")
     }
 }

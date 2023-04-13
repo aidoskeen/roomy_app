@@ -7,19 +7,11 @@ import javax.inject.Inject
 class DefaultRequestRepository @Inject constructor(
     private val dataSource: RequestRemoteDataSource
 ) : RequestRepository {
-    override fun getRequest(): Request {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getRequest(): Request = dataSource.getRequest()
 
-    override fun getAllRequests(): List<Request> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getAllRequests(): List<Request> = dataSource.getAllRequests()
 
-    override fun updateRequest(id: String, request: Request) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun updateRequest(id: String, request: Request) = dataSource.updateRequest(id, request)
 
-    override fun removeRequest(id: String, request: Request) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun removeRequest(id: String, request: Request) = dataSource.removeRequest(id, request)
 }

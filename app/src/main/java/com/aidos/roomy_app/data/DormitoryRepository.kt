@@ -4,8 +4,8 @@ import com.aidos.roomy_app.models.Dormitory
 
 interface DormitoryRepository {
 
-    fun getDormitories(): List<Dormitory>
+    suspend fun getDormitories(): List<Dormitory>
 
-    fun getDormitory(id: String): Dormitory
+    suspend fun getDormitory(id: Int): Dormitory
 
 }

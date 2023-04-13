@@ -4,33 +4,18 @@ import com.aidos.roomy_app.data.remote_data_source.PaymentsRemoteDataSource
 import com.aidos.roomy_app.models.MonthlyPayment
 
 class DefaultPaymentRepository (
-    paymentsRemoteDataSource: PaymentsRemoteDataSource
+    private val paymentsDataSource: PaymentsRemoteDataSource
         ) : PaymentRepository {
-    override fun getPayments(): List<MonthlyPayment> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getPayments(): List<MonthlyPayment> = paymentsDataSource.getPayments()
 
-    override fun getPayment(id: String): MonthlyPayment {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getPayment(id: String): MonthlyPayment = paymentsDataSource.getPayment(id)
+    override suspend fun createPayment(payment: MonthlyPayment) = paymentsDataSource.createPayment(payment)
 
-    override fun createPayment(payment: MonthlyPayment) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun updatePayment(id: String, updatedPayment: MonthlyPayment) = paymentsDataSource.updatePayment(id, updatedPayment)
 
-    override fun updatePayment(id: String, updatedPayment: MonthlyPayment) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun deletePayment(id: String) = paymentsDataSource.deletePayment(id)
 
-    override fun deletePayment(id: String) {
-        TODO("Not yet implemented")
-    }
+    override fun refreshAllPayments() { }
 
-    override fun refreshAllPayments() {
-        TODO("Not yet implemented")
-    }
-
-    override fun deleteAllPayments() {
-        TODO("Not yet implemented")
-    }
+    override suspend fun deleteAllPayments() = paymentsDataSource.deleteAllPayments()
 }

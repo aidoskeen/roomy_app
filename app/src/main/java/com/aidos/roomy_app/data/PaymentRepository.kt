@@ -4,17 +4,17 @@ import com.aidos.roomy_app.models.MonthlyPayment
 
 interface PaymentRepository {
 
-    fun getPayments(): List<MonthlyPayment>
+    suspend fun getPayments(): List<MonthlyPayment>
 
-    fun getPayment(id: String): MonthlyPayment
+    suspend fun getPayment(id: String): MonthlyPayment
 
-    fun createPayment(payment: MonthlyPayment)
+    suspend fun createPayment(payment: MonthlyPayment)
 
-    fun updatePayment(id: String, updatedPayment: MonthlyPayment)
+    suspend fun updatePayment(id: String, updatedPayment: MonthlyPayment)
 
-    fun deletePayment(id: String)
+    suspend fun deletePayment(id: String)
 
     fun refreshAllPayments()
 
-    fun deleteAllPayments()
+    suspend fun deleteAllPayments()
 }

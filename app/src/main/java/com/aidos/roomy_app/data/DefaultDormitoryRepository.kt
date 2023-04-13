@@ -7,12 +7,8 @@ import javax.inject.Inject
 class DefaultDormitoryRepository @Inject constructor(
     private val dataSource: DormitoryRemoteDataSource
 ): DormitoryRepository {
-    override fun getDormitories(): List<Dormitory> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getDormitories(): List<Dormitory> = dataSource.getDormitories()
 
-    override fun getDormitory(id: String): Dormitory {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getDormitory(id: Int): Dormitory = dataSource.getDormitoryById(id)
 
 }

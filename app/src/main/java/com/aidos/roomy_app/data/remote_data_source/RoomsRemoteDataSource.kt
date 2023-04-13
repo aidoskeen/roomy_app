@@ -5,15 +5,15 @@ import com.aidos.roomy_app.models.Room
 
 interface RoomsRemoteDataSource {
 
-    fun getRooms(): List<Room>
+    fun getDormitoryRooms(dormitoryId: Int): List<Room>
 
-    fun getRoom(id: String): MonthlyPayment
+    fun getRoom(id: String): Room
 
-    fun createRoom(room: Room)
+    fun createRoom(room: Room, dormitoryId: Int)
 
-    fun updateRoom(id: String, updatedRoom: Room)
+    fun updateRoom(dormitoryId: Int, updatedRoom: Room)
 
-    fun deleteRoom(id: String)
+    fun deleteRoom(roomNumber: Int, dormitoryId: Int)
 
     fun deleteAllRooms()
 }

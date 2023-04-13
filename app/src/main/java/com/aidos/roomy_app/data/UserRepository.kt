@@ -16,6 +16,6 @@ interface UserRepository {
 
     suspend fun getUserByLoginData(login: String, password: String): User
 
-    fun updateResident(id: String, resident: User.Resident)
+    suspend fun updateResident(id: Int, resident: User.Resident)
 
 }

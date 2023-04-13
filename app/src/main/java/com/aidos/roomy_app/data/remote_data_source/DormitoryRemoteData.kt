@@ -10,6 +10,10 @@ class DormitoryRemoteData @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun getDormitoryById(id: Int): Dormitory {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun saveDormitories(dormitories: List<Dormitory>) {
         TODO("Not yet implemented")
     }
