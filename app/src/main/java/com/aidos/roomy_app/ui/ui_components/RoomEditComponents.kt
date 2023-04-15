@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -200,7 +199,7 @@ fun RemovableRow(
 @Preview(name = "Room edit form preview day", uiMode = Configuration.UI_MODE_NIGHT_NO)
 fun PreviewRoomEditForm() {
     val payment = MonthlyPayment(paymentId = "1","December", paymentStatus = PaymentStatus.PAID, dueDate = "2023/03/23")
-    val resident = User.Resident("1", "Aidos", "Alimkhan")
+    val resident = User.Resident(1, "Aidos", "Alimkhan")
     val place = Place(price = 100L, monthlyPayment = payment, livingResident = resident)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
     val image = painterResource(id = R.drawable.ic_launcher_foreground)

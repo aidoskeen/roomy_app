@@ -53,14 +53,13 @@ class RequestsFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = binding ?: return
-        val resident = User.Resident("1", name = "Aidos", surname = "Alimkhan")
+        val resident = User.Resident(1, name = "Aidos", surname = "Alimkhan")
         val room1 = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
 
 
         val dormitory = Dormitory(
             dormitoryId = 11,
             address = "Sauletekio 25",
-            roomQuantity = 100,
             rooms = listOf(room1),
             "VGTU"
         )

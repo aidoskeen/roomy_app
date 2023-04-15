@@ -10,19 +10,27 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Provides
     @Singleton
-    fun provideDormitoryRemoteDataSource() : DormitoryRemoteDataSource = DormitoryRemoteData()
+    fun provideDormitoryRemoteDataSource(
+        hostConnection: HostConnection
+    ): DormitoryRemoteDataSource = DormitoryRemoteData(hostConnection)
 
     @Provides
     @Singleton
-    fun provideUserRemoteDataSource() : UserRemoteDataSource = UserRemoteData()
+    fun provideUserRemoteDataSource(
+        hostConnection: HostConnection
+    ) : UserRemoteDataSource = UserRemoteData(hostConnection)
 
     @Provides
     @Singleton
-    fun provideRequestRemoteDataSource() : RequestRemoteDataSource = RequestRemoteData()
+    fun provideRequestRemoteDataSource(
+        hostConnection: HostConnection
+    ) : RequestRemoteDataSource = RequestRemoteData(hostConnection)
 
     @Provides
     @Singleton
-    fun providePaymentRemoteDataSource() : PaymentsRemoteDataSource = PaymentRemoteData()
+    fun providePaymentRemoteDataSource(
+        hostConnection: HostConnection
+    ) : PaymentsRemoteDataSource = PaymentRemoteData(hostConnection)
 
     @Provides
     @Singleton
@@ -55,4 +63,8 @@ class RepositoryModule {
     ) : PaymentRepository = DefaultPaymentRepository(
         paymentsRemoteDataSource
     )
+
+    @Provides
+    @Singleton
+    fun provideHostConnection() : HostConnection = HostConnection()
 }

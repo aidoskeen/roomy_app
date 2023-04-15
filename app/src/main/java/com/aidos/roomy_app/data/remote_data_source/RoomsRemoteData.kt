@@ -1,8 +1,11 @@
 package com.aidos.roomy_app.data.remote_data_source
 
 import com.aidos.roomy_app.models.Room
+import javax.inject.Inject
 
-class RoomsRemoteData() : RoomsRemoteDataSource {
+class RoomsRemoteData @Inject constructor(
+    val hostConnection: HostConnection
+) : RoomsRemoteDataSource {
     override fun getDormitoryRooms(dormitoryId: Int): List<Room> {
         TODO("Not yet implemented")
     }

@@ -26,8 +26,6 @@ import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
 import com.aidos.roomy_app.models.*
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
-import java.time.LocalDate
-import java.util.Date
 
 @Composable
 fun RequestItem(
@@ -219,7 +217,7 @@ fun RoomBookingForm(
 fun RequestItemPreview() {
     val place = Place(price = 100L)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
-    val resident = User.Resident("1", "Aidos", "Alimkhan")
+    val resident = User.Resident(1, "Aidos", "Alimkhan")
     val dormitory = Dormitory(1)
     val request = Request(
         requestId = 1,
@@ -244,7 +242,7 @@ fun RequestItemPreview() {
 fun RoomBookingReview() {
     val place = Place(price = 100L)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
-    val resident = User.Resident("1", "Aidos", "Alimkhan")
+    val resident = User.Resident(1, "Aidos", "Alimkhan")
     RoomyMainTheme {
         RoomBookingForm(
             resident = resident,

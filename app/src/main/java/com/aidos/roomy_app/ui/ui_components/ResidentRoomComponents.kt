@@ -238,7 +238,7 @@ fun InvoiceFormPreview() {
     val payment = MonthlyPayment(paymentId = "1","December", paymentStatus = PaymentStatus.PAID, dueDate = "2023/03/23")
     val place = Place(price = 100L, monthlyPayment = payment)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
-    val resident = User.Resident("1", "Aidos", "Alimkhan")
+    val resident = User.Resident(1, "Aidos", "Alimkhan")
 
     RoomyMainTheme {
         InvoiceForm(payment = payment, resident = resident, place = place, room = room)

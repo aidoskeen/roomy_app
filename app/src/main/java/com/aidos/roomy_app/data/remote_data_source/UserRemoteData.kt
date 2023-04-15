@@ -4,7 +4,7 @@ import com.aidos.roomy_app.models.User
 import javax.inject.Inject
 
 class UserRemoteData @Inject constructor(
-
+    val hostConnection: HostConnection
 ) : UserRemoteDataSource {
     override suspend fun fetchUsers(): List<User> {
         TODO("Not yet implemented")
@@ -26,7 +26,8 @@ class UserRemoteData @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateResident(resident: User.Resident) {
+    override suspend fun updateResident(id: Int, resident: User.Resident) {
         TODO("Not yet implemented")
     }
+
 }

@@ -3,7 +3,7 @@ package com.aidos.roomy_app.models
 import java.io.Serializable
 
 sealed class User(
-    val id: String,
+    val id: Int,
     val name: String,
     val surname: String,
     val username: String,
@@ -11,7 +11,7 @@ sealed class User(
 ) : Serializable {
 
     fun copy(
-        id: String = this.id,
+        id: Int = this.id,
         name: String = this.name,
         surname: String = this.surname,
         username: String = this.username,
@@ -24,7 +24,7 @@ sealed class User(
     }
 
     class Administrator(
-        id: String,
+        id: Int,
         name: String = "",
         surname: String = "",
         username: String = "",
@@ -33,7 +33,7 @@ sealed class User(
     ) : User(id, name, surname, username, password)
 
     class Resident(
-        id: String,
+        id: Int,
         name: String = "",
         surname: String = "",
         username: String = "",

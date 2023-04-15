@@ -171,8 +171,7 @@ fun DormitoryItemRow(
             Spacer(Modifier.height(4.dp))
             Text(
                 text = item.address
-                        + " " + item.university + " Rooms: "
-                        + item.roomQuantity.toString(),
+                        + " " + item.university + " Rooms: ",
                 style = MaterialTheme.typography.caption
                     .copy(color = textColor)
             )
@@ -268,7 +267,6 @@ fun DormItemRowPreview() {
         val dormitory = Dormitory(
             dormitoryId = 11,
             address = "Sauletekio 25",
-            roomQuantity = 100,
             rooms = listOf(),
         "VGTU"
         )

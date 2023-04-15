@@ -51,29 +51,27 @@ class DormitoriesFragment : DaggerFragment() {
         val room1 = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
         val room2 = Room(2, RoomType.SINGLE, RoomSize.MEDIUM, listOf(), "Regular room")
         val room3 = Room(3, RoomType.TRIPLE, RoomSize.BIG, listOf(), "Regular room")
-        val dormList = listOf(
-            Dormitory(
-                dormitoryId = 11,
-                address = "Sauletekio 25",
-                roomQuantity = 100,
-                rooms = listOf(room1, room2, room3),
-                "VGTU"
-            ),
-            Dormitory(
-                dormitoryId = 11,
-                address = "Sauletekio 25",
-                roomQuantity = 100,
-                rooms = listOf(),
-                "VGTU"
-            ),
-            Dormitory(
-                dormitoryId = 11,
-                address = "Sauletekio 25",
-                roomQuantity = 100,
-                rooms = listOf(),
-                "VGTU"
-            )
-        )
+        val dormList = viewModel.getDormitories()
+//        val dormList = listOf(
+//            Dormitory(
+//                dormitoryId = 11,
+//                address = "Sauletekio 25",
+//                rooms = listOf(room1, room2, room3),
+//                "VGTU"
+//            ),
+//            Dormitory(
+//                dormitoryId = 11,
+//                address = "Sauletekio 25",
+//                rooms = listOf(),
+//                "VGTU"
+//            ),
+//            Dormitory(
+//                dormitoryId = 11,
+//                address = "Sauletekio 25",
+//                rooms = listOf(),
+//                "VGTU"
+//            )
+//        )
         binding.dormsComposeView.setContent {
             RoomyMainTheme {
                 Column {

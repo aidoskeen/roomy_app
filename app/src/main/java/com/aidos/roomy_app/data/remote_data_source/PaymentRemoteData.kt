@@ -4,7 +4,7 @@ import com.aidos.roomy_app.models.MonthlyPayment
 import javax.inject.Inject
 
 class PaymentRemoteData @Inject constructor(
-
+    val hostConnection: HostConnection
 ) : PaymentsRemoteDataSource {
     override suspend fun getPayments(): List<MonthlyPayment> {
         TODO("Not yet implemented")

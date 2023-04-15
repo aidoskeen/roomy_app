@@ -1,12 +1,12 @@
 package com.aidos.roomy_app.data.remote_data_source
 
+import android.util.Log
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
 class HostConnection {
-    private var outputStream: OutputStream? = null
-    private var bufferedWriter: BufferedWriter? = null
+
 
     fun sendGetRequest(requestUrl: String): String {
         val url = URL(requestUrl)
@@ -15,7 +15,7 @@ class HostConnection {
         httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
         val code: Int = httpURLConnection.responseCode
         val responseMessage = httpURLConnection.responseMessage
-        println("Response : $responseMessage")
+        Log.d(this.javaClass.name, "Response : $responseMessage")
         return if (code == HttpURLConnection.HTTP_OK) {
             val bufferedReader = BufferedReader(InputStreamReader(httpURLConnection.inputStream))
             val response = StringBuffer()
@@ -23,10 +23,13 @@ class HostConnection {
                 bufferedReader.forEachLine { line ->
                     response.append(line)
                 }
-            else println("Response has empty body")
+            else Log.d(tag,"Response has empty body")
             bufferedReader.close()
             response.toString()
-        } else ""
+        } else {
+            Log.d(tag,"Connection error")
+            ""
+        }
     }
 
     fun sendPost(urlPost: String?, postDataParams: String?): String? {
@@ -35,13 +38,13 @@ class HostConnection {
         println(postDataParams)
 
         setConnectionParameters(httpURLConnection, "POST")
-        outputStream = httpURLConnection.getOutputStream()
-        bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
+        val outputStream = httpURLConnection.getOutputStream()
+        val bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
         bufferedWriter.write(postDataParams)
         bufferedWriter.close()
         outputStream!!.close()
-        val code: Int = httpURLConnection.getResponseCode()
-        println("Response code: $code")
+        val code: Int = httpURLConnection.responseCode
+        Log.d("HostConnection","Response code: $code")
         return if (code == HttpURLConnection.HTTP_OK) {
             val `in` = BufferedReader(InputStreamReader(httpURLConnection.getInputStream()))
             var line: String?
@@ -64,8 +67,8 @@ class HostConnection {
         println(postDataParams)
         //Reikia papildomu connectiono nustatymu, jie bus bendri su Put metodu
         setConnectionParameters(httpURLConnection, "PUT")
-        outputStream = httpURLConnection.getOutputStream()
-        bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
+        val outputStream = httpURLConnection.getOutputStream()
+        val bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
         bufferedWriter.write(postDataParams)
         //? bufferedWriter.flush();
         bufferedWriter.close()
@@ -118,5 +121,9 @@ class HostConnection {
         httpURLConnection.setRequestProperty("Accept", "application/json")
         httpURLConnection.setDoInput(true)
         httpURLConnection.setDoOutput(true)
+    }
+
+    companion object {
+        val tag = Companion::class.java.name
     }
 }

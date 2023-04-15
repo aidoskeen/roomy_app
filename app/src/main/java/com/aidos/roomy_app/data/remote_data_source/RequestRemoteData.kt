@@ -4,7 +4,7 @@ import com.aidos.roomy_app.models.Request
 import javax.inject.Inject
 
 class RequestRemoteData @Inject constructor(
-
+    val hostConnection: HostConnection
 ) : RequestRemoteDataSource {
     override fun getRequest(): Request {
         TODO("Not yet implemented")
