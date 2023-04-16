@@ -1,12 +1,13 @@
 package com.aidos.roomy_app.data.remote_data_source
 
+import com.aidos.roomy_app.data.ResponseModels.DormitoryResponse
 import com.aidos.roomy_app.models.Dormitory
 
 interface DormitoryRemoteDataSource {
 
-    fun getDormitories(): List<Dormitory>
+    suspend fun getDormitories(): List<DormitoryResponse>
 
-    fun getDormitoryById(id: Int): Dormitory
+    suspend fun getDormitoryById(id: Int): Dormitory
 
     suspend fun saveDormitories(dormitories: List<Dormitory>)
 

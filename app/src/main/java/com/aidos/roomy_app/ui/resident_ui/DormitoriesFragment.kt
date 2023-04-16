@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
@@ -51,7 +53,7 @@ class DormitoriesFragment : DaggerFragment() {
         val room1 = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
         val room2 = Room(2, RoomType.SINGLE, RoomSize.MEDIUM, listOf(), "Regular room")
         val room3 = Room(3, RoomType.TRIPLE, RoomSize.BIG, listOf(), "Regular room")
-        val dormList = viewModel.getDormitories()
+        viewModel.loadDormitories()
 //        val dormList = listOf(
 //            Dormitory(
 //                dormitoryId = 11,
@@ -73,6 +75,7 @@ class DormitoriesFragment : DaggerFragment() {
 //            )
 //        )
         binding.dormsComposeView.setContent {
+            val viewState by viewModel.dormitoriesStateFlow.collectAsState()
             RoomyMainTheme {
                 Column {
                     RoomyTopAppBar(
@@ -82,7 +85,7 @@ class DormitoriesFragment : DaggerFragment() {
                         onUserIconClick = { }
                     )
 
-                    dormList.forEach { dormitory ->
+                    viewState.forEach { dormitory ->
                         DormitoryItemRow(
                             item = dormitory,
                             painter = painterResource(id = R.drawable.ic_launcher_foreground),

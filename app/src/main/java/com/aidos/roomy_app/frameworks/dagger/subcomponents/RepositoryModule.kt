@@ -2,17 +2,30 @@ package com.aidos.roomy_app.frameworks.dagger.subcomponents
 
 import com.aidos.roomy_app.data.*
 import com.aidos.roomy_app.data.remote_data_source.*
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule {
+abstract class RepositoryModule {
+    @Singleton
+    @Binds
+    abstract fun bindDormitoryRepository(repository: DefaultDormitoryRepository): DormitoryRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindDormitoryDataSource(dataSource: DormitoryRemoteData): DormitoryRemoteDataSource
+}
+    @Module
+    class DataSourceModule {
     @Provides
     @Singleton
-    fun provideDormitoryRemoteDataSource(
+    fun provideRoomRemoteDataSource(
         hostConnection: HostConnection
-    ): DormitoryRemoteDataSource = DormitoryRemoteData(hostConnection)
+    ): RoomsRemoteDataSource = RoomsRemoteData(hostConnection)
 
     @Provides
     @Singleton
@@ -32,12 +45,13 @@ class RepositoryModule {
         hostConnection: HostConnection
     ) : PaymentsRemoteDataSource = PaymentRemoteData(hostConnection)
 
+
     @Provides
     @Singleton
-    fun provideDormitoryRepository(
-        dormitoryRemoteDataSource: DormitoryRemoteDataSource,
-    ) : DormitoryRepository = DefaultDormitoryRepository(
-        dormitoryRemoteDataSource
+    fun provideRoomRepository(
+        roomsRemoteDataSource: RoomsRemoteDataSource
+    ) : RoomRepository = DefaultRoomRepository(
+        roomsRemoteDataSource
     )
 
     @Provides

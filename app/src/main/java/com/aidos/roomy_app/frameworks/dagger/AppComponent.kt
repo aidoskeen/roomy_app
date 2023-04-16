@@ -1,10 +1,7 @@
 package com.aidos.roomy_app.frameworks.dagger
 
 import android.app.Application
-import com.aidos.roomy_app.frameworks.dagger.subcomponents.ActivityModule
-import com.aidos.roomy_app.frameworks.dagger.subcomponents.FragementModule
-import com.aidos.roomy_app.frameworks.dagger.subcomponents.RepositoryModule
-import com.aidos.roomy_app.frameworks.dagger.subcomponents.ViewModelModule
+import com.aidos.roomy_app.frameworks.dagger.subcomponents.*
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -17,7 +14,9 @@ import javax.inject.Singleton
         ActivityModule.ActivityBindingModule::class,
         FragementModule::class,
         ViewModelModule::class,
-        RepositoryModule::class
+        RepositoryModule::class,
+        CoroutinesModule::class,
+        DataSourceModule::class
     ]
 )
 

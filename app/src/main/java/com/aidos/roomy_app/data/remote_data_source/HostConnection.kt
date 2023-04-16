@@ -7,29 +7,39 @@ import java.net.URL
 
 class HostConnection {
 
-
     fun sendGetRequest(requestUrl: String): String {
         val url = URL(requestUrl)
         val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
         httpURLConnection.requestMethod = "GET"
         httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
-        val code: Int = httpURLConnection.responseCode
-        val responseMessage = httpURLConnection.responseMessage
-        Log.d(this.javaClass.name, "Response : $responseMessage")
-        return if (code == HttpURLConnection.HTTP_OK) {
-            val bufferedReader = BufferedReader(InputStreamReader(httpURLConnection.inputStream))
-            val response = StringBuffer()
-            if (bufferedReader.readLine() != null)
-                bufferedReader.forEachLine { line ->
-                    response.append(line)
-                }
-            else Log.d(tag,"Response has empty body")
-            bufferedReader.close()
-            response.toString()
-        } else {
-            Log.d(tag,"Connection error")
-            ""
+        try {
+            val code: Int = httpURLConnection.responseCode
+            val responseMessage = httpURLConnection.responseMessage
+            Log.d(this.javaClass.name, "Response : $responseMessage")
+
+            if (code == HttpURLConnection.HTTP_OK) {
+                return getResponseFromInputStream(InputStreamReader(httpURLConnection.inputStream))
+            } else {
+                Log.e(tag,"Connection error")
+                return ""
+            }
+        } catch (ex: Exception) {
+            Log.e(tag, ex.toString())
+            return ""
         }
+    }
+
+    private fun getResponseFromInputStream(reader: InputStreamReader): String {
+        val bufferedReader = BufferedReader(reader)
+        val response = StringBuffer()
+
+        bufferedReader.forEachLine { line: String? ->
+            if (line != null)
+                response.append(line)
+        }
+
+        bufferedReader.close()
+        return response.toString()
     }
 
     fun sendPost(urlPost: String?, postDataParams: String?): String? {
