@@ -2,8 +2,9 @@ package com.aidos.roomy_app.data
 
 import com.aidos.roomy_app.data.remote_data_source.RoomsRemoteDataSource
 import com.aidos.roomy_app.models.Room
+import javax.inject.Inject
 
-class DefaultRoomRepository(
+class DefaultRoomRepository @Inject constructor(
     val roomsRemoteDataSource: RoomsRemoteDataSource
 ): RoomRepository {
 

@@ -14,13 +14,8 @@ class DefaultDormitoryRepository @Inject constructor(
     private val dataSource: DormitoryRemoteDataSource
 ): DormitoryRepository {
     override suspend fun getDormitories(): List<Dormitory> {
-        return dataSource.getDormitories().map {
-            Dormitory(
-                it.dormitoryId,
-                it.address,
-                university = it.university
-            )
-        }
+        return dataSource.getDormitories()
+
     }
 
 

@@ -19,7 +19,7 @@ sealed class User(
     ) : User {
         return when (this) {
             is Administrator -> Administrator(id, name, surname, username, password, dormitory)
-            is Resident -> Resident(id, name, surname, username, password, room)
+            is Resident -> Resident(id, name, surname, username, password, roomNumber)
         }
     }
 
@@ -38,7 +38,7 @@ sealed class User(
         surname: String = "",
         username: String = "",
         password: String = "",
-        val room: Room? = null
+        val roomNumber: Int? = null
     ) : User(id, name, surname, username, password), Serializable {
 
         fun getFullName(): String {

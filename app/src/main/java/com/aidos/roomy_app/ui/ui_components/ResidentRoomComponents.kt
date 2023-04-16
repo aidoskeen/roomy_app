@@ -119,10 +119,11 @@ fun BookedRoomForm(
 @Composable
 fun InvoiceItemRow(
     modifier: Modifier = Modifier,
-    payment: MonthlyPayment,
+    payment: MonthlyPayment?,
     painter: Painter,
     onItemClicked: () -> Unit
 ) {
+    if (payment== null) return
     val textColor = MaterialTheme.colors.onSurface
     Row(
         modifier = modifier

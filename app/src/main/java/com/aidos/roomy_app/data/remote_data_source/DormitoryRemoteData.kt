@@ -1,5 +1,6 @@
 package com.aidos.roomy_app.data.remote_data_source
 
+import com.aidos.roomy_app.data.DeserializationTools.DormitoryDeserializer
 import com.aidos.roomy_app.data.ResponseModels.DormitoryResponse
 import com.aidos.roomy_app.frameworks.dagger.subcomponents.ApplicationScope
 import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
@@ -16,12 +17,16 @@ class DormitoryRemoteData @Inject constructor(
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
     @ApplicationScope private val scope: CoroutineScope,
 ) : DormitoryRemoteDataSource {
-    val gson = GsonBuilder().create()
-    override suspend fun getDormitories(): List<DormitoryResponse> {
+    private val deserializer = DormitoryDeserializer().getDormitoryJsonDeserializer()
+    private val listDeserializer = DormitoryDeserializer().getListJsonDeserializer()
+    private val gson = GsonBuilder()
+        .registerTypeAdapter(Dormitory::class.java, deserializer)
+        .create()
+    override suspend fun getDormitories(): List<Dormitory> {
         val response = withContext(dispatcher) {
             hostConnection.sendGetRequest(URL_ALL_DORMITORIES)
         }
-        val listType: Type = object : TypeToken<List<DormitoryResponse>>() {}.type
+        val listType: Type = object : TypeToken<List<Dormitory>>() {}.type
 
         return if (response == "") listOf()
         else gson.fromJson(response, listType)

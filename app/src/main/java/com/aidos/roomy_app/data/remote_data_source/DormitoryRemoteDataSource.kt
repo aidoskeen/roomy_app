@@ -5,7 +5,7 @@ import com.aidos.roomy_app.models.Dormitory
 
 interface DormitoryRemoteDataSource {
 
-    suspend fun getDormitories(): List<DormitoryResponse>
+    suspend fun getDormitories(): List<Dormitory>
 
     suspend fun getDormitoryById(id: Int): Dormitory
 
