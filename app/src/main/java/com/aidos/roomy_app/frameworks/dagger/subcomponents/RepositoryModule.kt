@@ -17,67 +17,47 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindDormitoryDataSource(dataSource: DormitoryRemoteData): DormitoryRemoteDataSource
+    abstract fun bindRoomRepository(repository: DefaultRoomRepository): RoomRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindUserRepository(repository: DefaultUserRepository): UserRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindRequestRepository(repository: DefaultRequestRepository): RequestRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindPaymentRepository(repository: DefaultPaymentRepository): PaymentRepository
 }
-    @Module
-    class DataSourceModule {
-    @Provides
+
+@Module
+abstract class DataSourceModule {
     @Singleton
-    fun provideRoomRemoteDataSource(
-        hostConnection: HostConnection
-    ): RoomsRemoteDataSource = RoomsRemoteData(hostConnection)
+    @Binds
+    abstract fun bindDormitoryDataSource(dataSource: DormitoryRemoteData): DormitoryRemoteDataSource
 
-    @Provides
     @Singleton
-    fun provideUserRemoteDataSource(
-        hostConnection: HostConnection
-    ) : UserRemoteDataSource = UserRemoteData(hostConnection)
+    @Binds
+    abstract fun bindUserDataSource(dataSource: UserRemoteData): UserRemoteDataSource
 
-    @Provides
     @Singleton
-    fun provideRequestRemoteDataSource(
-        hostConnection: HostConnection
-    ) : RequestRemoteDataSource = RequestRemoteData(hostConnection)
+    @Binds
+    abstract fun bindRoomDataSource(dataSource: RoomsRemoteData): RoomsRemoteDataSource
 
-    @Provides
     @Singleton
-    fun providePaymentRemoteDataSource(
-        hostConnection: HostConnection
-    ) : PaymentsRemoteDataSource = PaymentRemoteData(hostConnection)
+    @Binds
+    abstract fun bindRequestDataSource(dataSource: RequestRemoteData): RequestRemoteDataSource
 
-
-    @Provides
     @Singleton
-    fun provideRoomRepository(
-        roomsRemoteDataSource: RoomsRemoteDataSource
-    ) : RoomRepository = DefaultRoomRepository(
-        roomsRemoteDataSource
-    )
+    @Binds
+    abstract fun bindPaymentDataSource(dataSource: PaymentRemoteData): PaymentsRemoteDataSource
 
-    @Provides
-    @Singleton
-    fun provideUserRepository(
-        userRemoteDataSource: UserRemoteDataSource
-    ) : UserRepository = DefaultUserRepository(
-        userRemoteDataSource
-    )
+}
 
-    @Provides
-    @Singleton
-    fun provideRequestRepository(
-        requestRemoteDataSource: RequestRemoteDataSource
-    ) : RequestRepository = DefaultRequestRepository(
-        requestRemoteDataSource
-    )
-
-    @Provides
-    @Singleton
-    fun providePaymentRepository(
-        paymentsRemoteDataSource: PaymentsRemoteDataSource
-    ) : PaymentRepository = DefaultPaymentRepository(
-        paymentsRemoteDataSource
-    )
-
+@Module
+class ConnectionModule {
     @Provides
     @Singleton
     fun provideHostConnection() : HostConnection = HostConnection()
