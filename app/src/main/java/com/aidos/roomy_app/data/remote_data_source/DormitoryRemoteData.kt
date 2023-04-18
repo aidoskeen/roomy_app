@@ -14,14 +14,14 @@ import javax.inject.Inject
 
 class DormitoryRemoteData @Inject constructor(
     private val hostConnection: HostConnection,
-    @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
-    @ApplicationScope private val scope: CoroutineScope,
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) : DormitoryRemoteDataSource {
     private val deserializer = DormitoryDeserializer().getDormitoryJsonDeserializer()
     private val listDeserializer = DormitoryDeserializer().getListJsonDeserializer()
     private val gson = GsonBuilder()
         .registerTypeAdapter(Dormitory::class.java, deserializer)
         .create()
+
     override suspend fun getDormitories(): List<Dormitory> {
         val response = withContext(dispatcher) {
             hostConnection.sendGetRequest(URL_ALL_DORMITORIES)
@@ -50,6 +50,6 @@ class DormitoryRemoteData @Inject constructor(
 
     companion object {
         private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
-        const val URL_ALL_DORMITORIES = "${HOST_ADDRESS}dormitory/allDormitories"
+        private const val URL_ALL_DORMITORIES = "${HOST_ADDRESS}dormitory/allDormitories"
     }
 }

@@ -1,5 +1,6 @@
 package com.aidos.roomy_app.data.remote_data_source
 
+import android.util.Log
 import com.aidos.roomy_app.data.ResponseModels.DormitoryResponse
 import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
 import com.aidos.roomy_app.models.Room
@@ -18,12 +19,20 @@ class RoomsRemoteData @Inject constructor(
     private val gson = GsonBuilder().create()
     override suspend fun getDormitoryRooms(dormitoryId: Int): List<Room> {
         val response = withContext(dispatcher) {
-            hostConnection.sendGetRequest(DormitoryRemoteData.URL_ALL_DORMITORIES)
+            hostConnection.sendGetRequest(URL_GET_ROOMS_BY_DORMITORY)
         }
-        val listType: Type = object : TypeToken<List<DormitoryResponse>>() {}.type
+        val listType: Type = object : TypeToken<List<Room>>() {}.type
 
-        return if (response == "") listOf()
-        else gson.fromJson(response, listType)
+        if (response == "")  return listOf()
+
+        else
+            return try {
+                gson.fromJson(response, listType)
+            }
+            catch (ex: Exception) {
+                ex.printStackTrace()
+                listOf()
+            }
     }
 
     override suspend fun getRoom(id: String): Room {
@@ -45,5 +54,10 @@ class RoomsRemoteData @Inject constructor(
 
     override suspend fun deleteAllRooms() {
         TODO("Not yet implemented")
+    }
+
+    companion object {
+        private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
+        private const val URL_GET_ROOMS_BY_DORMITORY = "${HOST_ADDRESS}room/allRooms"
     }
 }
