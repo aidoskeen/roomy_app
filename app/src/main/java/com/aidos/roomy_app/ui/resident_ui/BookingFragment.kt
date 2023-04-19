@@ -65,7 +65,9 @@ class BookingFragment : Fragment() {
                             resident = resident,
                             room = room,
                             date = currentDate
-                        )
+                        ) {
+
+                        }
                 }
                 else
                     Text(text = stringResource(id = R.string.user_not_authorized))

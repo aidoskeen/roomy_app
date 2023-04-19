@@ -134,7 +134,8 @@ fun TextRow(
 fun RoomBookingForm(
     resident: User.Resident,
     room: Room,
-    date: String
+    date: String? = null,
+    onButtonClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -199,14 +200,14 @@ fun RoomBookingForm(
 
         TextRow(
             label = stringResource(id = R.string.date_of_booking),
-            value = date
+            value = date ?: ""
         )
 
         Divider(thickness = 1.dp)
 
         RoomyButton(
             text = stringResource(id = R.string.button_send_request),
-            onClick = { /*TODO*/ }
+            onClick = onButtonClicked
         )
 
     }
@@ -248,7 +249,7 @@ fun RoomBookingReview() {
             resident = resident,
             room = room, 
             date = "2023/03/23"
-        )
+        ) {}
     }
 
 }

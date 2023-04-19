@@ -1,7 +1,7 @@
 package com.aidos.roomy_app.ui.admin_ui
 
 import androidx.lifecycle.ViewModel
-import com.aidos.roomy_app.data.RoomRepository
+import com.aidos.roomy_app.data.repository.RoomRepository
 import javax.inject.Inject
 
 class EditRoomViewModel @Inject constructor(

@@ -1,13 +1,7 @@
-package com.aidos.roomy_app.data
+package com.aidos.roomy_app.data.repository
 
 import com.aidos.roomy_app.data.remote_data_source.DormitoryRemoteDataSource
-import com.aidos.roomy_app.frameworks.dagger.subcomponents.ApplicationScope
-import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
 import com.aidos.roomy_app.models.Dormitory
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DefaultDormitoryRepository @Inject constructor(

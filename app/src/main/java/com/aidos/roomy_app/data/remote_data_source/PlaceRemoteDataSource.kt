@@ -5,5 +5,5 @@ import com.aidos.roomy_app.models.Place
 
 interface PlaceRemoteDataSource {
 
-    suspend fun updatePlace(place: Place, properties: String): HostActionStatus
+    suspend fun updatePlace(placeId: String, properties: String): HostActionStatus
 }

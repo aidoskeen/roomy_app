@@ -2,7 +2,7 @@ package com.aidos.roomy_app.ui.resident_ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aidos.roomy_app.data.DormitoryRepository
+import com.aidos.roomy_app.data.repository.DormitoryRepository
 import com.aidos.roomy_app.models.Dormitory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

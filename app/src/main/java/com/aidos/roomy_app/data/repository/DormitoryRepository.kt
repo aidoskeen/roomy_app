@@ -1,4 +1,4 @@
-package com.aidos.roomy_app.data
+package com.aidos.roomy_app.data.repository
 
 import com.aidos.roomy_app.models.Dormitory
 

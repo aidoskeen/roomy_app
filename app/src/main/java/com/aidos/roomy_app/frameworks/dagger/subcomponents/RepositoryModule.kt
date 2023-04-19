@@ -1,12 +1,10 @@
 package com.aidos.roomy_app.frameworks.dagger.subcomponents
 
-import com.aidos.roomy_app.data.*
 import com.aidos.roomy_app.data.remote_data_source.*
+import com.aidos.roomy_app.data.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
@@ -30,6 +28,10 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindPaymentRepository(repository: DefaultPaymentRepository): PaymentRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindPlaceRepository(repository: DefaultPlaceRepository): PlaceRepository
 }
 
 @Module
@@ -53,6 +55,10 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun bindPaymentDataSource(dataSource: PaymentRemoteData): PaymentsRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindPlaceDataSource(dataSource: PlaceRemoteData): PlaceRemoteDataSource
 
 }
 
