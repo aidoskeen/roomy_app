@@ -1,13 +1,14 @@
 package com.aidos.roomy_app.data.remote_data_source
 
+import com.aidos.roomy_app.enums.HostActionStatus
 import com.aidos.roomy_app.models.Request
 
 interface RequestRemoteDataSource {
     fun getRequest(): Request
 
-    fun getAllRequests(): List<Request>
+    suspend fun getAllRequests(): List<Request>
 
-    fun updateRequest(id: String, request: Request)
+    suspend fun updateRequest(id: String, requestProperties: String): HostActionStatus
 
-    fun removeRequest(id: String, request: Request)
+    override suspend fun removeRequest(requestId: String): HostActionStatus
 }

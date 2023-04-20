@@ -17,7 +17,6 @@ class DormitoryRemoteData @Inject constructor(
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) : DormitoryRemoteDataSource {
     private val deserializer = DormitoryDeserializer().getDormitoryJsonDeserializer()
-    private val listDeserializer = DormitoryDeserializer().getListJsonDeserializer()
     private val gson = GsonBuilder()
         .registerTypeAdapter(Dormitory::class.java, deserializer)
         .create()
