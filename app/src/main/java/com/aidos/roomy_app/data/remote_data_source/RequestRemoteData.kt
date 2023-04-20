@@ -39,7 +39,7 @@ class RequestRemoteData @Inject constructor(
 
     override suspend fun updateRequest(id: String, requestProperties: String): HostActionStatus {
         val response = withContext(dispatcher) {
-            hostConnection.sendPut(URL_ALL_REQUESTS, requestProperties)
+            hostConnection.sendPut(URL_UPDATE_REQUEST, requestProperties)
         }
         return if (response == "Success") HostActionStatus.SUCCESS
         else HostActionStatus.ERROR

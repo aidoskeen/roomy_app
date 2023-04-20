@@ -31,6 +31,7 @@ class BookingViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(BookingUiState())
     val uiState: StateFlow<BookingUiState> = _uiState.asStateFlow()
+
     fun startBooking(place: Place) {
         viewModelScope.launch {
             val result = placeRepository.updatePlace(place)
