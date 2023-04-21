@@ -1,9 +1,11 @@
 package com.aidos.roomy_app.data.repository
 
 import com.aidos.roomy_app.models.User
+import kotlinx.coroutines.flow.StateFlow
 
 interface UserRepository {
 
+    fun getCurrentUserFlow(): StateFlow<User.Resident>
     suspend fun getAllUsers(): List<User>
 
     suspend fun getResidents(): List<User.Resident>

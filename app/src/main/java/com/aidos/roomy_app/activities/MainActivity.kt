@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.ui.resident_ui.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import dagger.android.AndroidInjection
@@ -16,9 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val mainViewModel: MainViewModel by lazy {
+    private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -44,7 +46,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
-                    navController.navigate(R.id.action_global_profileFragment)
+                    navController.navigate(
+                        R.id.action_global_profileFragment,
+                        Bundle().apply {
+                            putSerializable(ProfileFragment.CURRENT_RESIDENT, viewModel.getCurrentResident())
+                        })
                     true
                 }
                 else -> false

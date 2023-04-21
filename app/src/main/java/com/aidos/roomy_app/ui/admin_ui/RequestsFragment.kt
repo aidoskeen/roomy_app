@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -19,8 +21,6 @@ import com.aidos.roomy_app.databinding.FragmentRequestsBinding
 import com.aidos.roomy_app.enums.RequestStatus
 import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
-import com.aidos.roomy_app.models.Dormitory
-import com.aidos.roomy_app.models.Request
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
@@ -53,33 +53,9 @@ class RequestsFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = binding ?: return
-        val resident = User.Resident(1, name = "Aidos", surname = "Alimkhan")
-        val room1 = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
 
-
-        val dormitory = Dormitory(
-            dormitoryId = 11,
-            address = "Sauletekio 25",
-            rooms = listOf(room1),
-            "VGTU"
-        )
-        val requests = listOf<Request>(
-            Request(
-                1,
-                resident,
-                room = room1,
-                dormitory = dormitory,
-                requestStatus = RequestStatus.NONE
-            ),
-            Request(
-                2,
-                resident,
-                room = room1,
-                dormitory = dormitory,
-                requestStatus = RequestStatus.NONE
-            ),
-        )
         binding.composeView.setContent {
+            val requests by viewModel.requestsStateFlow.collectAsState()
             val requestTitle = stringResource(id = R.string.request_management)
             RoomyMainTheme {
                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -94,8 +70,8 @@ class RequestsFragment : DaggerFragment() {
                     requests.forEach { request ->
                         RequestItem(
                             request = request,
-                            onAcceptClicked = { /*TODO*/ },
-                            onRejectClicked = { /*TODO*/ }
+                            onAcceptClicked = { viewModel.setRequestStatus(request, RequestStatus.ACCEPTED) },
+                            onRejectClicked = { viewModel.setRequestStatus(request, RequestStatus.ACCEPTED) }
                         )
                     }
                 }

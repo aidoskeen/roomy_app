@@ -16,7 +16,6 @@ import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentDormitoriesBinding
 import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
-import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.DormitoryItemRow
@@ -94,7 +93,7 @@ class DormitoriesFragment : DaggerFragment() {
                                 findNavController().navigate(R.id.action_dormitoriesFragment_to_roomsFragment,
                                 Bundle().apply
                                  {
-                                     putSerializable(RoomsFragment.DORMITORY, dormitory)  }
+                                     putSerializable(RoomsFragment.KEY_DORMITORY, dormitory)  }
                                 )
                             })
                     }

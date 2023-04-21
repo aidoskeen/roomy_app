@@ -40,10 +40,10 @@ class RoomsFragment : DaggerFragment() {
     private var binding: FragmentRoomsBinding? = null
 
     companion object {
-        const val DORMITORY = "DORMITORY"
+        const val KEY_DORMITORY = "DORMITORY"
     }
 
-    private fun dormitoryArgs() = requireArguments().getSerializable(DORMITORY) as? Dormitory
+    private fun dormitoryArgs() = requireArguments().getSerializable(KEY_DORMITORY) as? Dormitory
 
     private val viewModel: RoomsViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[RoomsViewModel::class.java]

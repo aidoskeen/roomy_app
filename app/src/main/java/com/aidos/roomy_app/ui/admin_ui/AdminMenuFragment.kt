@@ -2,11 +2,9 @@ package com.aidos.roomy_app.ui.admin_ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,17 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
-import com.aidos.roomy_app.databinding.FragmentAdminLoginBinding
 import com.aidos.roomy_app.databinding.FragmentAdminMenuBinding
 import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
 import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.models.Room
-import com.aidos.roomy_app.ui.resident_ui.LoginViewModel
 import com.aidos.roomy_app.ui.resident_ui.RoomsFragment
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.MenuOption
@@ -107,7 +102,7 @@ class AdminMenuFragment : DaggerFragment() {
                         onClick = {  findNavController().navigate(R.id.action_adminMenuFragment_to_manageRoomsFragment,
                             Bundle().apply
                             {
-                                putSerializable(RoomsFragment.DORMITORY, dormitory)  }
+                                putSerializable(RoomsFragment.KEY_DORMITORY, dormitory)  }
                         ) }
                     )
 

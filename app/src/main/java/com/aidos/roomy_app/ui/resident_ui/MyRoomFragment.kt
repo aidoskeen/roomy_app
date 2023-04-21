@@ -23,7 +23,7 @@ import javax.inject.Inject
 class MyRoomFragment : DaggerFragment() {
 
     companion object {
-
+        const val KEY_ROOM = "KEY_ROOM"
     }
 
     private var binding: FragmentMyRoomBinding? = null

@@ -10,5 +10,5 @@ interface RequestRemoteDataSource {
 
     suspend fun updateRequest(id: String, requestProperties: String): HostActionStatus
 
-    override suspend fun removeRequest(requestId: String): HostActionStatus
+    suspend fun removeRequest(requestId: String): HostActionStatus
 }

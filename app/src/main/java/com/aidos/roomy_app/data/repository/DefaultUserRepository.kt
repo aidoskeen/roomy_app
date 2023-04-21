@@ -2,6 +2,8 @@ package com.aidos.roomy_app.data.repository
 
 import com.aidos.roomy_app.data.remote_data_source.UserRemoteDataSource
 import com.aidos.roomy_app.models.User
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -9,6 +11,10 @@ import javax.inject.Singleton
 class DefaultUserRepository @Inject constructor(
     private val dataSource: UserRemoteDataSource
 ) : UserRepository {
+    private val _currentResidentFlow = MutableStateFlow(User.Resident(-1))
+
+    override fun getCurrentUserFlow(): StateFlow<User.Resident> = _currentResidentFlow
+
     override suspend fun getAllUsers(): List<User> = dataSource.fetchUsers()
 
     override suspend fun getResidents(): List<User.Resident> = dataSource.fetchUsers().filterIsInstance(User.Resident::class.java)
@@ -19,8 +25,12 @@ class DefaultUserRepository @Inject constructor(
 
     override suspend fun deleteUser(id: String) = dataSource.removeUser(id)
 
-
-    override suspend fun getUserByLoginData(login: String, password: String): User = dataSource.getUserByLoginData(login, password)
+    override suspend fun getUserByLoginData(login: String, password: String): User {
+        val user = dataSource.getUserByLoginData(login, password)
+        if (user is User.Resident)
+            _currentResidentFlow.value = user
+        return user
+    }
 
     override suspend fun updateResident(id: Int, resident: User.Resident) = dataSource.updateResident(id, resident)
 

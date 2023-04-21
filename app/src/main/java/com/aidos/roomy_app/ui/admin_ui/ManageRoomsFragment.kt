@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
@@ -26,11 +25,8 @@ import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentManageRoomsBinding
 import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.models.Room
-import com.aidos.roomy_app.models.User
-import com.aidos.roomy_app.ui.resident_ui.BookingFragment
 import com.aidos.roomy_app.ui.resident_ui.RoomsFragment
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
-import com.aidos.roomy_app.ui.ui_components.RoomItemRow
 import com.aidos.roomy_app.ui.ui_components.RoomRow
 import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
 import dagger.android.support.DaggerFragment
@@ -42,7 +38,7 @@ class ManageRoomsFragment : DaggerFragment() {
         const val DORMITORY = "DORMITORY"
     }
 
-    private fun dormitoryArgs() = requireArguments().getSerializable(RoomsFragment.DORMITORY) as? Dormitory
+    private fun dormitoryArgs() = requireArguments().getSerializable(RoomsFragment.KEY_DORMITORY) as? Dormitory
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

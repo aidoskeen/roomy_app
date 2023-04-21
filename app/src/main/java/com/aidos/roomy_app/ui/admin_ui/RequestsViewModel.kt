@@ -5,9 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.aidos.roomy_app.data.repository.RequestRepository
 import com.aidos.roomy_app.enums.RequestStatus
 import com.aidos.roomy_app.models.Request
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RequestsViewModel @Inject constructor(
@@ -26,7 +28,10 @@ class RequestsViewModel @Inject constructor(
     fun setRequestStatus(request: Request, requestStatus: RequestStatus) {
         val newRequest = request.copy(requestStatus = requestStatus)
         viewModelScope.launch {
-            requestRepository.updateRequestStatus(newRequest)
+            val status = withContext(Dispatchers.Default) {
+                requestRepository.updateRequestStatus(newRequest)
+            }
+            //TODO: status handling and showing message
         }
     }
 }

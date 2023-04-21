@@ -6,10 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.databinding.FragmentProfileBinding
+import com.aidos.roomy_app.models.User
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment() {
+
+    companion object {
+        const val CURRENT_RESIDENT = "CURRENT_RESIDENT"
+    }
+
+    fun currentResidentArgs() = requireArguments().getSerializable(CURRENT_RESIDENT) as? User.Resident
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
