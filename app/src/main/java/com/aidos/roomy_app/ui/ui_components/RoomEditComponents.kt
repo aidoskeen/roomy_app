@@ -34,8 +34,11 @@ import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 fun RoomEditForm(
     image: Painter,
     room: Room,
-    onValueChanged: (String) -> Unit
+    roomSizesList: List<String>,
+    roomTypesList: List<String>,
+    onButtonClick: (Room) -> Unit
 ) {
+    var newRoom = room
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -73,30 +76,38 @@ fun RoomEditForm(
         EditableTextRow(
             label = roomNumberTitle,
             currentValue = room.roomNumber.toString(),
-            onValueChanged = { } )
+            onValueChanged = { newRoom = newRoom.copy(roomNumber = it.toInt()) } )
 
 
-        val sizeString = when (room.roomSize) {
-            RoomSize.SMALL -> stringResource(R.string.small_room)
-            RoomSize.MEDIUM -> stringResource(R.string.medium_room)
-            RoomSize.BIG -> stringResource(R.string.big_room)
-        }
-
-        EditableTextRow(
+        TextRowWithDropDownList(
             label = roomSizeTitle,
-            currentValue = sizeString,
-            onValueChanged = { } )
+            items = roomSizesList,
+            onItemChosen = {
+                val size = when (it) {
+                    "SMALL" -> RoomSize.SMALL
+                    "BIG" -> RoomSize.BIG
+                    "MEDIUM" -> RoomSize.MEDIUM
+                    else -> RoomSize.SMALL
+                }
 
-        val typeString = when (room.roomType) {
-            RoomType.SINGLE -> stringResource(id = R.string.single_room)
-            RoomType.DOUBLE -> stringResource(R.string.double_room)
-            RoomType.TRIPLE -> stringResource(R.string.triple_room)
-        }
+                newRoom = newRoom.copy(roomSize = size)}
+        )
 
-        EditableTextRow(
+
+        TextRowWithDropDownList(
             label = typeTitle,
-            currentValue = typeString,
-            onValueChanged = { } )
+            items = roomTypesList,
+            onItemChosen = {
+                val type = when (it) {
+                    "SINGLE" -> RoomType.SINGLE
+                    "DOUBLE" -> RoomType.DOUBLE
+                    "TRIPLE" -> RoomType.TRIPLE
+                    else -> RoomType.DOUBLE
+                }
+
+                newRoom = newRoom.copy(roomType = type)
+            }
+        )
 
         Divider()
 
@@ -121,11 +132,41 @@ fun RoomEditForm(
 
         RoomyButton(
             text = stringResource(id = R.string.apply_edit_button),
-            onClick = { /*TODO*/ }
+            onClick = { onButtonClick(newRoom) }
         )
     }
 }
+@Composable
+fun TextRowWithDropDownList(
+    modifier: Modifier = Modifier,
+    items: List<String>,
+    label: String = "",
+    onItemChosen: (String) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
 
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = label,
+            modifier = modifier,
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.subtitle2,
+            color = MaterialTheme.colors.onSurface
+        )
+
+        DropDownList(
+            expanded = expanded,
+            items = items,
+            onDismissRequest = { expanded = it },
+            onItemChosen = onItemChosen
+        )
+    }
+}
 @Composable
 fun EditableTextRow(
     modifier: Modifier = Modifier,
@@ -140,7 +181,8 @@ fun EditableTextRow(
     Row(
         modifier = Modifier
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = label,
@@ -153,9 +195,10 @@ fun EditableTextRow(
         OutlinedTextField(
             value = value,
             label = { Text(text = currentValue) },
+            singleLine = true,
             onValueChange = {
-                    newText: String -> value = newText
-                    onValueChanged(value)
+              newText: String -> value = newText
+              onValueChanged(value)
             }
         )
     }
@@ -167,9 +210,6 @@ fun RemovableRow(
     value: String = "",
     onIconClicked: () -> Unit
 ) {
-    var value by remember {
-        mutableStateOf("")
-    }
     val removeIcon = painterResource(id = R.drawable.ic_remove)
     Row(
         modifier = modifier
@@ -203,7 +243,15 @@ fun PreviewRoomEditForm() {
     val place = Place(price = 100L, monthlyPayment = payment, livingResident = resident)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
     val image = painterResource(id = R.drawable.ic_launcher_foreground)
+    val roomSizesList = listOf("SMALL", "BIG")
+    val roomTypesList = listOf("SINGLE", "DOUBLE")
     RoomyMainTheme {
-        RoomEditForm(image = image, room = room, onValueChanged = { })
+        RoomEditForm(
+            image = image,
+            room = room,
+            onButtonClick = { },
+            roomSizesList = roomSizesList,
+            roomTypesList = roomTypesList
+        )
     }
 }

@@ -5,8 +5,9 @@ import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
 import com.aidos.roomy_app.models.Place
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PlaceRemoteData(
+class PlaceRemoteData @Inject constructor(
     private val hostConnection: HostConnection,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ): PlaceRemoteDataSource {

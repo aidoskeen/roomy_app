@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.ViewModelProvider
+import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentEditRoomBinding
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.resident_ui.BookingFragment
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
+import com.aidos.roomy_app.ui.ui_components.RoomEditForm
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -45,7 +48,9 @@ class EditRoomFragment : DaggerFragment() {
         val roomToBeEdited = roomArgs()
         binding.composeView.setContent {
             RoomyMainTheme {
+                if (roomToBeEdited != null) {
 
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.databinding.FragmentProfileBinding
 import com.aidos.roomy_app.models.User
+import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -40,7 +41,9 @@ class ProfileFragment : DaggerFragment() {
         val binding = binding ?: return
 
         binding.composeView.setContent {
+            RoomyMainTheme {
 
+            }
         }
     }
 }
