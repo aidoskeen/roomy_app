@@ -65,8 +65,8 @@ class BookingFragment : Fragment() {
                             resident = resident,
                             room = room,
                             date = currentDate
-                        ) {
-
+                        ) { place ->
+                            viewModel.startBooking(place)
                         }
                 }
                 else

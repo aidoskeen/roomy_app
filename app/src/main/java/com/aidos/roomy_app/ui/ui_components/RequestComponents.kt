@@ -3,12 +3,13 @@ package com.aidos.roomy_app.ui.ui_components
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -135,7 +136,7 @@ fun RoomBookingForm(
     resident: User.Resident,
     room: Room,
     date: String? = null,
-    onButtonClicked: () -> Unit
+    onButtonClicked: (Place) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -207,9 +208,72 @@ fun RoomBookingForm(
 
         RoomyButton(
             text = stringResource(id = R.string.button_send_request),
-            onClick = onButtonClicked
+            onClick = { onButtonClicked(room.places[0]) }
         )
 
+    }
+}
+
+@Composable
+fun PlaceSelector(
+    placeCount: Int,
+    places: List<Place>
+) {
+    Box(
+        modifier = Modifier
+            .border(
+                width = 4.dp,
+                color = MaterialTheme.colors.primary,
+                shape = RoundedCornerShape(4.dp)
+            )
+            .background(color = MaterialTheme.colors.surface)
+    ) {
+        if (placeCount == 2) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_bed),
+                    contentDescription = null
+                )
+
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_bed),
+                    contentDescription = null
+                )
+            }
+        }
+        else if (placeCount == 3) {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Icon(
+                        modifier = Modifier.clickable(onClick = {}),
+                        painter = painterResource(id = R.drawable.ic_bed),
+                        contentDescription = null
+                    )
+
+                    Icon(
+                        modifier = Modifier.clickable(onClick = {}),
+                        painter = painterResource(id = R.drawable.ic_bed),
+                        contentDescription = null
+                    )
+                }
+                Icon(
+                    modifier = Modifier.clickable(onClick = {}),
+                    painter = painterResource(id = R.drawable.ic_bed),
+                    contentDescription = null
+                )
+            }
+        }
     }
 }
 
@@ -252,4 +316,13 @@ fun RoomBookingReview() {
         ) {}
     }
 
+}
+
+@Composable
+@Preview(name = "Selector review light", uiMode = UI_MODE_NIGHT_NO)
+@Preview(name = "Selector review dark", uiMode = UI_MODE_NIGHT_YES)
+fun PlaceSelector() {
+    RoomyMainTheme {
+        PlaceSelector(placeCount = 3, places = listOf())
+    }
 }

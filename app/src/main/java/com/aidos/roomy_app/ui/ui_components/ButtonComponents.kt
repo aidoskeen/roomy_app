@@ -32,7 +32,7 @@ fun RoomyButton(
             .clip(RoundedCornerShape(25.dp))
             .height(55.dp)
             .clickable(
-                onClick = { onClick() }
+                onClick = onClick
             )
             .background(color = color)
             .then(modifier),
