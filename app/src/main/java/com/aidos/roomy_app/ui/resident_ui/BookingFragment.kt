@@ -58,7 +58,7 @@ class BookingFragment : Fragment() {
         val currentDate = formatter.format(date).toString()
 
         binding.composeView.setContent {
-            RoomyMainTheme() {
+            RoomyMainTheme {
                 if (resident != null) {
                     if (room != null)
                         RoomBookingForm(

@@ -1,6 +1,7 @@
 package com.aidos.roomy_app.ui.ui_components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -50,6 +51,7 @@ fun MakeAnnouncementForm(
 
             TextField(
                 modifier = Modifier
+                    .background(color = MaterialTheme.colors.surface)
                     .height(500.dp)
                     .fillMaxWidth()
                     .constrainAs(inputRef) {

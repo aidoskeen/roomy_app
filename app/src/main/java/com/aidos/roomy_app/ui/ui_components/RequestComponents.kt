@@ -6,15 +6,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -138,6 +140,7 @@ fun RoomBookingForm(
     date: String? = null,
     onButtonClicked: (Place) -> Unit
 ) {
+    var chosenPlace: Place? = null
     Column(
         modifier = Modifier
             .padding(16.dp),
@@ -153,16 +156,9 @@ fun RoomBookingForm(
             color = MaterialTheme.colors.onSurface
         )
 
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .align(CenterHorizontally)
-                .heightIn(max = 170.dp)
-                .widthIn(max = 300.dp)
-                .aspectRatio(16f / 9f)
-                .clip(RoundedCornerShape(16.dp))
+        PlaceSelector(
+            places = room.places,
+            onPlaceClicked = { place ->  chosenPlace = place }
         )
 
         Divider(thickness = 1.dp)
@@ -208,17 +204,18 @@ fun RoomBookingForm(
 
         RoomyButton(
             text = stringResource(id = R.string.button_send_request),
-            onClick = { onButtonClicked(room.places[0]) }
+            onClick = { chosenPlace?.let { onButtonClicked(it) } }
         )
-
     }
 }
 
 @Composable
 fun PlaceSelector(
-    placeCount: Int,
-    places: List<Place>
+    places: List<Place>,
+    onPlaceClicked: (Place) -> Unit
 ) {
+    var iconClicked by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .border(
@@ -227,54 +224,50 @@ fun PlaceSelector(
                 shape = RoundedCornerShape(4.dp)
             )
             .background(color = MaterialTheme.colors.surface)
+            .heightIn(max = 150.dp)
+            .widthIn(max = 300.dp)
+            .aspectRatio(16f / 9f)
     ) {
-        if (placeCount == 2) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_bed),
-                    contentDescription = null
-                )
-
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_bed),
-                    contentDescription = null
-                )
-            }
-        }
-        else if (placeCount == 3) {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
+        val chunkedList = places.chunked(2)
+        Column(modifier = Modifier.fillMaxSize()) {
+            chunkedList.forEach { childList ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Icon(
-                        modifier = Modifier.clickable(onClick = {}),
-                        painter = painterResource(id = R.drawable.ic_bed),
-                        contentDescription = null
-                    )
-
-                    Icon(
-                        modifier = Modifier.clickable(onClick = {}),
-                        painter = painterResource(id = R.drawable.ic_bed),
-                        contentDescription = null
-                    )
+                    childList.forEach {
+                        ClickableIcon(
+                            painter = painterResource(id = R.drawable.ic_bed)
+                        ) {
+                            onPlaceClicked(it)
+                        }
+                    }
                 }
-                Icon(
-                    modifier = Modifier.clickable(onClick = {}),
-                    painter = painterResource(id = R.drawable.ic_bed),
-                    contentDescription = null
-                )
             }
         }
     }
+}
+
+@Composable
+fun ClickableIcon(
+    modifier: Modifier = Modifier,
+    painter: Painter,
+    onClick: () -> Unit
+) {
+    var iconClicked by remember { mutableStateOf(false) }
+    val color = if (iconClicked) Color.LightGray else MaterialTheme.colors.onSurface
+
+    Icon(
+        modifier = Modifier.clickable(
+            onClick = {
+                onClick()
+                iconClicked = !iconClicked
+            }
+        ),
+        painter = painter,
+        tint = color,
+        contentDescription = null
+    )
 }
 
 @Composable
@@ -321,8 +314,12 @@ fun RoomBookingReview() {
 @Composable
 @Preview(name = "Selector review light", uiMode = UI_MODE_NIGHT_NO)
 @Preview(name = "Selector review dark", uiMode = UI_MODE_NIGHT_YES)
-fun PlaceSelector() {
+fun PlaceSelectorPreview() {
+    val place = Place(price = 100L)
+    val place2 = Place(price = 200L)
+    val place3 = Place(price = 300L)
+
     RoomyMainTheme {
-        PlaceSelector(placeCount = 3, places = listOf())
+        PlaceSelector(places = listOf(place, place2, place3), onPlaceClicked = {})
     }
 }
