@@ -2,6 +2,7 @@ package com.aidos.roomy_app.ui.ui_components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -12,11 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.models.Announcement
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 
 @Composable
@@ -27,7 +30,9 @@ fun MakeAnnouncementForm(
 ) {
     val title = stringResource(id = R.string.make_announcement)
     val announcementLabel = stringResource(id = R.string.announcement_text)
-    Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(20.dp)) {
         ConstraintLayout(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -80,11 +85,91 @@ fun MakeAnnouncementForm(
 }
 
 @Composable
+fun AnnouncementRow(
+    modifier: Modifier = Modifier,
+    announcement: Announcement
+) {
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+
+    Column(
+        modifier = modifier
+            .clickable(onClick = { expanded = !expanded })
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            modifier = Modifier,
+            text = announcement.title,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.h4,
+            color = MaterialTheme.colors.onSurface,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        if (!expanded)
+            Text(
+                modifier = Modifier,
+                text = announcement.text,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.body2.copy(
+                    color = MaterialTheme.colors.onSurface
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        else
+            Text(
+                modifier = Modifier,
+                text = announcement.text,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.body2.copy(
+                    color = MaterialTheme.colors.onSurface
+                )
+            )
+
+        Divider()
+    }
+}
+
+@Composable
 @Preview(name = "Announcement Form review light", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(name = "Announcement Form review dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun MakeAnnouncementPreview() {
     RoomyMainTheme {
         MakeAnnouncementForm(onValueChange = {}, onButtonClick = {}, text = "")
+    }
+
+}
+
+@Composable
+@Preview(name = "Announcement Form review light", uiMode = Configuration.UI_MODE_NIGHT_NO, widthDp = 250, heightDp = 600)
+@Preview(name = "Announcement Form review dark", uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 250, heightDp = 600)
+fun MakeAnnouncementRowPreview() {
+    val announcementList = listOf(
+        Announcement(
+            0,
+            "Price will be increase",
+            "bla bla bla bla bla bla bla bla bla bla bla bla bla bla"
+        ),
+        Announcement(
+            0,
+            "Dormitory will be renovated",
+            "text text text text text text  text text text  text text text  text text text  text text text  text text text "
+        ),
+    )
+
+    RoomyMainTheme {
+        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            announcementList.forEach { announcement ->
+                AnnouncementRow(announcement = announcement)
+            }
+        }
+
     }
 
 }
