@@ -25,8 +25,9 @@ class BookingFragment : Fragment() {
     companion object {
         const val ROOM = "ROOM"
         const val RESIDENT = "RESIDENT"
+        const val DORMITORY_ID = "DORMITORY_ID"
     }
-
+    private fun dormitoryArgs() = requireArguments().getInt(DORMITORY_ID)
     private fun roomArgs() = requireArguments().getSerializable(ROOM) as? Room
     private fun residentArgs() = requireArguments().getSerializable(RESIDENT) as? User.Resident
 
@@ -63,6 +64,7 @@ class BookingFragment : Fragment() {
                     if (room != null)
                         RoomBookingForm(
                             resident = resident,
+                            dormitoryId = dormitoryArgs(),
                             room = room,
                             date = currentDate
                         ) { place ->

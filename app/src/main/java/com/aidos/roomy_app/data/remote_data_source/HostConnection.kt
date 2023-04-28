@@ -70,31 +70,20 @@ class HostConnection {
         }
     }
 
-    @Throws(IOException::class)
     fun sendPut(urlPost: String?, postDataParams: String?): String {
         val url = URL(urlPost)
         val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
         println(postDataParams)
-        //Reikia papildomu connectiono nustatymu, jie bus bendri su Put metodu
         setConnectionParameters(httpURLConnection, "PUT")
         val outputStream = httpURLConnection.getOutputStream()
         val bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
         bufferedWriter.write(postDataParams)
-        //? bufferedWriter.flush();
         bufferedWriter.close()
         outputStream!!.close()
         val code: Int = httpURLConnection.getResponseCode()
         println("Response code: $code")
         return if (code == HttpURLConnection.HTTP_OK) {
-            val `in` = BufferedReader(InputStreamReader(httpURLConnection.getInputStream()))
-            var line: String?
-            val response = StringBuffer()
-            while (`in`.readLine().also { line = it } != null) {
-                response.append(line)
-                break
-            }
-            `in`.close()
-            response.toString()
+            getResponseFromInputStream(InputStreamReader(httpURLConnection.inputStream))
         } else {
             "Error"
         }

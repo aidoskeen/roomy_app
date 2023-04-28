@@ -125,6 +125,7 @@ fun TextRow(
 fun RoomBookingForm(
     resident: User.Resident,
     room: Room,
+    dormitoryId: Int,
     date: String? = null,
     onButtonClicked: (Place) -> Unit
 ) {
@@ -261,20 +262,11 @@ fun ClickableIcon(
 @Composable
 @Preview(name = "Request review", uiMode = UI_MODE_NIGHT_NO)
 fun RequestItemPreview() {
-    val place = Place(price = 100L)
-    val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
     val resident = User.Resident(1, "Aidos", "Alimkhan")
-    val dormitory = Dormitory(1)
-    val request = Request(
-        requestId = 1,
-        requester = resident,
-        room = room,
-        dormitory = dormitory,
-        requestStatus = RequestStatus.PENDING
-    )
+    val place = Place(price = 100L, placeId = 1, roomNumber = 700, livingResident = resident)
     RoomyMainTheme {
         RequestItem(
-            request = request,
+            place = place,
             onAcceptClicked = { },
             onRejectClicked = { }
         )
@@ -286,13 +278,14 @@ fun RequestItemPreview() {
 @Preview(name = "Booking Form review light", uiMode = UI_MODE_NIGHT_NO)
 @Preview(name = "Booking Form review dark", uiMode = UI_MODE_NIGHT_YES)
 fun RoomBookingReview() {
-    val place = Place(price = 100L)
+    val place = Place(price = 100L, placeId = 1)
     val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
     val resident = User.Resident(1, "Aidos", "Alimkhan")
     RoomyMainTheme {
         RoomBookingForm(
             resident = resident,
-            room = room, 
+            room = room,
+            dormitoryId = 1,
             date = "2023/03/23"
         ) {}
     }
@@ -303,9 +296,9 @@ fun RoomBookingReview() {
 @Preview(name = "Selector review light", uiMode = UI_MODE_NIGHT_NO)
 @Preview(name = "Selector review dark", uiMode = UI_MODE_NIGHT_YES)
 fun PlaceSelectorPreview() {
-    val place = Place(price = 100L)
-    val place2 = Place(price = 200L)
-    val place3 = Place(price = 300L)
+    val place = Place(price = 100L, placeId = 1)
+    val place2 = Place(price = 200L, placeId = 2)
+    val place3 = Place(price = 300L, placeId = 3)
 
     RoomyMainTheme {
         PlaceSelector(places = listOf(place, place2, place3), onPlaceClicked = {})
