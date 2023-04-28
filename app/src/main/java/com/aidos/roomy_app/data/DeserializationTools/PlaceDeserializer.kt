@@ -1,5 +1,6 @@
 package com.aidos.roomy_app.data.DeserializationTools
 
+import com.aidos.roomy_app.enums.RequestStatus
 import com.aidos.roomy_app.models.MonthlyPayment
 import com.aidos.roomy_app.models.Place
 import com.aidos.roomy_app.models.User
@@ -34,13 +35,16 @@ class PlaceDeserializer {
                 placeJson.getAsJsonObject("monthlyPayment"),
                 MonthlyPayment::class.java
             )
+            val requestStatus = placeJson.get("requestStatus").asString
+
 
             Place(
                 livingResident = livingResident,
                 placeId = id,
                 price = price,
                 available = available,
-                monthlyPayment = monthlyPayment
+                monthlyPayment = monthlyPayment,
+                requestStatus = getRequestStatusFromString(requestStatus)
             )
         }
         return deserializer
@@ -60,5 +64,14 @@ class PlaceDeserializer {
             }
         }
         return deserializer
+    }
+
+    fun getRequestStatusFromString(statusString: String): RequestStatus {
+        return when (statusString) {
+            "PENDING" -> RequestStatus.PENDING
+            "ACCEPTED" -> RequestStatus.ACCEPTED
+            "REJECTED" -> RequestStatus.REJECTED
+            else -> RequestStatus.NONE
+        }
     }
 }

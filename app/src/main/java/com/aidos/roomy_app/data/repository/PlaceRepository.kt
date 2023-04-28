@@ -7,4 +7,6 @@ interface PlaceRepository {
 
     suspend fun updatePlace(place: Place): HostActionStatus
 
+    suspend fun getAllPlacesInDormitory(dormitoryId: Int): List<Place>
+
 }
