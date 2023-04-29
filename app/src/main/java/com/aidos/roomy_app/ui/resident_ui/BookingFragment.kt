@@ -15,12 +15,13 @@ import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.RoomBookingForm
+import dagger.android.support.DaggerFragment
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
-class BookingFragment : Fragment() {
+class BookingFragment : DaggerFragment() {
 
     companion object {
         const val ROOM = "ROOM"

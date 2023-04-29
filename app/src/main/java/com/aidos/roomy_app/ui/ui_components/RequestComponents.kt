@@ -2,29 +2,22 @@ package com.aidos.roomy_app.ui.ui_components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aidos.roomy_app.R
-import com.aidos.roomy_app.enums.RequestStatus
 import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
 import com.aidos.roomy_app.models.*
@@ -33,7 +26,7 @@ import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 @Composable
 fun RequestItem(
     modifier: Modifier = Modifier,
-    place: Place,
+    request: Place,
     onAcceptClicked: () -> Unit,
     onRejectClicked: () -> Unit
 ) {
@@ -47,7 +40,7 @@ fun RequestItem(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = stringResource(id = R.string.request_item_label) + "\t" + place.placeId,
+                text = stringResource(id = R.string.request_item_label) + "\t" + request.placeId,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -57,7 +50,7 @@ fun RequestItem(
             )
 
             Text(
-                text = (stringResource(id = R.string.requester) + place.livingResident?.getFullName()),
+                text = (stringResource(id = R.string.requester) + request.livingResident?.getFullName()),
                 modifier = Modifier
                     .fillMaxWidth(),
                 textAlign = TextAlign.Start,
@@ -65,7 +58,7 @@ fun RequestItem(
                 color = MaterialTheme.colors.onSurface
             )
             Text(
-                text = stringResource(id = R.string.room_item_label) + place.roomNumber,
+                text = stringResource(id = R.string.room_item_label) + request.roomNumber,
                 textAlign = TextAlign.End,
                 style = MaterialTheme.typography.subtitle2,
                 color = MaterialTheme.colors.onSurface
@@ -203,7 +196,7 @@ fun PlaceSelector(
     places: List<Place>,
     onPlaceClicked: (Place) -> Unit
 ) {
-    var iconClicked by remember { mutableStateOf(false) }
+    var selectedIndex by remember { mutableStateOf(-1) }
 
     Box(
         modifier = Modifier
@@ -224,11 +217,13 @@ fun PlaceSelector(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    childList.forEach {
+                    childList.forEachIndexed { index, place ->
                         ClickableIcon(
-                            painter = painterResource(id = R.drawable.ic_bed)
+                            painter = painterResource(id = R.drawable.ic_bed),
+                            selected = (selectedIndex == index)
                         ) {
-                            onPlaceClicked(it)
+                            selectedIndex = index
+                            onPlaceClicked(place)
                         }
                     }
                 }
@@ -241,17 +236,14 @@ fun PlaceSelector(
 fun ClickableIcon(
     modifier: Modifier = Modifier,
     painter: Painter,
+    selected: Boolean,
     onClick: () -> Unit
 ) {
-    var iconClicked by remember { mutableStateOf(false) }
-    val color = if (iconClicked) Color.LightGray else MaterialTheme.colors.onSurface
+    val color = if (selected) Color.LightGray else MaterialTheme.colors.onSurface
 
     Icon(
         modifier = Modifier.clickable(
-            onClick = {
-                onClick()
-                iconClicked = !iconClicked
-            }
+            onClick = { onClick() }
         ),
         painter = painter,
         tint = color,
@@ -266,7 +258,7 @@ fun RequestItemPreview() {
     val place = Place(price = 100L, placeId = 1, roomNumber = 700, livingResident = resident)
     RoomyMainTheme {
         RequestItem(
-            place = place,
+            request = place,
             onAcceptClicked = { },
             onRejectClicked = { }
         )
