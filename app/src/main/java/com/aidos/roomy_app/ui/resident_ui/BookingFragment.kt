@@ -4,8 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
@@ -14,6 +19,7 @@ import com.aidos.roomy_app.databinding.FragmentLoginBinding
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
+import com.aidos.roomy_app.ui.ui_components.MessageBox
 import com.aidos.roomy_app.ui.ui_components.RoomBookingForm
 import dagger.android.support.DaggerFragment
 import java.text.SimpleDateFormat
@@ -61,19 +67,43 @@ class BookingFragment : DaggerFragment() {
 
         binding.composeView.setContent {
             RoomyMainTheme {
-                if (resident != null) {
-                    if (room != null)
-                        RoomBookingForm(
-                            resident = resident,
-                            dormitoryId = dormitoryArgs(),
-                            room = room,
-                            date = currentDate
-                        ) { place ->
-                            viewModel.startBooking(place)
-                        }
+                ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+                    val (messageRef, formRef) = createRefs()
+                    val uiState by viewModel.uiState.collectAsState()
+                    if (uiState.showMessage)
+                        MessageBox(
+                            modifier = Modifier.constrainAs(messageRef) {
+                                linkTo(
+                                    parent.start,
+                                    parent.top,
+                                    parent.end,
+                                    parent.bottom
+                                )
+                            },
+                            message = uiState.message
+                        )
+
+                    if (resident != null) {
+                        if (room != null)
+                            RoomBookingForm(
+                                modifier = Modifier.constrainAs(formRef) {
+                                    linkTo(
+                                        parent.start,
+                                        parent.top,
+                                        parent.end,
+                                        parent.bottom
+                                    )
+                                },
+                                resident = resident,
+                                dormitoryId = dormitoryArgs(),
+                                room = room,
+                                date = currentDate
+                            ) { place ->
+                                viewModel.startBooking(place)
+                            }
+                    } else
+                        Text(text = stringResource(id = R.string.user_not_authorized))
                 }
-                else
-                    Text(text = stringResource(id = R.string.user_not_authorized))
             }
         }
     }

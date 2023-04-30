@@ -14,7 +14,7 @@ class PlaceRemoteData @Inject constructor(
 
     override suspend fun updatePlace(placeId: String, properties: String): HostActionStatus {
         val response = withContext(dispatcher) {
-            hostConnection.sendPut(URL_UPDATE, properties)
+            hostConnection.sendPut(URL_UPDATE + "/$placeId", properties)
         }
         return if (response == "Success") HostActionStatus.SUCCESS
         else HostActionStatus.ERROR

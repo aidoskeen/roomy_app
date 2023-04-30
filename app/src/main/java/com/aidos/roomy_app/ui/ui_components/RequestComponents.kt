@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -116,6 +118,7 @@ fun TextRow(
 
 @Composable
 fun RoomBookingForm(
+    modifier: Modifier = Modifier,
     resident: User.Resident,
     room: Room,
     dormitoryId: Int,
@@ -124,7 +127,7 @@ fun RoomBookingForm(
 ) {
     var chosenPlace: Place? = null
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -197,38 +200,49 @@ fun PlaceSelector(
     onPlaceClicked: (Place) -> Unit
 ) {
     var selectedIndex by remember { mutableStateOf(-1) }
+    val textStyle = MaterialTheme.typography.caption.copy(
+        color = MaterialTheme.colors.onSurface
+    )
 
-    Box(
+    val chunkedList = places.chunked(2)
+    Column(
         modifier = Modifier
+            .background(color = MaterialTheme.colors.secondary)
             .border(
                 width = 4.dp,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.onSurface,
                 shape = RoundedCornerShape(4.dp)
             )
-            .background(color = MaterialTheme.colors.surface)
-            .heightIn(max = 150.dp)
-            .widthIn(max = 300.dp)
+            .clip(RoundedCornerShape(5.dp))
             .aspectRatio(16f / 9f)
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val chunkedList = places.chunked(2)
-        Column(modifier = Modifier.fillMaxSize()) {
-            chunkedList.forEach { childList ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    childList.forEachIndexed { index, place ->
-                        ClickableIcon(
-                            painter = painterResource(id = R.drawable.ic_bed),
-                            selected = (selectedIndex == index)
-                        ) {
-                            selectedIndex = index
-                            onPlaceClicked(place)
-                        }
+        Text(
+            text = stringResource(id = R.string.window),
+            style = textStyle
+        )
+        chunkedList.forEach { childList ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                childList.forEachIndexed { index, place ->
+                    ClickableIcon(
+                        painter = painterResource(id = R.drawable.ic_bed),
+                        selected = (selectedIndex == index)
+                    ) {
+                        selectedIndex = index
+                        onPlaceClicked(place)
                     }
                 }
             }
         }
+        Text(
+            text = stringResource(id = R.string.door),
+            style = textStyle
+        )
     }
 }
 

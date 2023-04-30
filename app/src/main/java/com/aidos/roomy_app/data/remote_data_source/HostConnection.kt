@@ -46,8 +46,8 @@ class HostConnection {
         val url = URL(urlPost)
         val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
         println(postDataParams)
+        httpURLConnection.requestMethod = "POST"
 
-        setConnectionParameters(httpURLConnection, "POST")
         val outputStream = httpURLConnection.getOutputStream()
         val bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
         bufferedWriter.write(postDataParams)
@@ -73,14 +73,18 @@ class HostConnection {
     fun sendPut(urlPost: String?, postDataParams: String?): String {
         val url = URL(urlPost)
         val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        httpURLConnection.setRequestProperty("Accept", "application/json")
+        httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
+        httpURLConnection.requestMethod = "PUT"
+        httpURLConnection.doInput = true
+        httpURLConnection.doOutput = false
         println(postDataParams)
-        setConnectionParameters(httpURLConnection, "PUT")
-        val outputStream = httpURLConnection.getOutputStream()
+        val outputStream = httpURLConnection.outputStream
         val bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
         bufferedWriter.write(postDataParams)
         bufferedWriter.close()
-        outputStream!!.close()
-        val code: Int = httpURLConnection.getResponseCode()
+        outputStream.flush()
+        val code: Int = httpURLConnection.responseCode
         println("Response code: $code")
         return if (code == HttpURLConnection.HTTP_OK) {
             getResponseFromInputStream(InputStreamReader(httpURLConnection.inputStream))
@@ -93,7 +97,7 @@ class HostConnection {
     fun sendDelete(urlDelete: String?): String? { //http://192.168.1.225:8080/PM/sers/getUser/1
         val url = URL(urlDelete)
         val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
-        httpURLConnection.setRequestMethod("DELETE")
+        httpURLConnection.requestMethod = "DELETE"
         httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
         val code: Int = httpURLConnection.getResponseCode()
         println("Response code: $code")
