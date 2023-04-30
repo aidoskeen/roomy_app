@@ -129,7 +129,9 @@ fun InvoiceItemRow(
         modifier = modifier
             .clickable(onClick = onItemClicked)
             .padding(top = 12.dp, bottom = 12.dp)
-            .background(color = MaterialTheme.colors.primary, shape = RoundedCornerShape(5.dp)),
+            .background(
+                color = MaterialTheme.colors.secondaryVariant,
+                shape = RoundedCornerShape(5.dp)),
     ) {
         Surface(
             modifier = Modifier
@@ -143,12 +145,10 @@ fun InvoiceItemRow(
         Spacer(Modifier.width(24.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
 
-
             Text(
                 text = payment.month,
                 style = MaterialTheme.typography.h6
                     .copy(color = textColor)
-
             )
 
             val paymentString = when(payment.paymentStatus) {
@@ -186,7 +186,8 @@ fun InvoiceForm(
         stringResource(id = R.string.rent_price_label) to place.price.toString()
     )
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
             text = stringResource(id = R.string.invoice),
@@ -219,7 +220,8 @@ fun BookedRoomFormPreview() {
     }
 }
 @Composable
-@Preview(name = "Invoice Item Preview")
+@Preview(name = "Invoice item preview", uiMode = UI_MODE_NIGHT_YES)
+@Preview(name = "Invoice item preview day", uiMode = UI_MODE_NIGHT_NO)
 fun InvoiceItemPreview() {
     val payment = MonthlyPayment(paymentId = "1","December", paymentStatus = PaymentStatus.PAID, dueDate = "2023/03/23")
     val image = painterResource(id = R.drawable.ic_launcher_foreground)

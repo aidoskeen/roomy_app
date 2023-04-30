@@ -38,7 +38,7 @@ class BookingViewModel @Inject constructor(
                 showMessage = true
             )
 
-            delay(1000L)
+            delay(1500L)
 
             _uiState.value = BookingUiState(showMessage = false)
         }

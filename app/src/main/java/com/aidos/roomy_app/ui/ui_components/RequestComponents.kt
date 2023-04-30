@@ -33,11 +33,12 @@ fun RequestItem(
     onRejectClicked: () -> Unit
 ) {
     Surface(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         color = MaterialTheme.colors.surface
     ) {
         Column(
             modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {

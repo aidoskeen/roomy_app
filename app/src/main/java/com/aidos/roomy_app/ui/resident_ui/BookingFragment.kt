@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentBookingBinding
 import com.aidos.roomy_app.databinding.FragmentLoginBinding
+import com.aidos.roomy_app.enums.RequestStatus
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
@@ -99,7 +100,11 @@ class BookingFragment : DaggerFragment() {
                                 room = room,
                                 date = currentDate
                             ) { place ->
-                                viewModel.startBooking(place)
+                                val updatedPlace = place.copy(
+                                    livingResident = resident,
+                                    requestStatus = RequestStatus.PENDING
+                                )
+                                viewModel.startBooking(updatedPlace)
                             }
                     } else
                         Text(text = stringResource(id = R.string.user_not_authorized))

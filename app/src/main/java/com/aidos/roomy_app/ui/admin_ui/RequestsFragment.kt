@@ -58,7 +58,10 @@ class RequestsFragment : DaggerFragment() {
             val requests by viewModel.requestsStateFlow.collectAsState()
             val requestTitle = stringResource(id = R.string.request_management)
             RoomyMainTheme {
-                Column(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+
+                ) {
                     Text(
                         modifier = Modifier
                             .padding(25.dp),
@@ -67,13 +70,27 @@ class RequestsFragment : DaggerFragment() {
                             color = MaterialTheme.colors.onSurface
                         )
                     )
-                    requests.forEach { request ->
-                        RequestItem(
-                            request = request,
-                            onAcceptClicked = { viewModel.setRequestStatus(request, RequestStatus.ACCEPTED) },
-                            onRejectClicked = { viewModel.setRequestStatus(request, RequestStatus.ACCEPTED) }
+
+                    if (requests.isNotEmpty())
+                        requests.forEach { request ->
+                            RequestItem(request = request,
+                                onAcceptClicked = {
+                                    viewModel.setRequestStatus(request, RequestStatus.ACCEPTED)
+                                },
+                                onRejectClicked = {
+                                    viewModel.setRequestStatus(request, RequestStatus.REJECTED)
+                                }
+                            )
+                        }
+                    else
+                        Text(
+                            modifier = Modifier
+                                .padding(25.dp),
+                            text = AnnotatedString(requestTitle),
+                            style = MaterialTheme.typography.body2.copy(
+                                color = MaterialTheme.colors.primaryVariant
+                            )
                         )
-                    }
                 }
             }
         }

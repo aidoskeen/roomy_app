@@ -14,8 +14,8 @@ val Teal100 = Color(0xFFB2DFDB)
 val TealA100 = Color(0xFFA7FFEB)
 val SeaColor = Color(0xFF00AF87)
 
-val Amber400 = Color(0xFFFFCA28)
-val Amber500 = Color(0xFFFFC107)
+val DarkYellow = Color(0xFFFFCA28)
+val LightYellow = Color(0xFFFDE964)
 
 val BrightYellow = Color(0xFFFAC05E)
 val Orange900 = Color(0xFFE65100)
@@ -25,3 +25,5 @@ val DeepOrange400 = Color(0xFFFF7043)
 val Black = Color(0xFF000000)
 val White = Color(0xFFFFFFFF)
 
+val LightGray = Color(0xFFBDBDBD)
+val DarkGray = Color(0xFF3F3F3F)
