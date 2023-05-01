@@ -4,14 +4,17 @@
     <string name="password">Password</string>
     <string name="firstname">Name</string>
     <string name="surname">Surname</string>
+    <string name="fullname">Full name</string>
     <string name="repeat_password">Repeat your password</string>
     <string name="login_button">Log in</string>
+    <string name="logout_button">Log out</string>
     <string name="login_label">Login</string>
+    <string name="edit_data">Edit</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="registration">Registration</string>
     <string name="admin_login_label">I am the administrator</string>
     <string name="user_not_authorized">User is not authorized</string>
-
+    <string name="no_room">No room</string>
     <string name="dorm_item_label">Dormitory:</string>
     <string name="request_item_label">Request</string>
     <string name="button_accept">Accept</string>
@@ -23,6 +26,7 @@
 
     <string name="room_booking_label">Book a room</string>
     <string name="room_item_label">Room:</string>
+    <string name="room_title">Room</string>
     <string name="room_size">Room size:</string>
     <string name="small_room">Small room</string>
     <string name="medium_room">Medium room</string>
@@ -67,6 +71,7 @@
     <string name="error_message">Error occurred. Try again.</string>
     <string name="window">Window</string>
     <string name="door">Door</string>
+    <string name="nothing_to_show">No data to show</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

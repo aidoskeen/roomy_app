@@ -92,7 +92,7 @@ fun AnnouncementRow(
     var expanded by remember {
         mutableStateOf(false)
     }
-
+    val contentColor = MaterialTheme.colors.onSurface
     Column(
         modifier = modifier
             .clickable(onClick = { expanded = !expanded })
@@ -117,7 +117,7 @@ fun AnnouncementRow(
                 text = announcement.text,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2.copy(
-                    color = MaterialTheme.colors.onSurface
+                    color = contentColor
                 ),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -128,11 +128,11 @@ fun AnnouncementRow(
                 text = announcement.text,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2.copy(
-                    color = MaterialTheme.colors.onSurface
+                    color = contentColor
                 )
             )
 
-        Divider()
+        Divider(modifier = Modifier.background(contentColor))
     }
 }
 

@@ -9,6 +9,9 @@ sealed class User(
     val username: String,
     val password: String
 ) : Serializable {
+    fun getFullName(): String {
+        return this.name + " " + this.surname
+    }
 
     fun copy(
         id: Int = this.id,
@@ -41,8 +44,6 @@ sealed class User(
         val roomNumber: Int? = null
     ) : User(id, name, surname, username, password), Serializable {
 
-        fun getFullName(): String {
-            return this.name + " " + this.surname
-        }
+
     }
 }
