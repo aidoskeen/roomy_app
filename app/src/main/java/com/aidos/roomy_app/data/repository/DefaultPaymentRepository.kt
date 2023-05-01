@@ -9,7 +9,9 @@ class DefaultPaymentRepository (
     override suspend fun getPayments(): List<MonthlyPayment> = paymentsDataSource.getPayments()
 
     override suspend fun getPayment(id: String): MonthlyPayment = paymentsDataSource.getPayment(id)
-    override suspend fun createPayment(payment: MonthlyPayment) = paymentsDataSource.createPayment(payment)
+    override suspend fun createPayments(dormitoryId: Int) {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun updatePayment(id: String, updatedPayment: MonthlyPayment) = paymentsDataSource.updatePayment(id, updatedPayment)
 

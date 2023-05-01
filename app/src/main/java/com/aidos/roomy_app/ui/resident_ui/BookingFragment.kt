@@ -109,6 +109,7 @@ class BookingFragment : DaggerFragment() {
                                     livingResident = resident,
                                     requestStatus = RequestStatus.PENDING
                                 )
+
                                 viewModel.startBooking(updatedPlace)
                             }
                     } else

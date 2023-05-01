@@ -18,7 +18,9 @@ sealed class User(
         name: String = this.name,
         surname: String = this.surname,
         username: String = this.username,
-        password: String = this.password
+        password: String = this.password,
+        roomNumber: Int? = null,
+        dormitory: Dormitory? = null
     ) : User {
         return when (this) {
             is Administrator -> Administrator(id, name, surname, username, password, dormitory)

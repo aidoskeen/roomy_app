@@ -32,6 +32,6 @@ class DefaultUserRepository @Inject constructor(
         return user
     }
 
-    override suspend fun updateResident(id: Int, resident: User.Resident) = dataSource.updateResident(id, resident)
+    override suspend fun updateResident(resident: User.Resident) = dataSource.updateResident(resident)
 
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import com.aidos.roomy_app.databinding.FragmentRequestsBinding
 import com.aidos.roomy_app.enums.RequestStatus
 import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
+import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
@@ -29,6 +31,11 @@ import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class RequestsFragment : DaggerFragment() {
+    companion object {
+        const val KEY_ADMIN_DORMITORY = "KEY_ADMIN_DORMITORY"
+    }
+
+    fun dormtioryArgs() = requireArguments().getSerializable(KEY_ADMIN_DORMITORY) as? Dormitory
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -49,6 +56,11 @@ class RequestsFragment : DaggerFragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dormtioryArgs()?.let { viewModel.loadRequests(it.dormitoryId) }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,11 +68,13 @@ class RequestsFragment : DaggerFragment() {
 
         binding.composeView.setContent {
             val requests by viewModel.requestsStateFlow.collectAsState()
+            val message by viewModel.messageStateFlow.collectAsState()
             val requestTitle = stringResource(id = R.string.request_management)
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
             RoomyMainTheme {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-
                 ) {
                     Text(
                         modifier = Modifier
@@ -95,5 +109,4 @@ class RequestsFragment : DaggerFragment() {
             }
         }
     }
-
 }

@@ -148,6 +148,7 @@ fun RoomBookingForm(
             style = MaterialTheme.typography.h4,
             color = MaterialTheme.colors.onSurface
         )
+        val places = room.places.filter { it.livingResident == null }
 
         PlaceSelector(
             places = room.places,
@@ -207,50 +208,59 @@ fun PlaceSelector(
     places: List<Place>,
     onPlaceClicked: (Place) -> Unit
 ) {
-    var selectedIndex by remember { mutableStateOf(-1) }
-    val textStyle = MaterialTheme.typography.caption.copy(
-        color = MaterialTheme.colors.onSurface
-    )
-
-    val chunkedList = places.chunked(2)
-    Column(
-        modifier = Modifier
-            .background(color = MaterialTheme.colors.secondary)
-            .border(
-                width = 4.dp,
-                color = MaterialTheme.colors.onSurface,
-                shape = RoundedCornerShape(4.dp)
-            )
-            .clip(RoundedCornerShape(5.dp))
-            .aspectRatio(16f / 9f)
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    if (places.isEmpty()) {
         Text(
-            text = stringResource(id = R.string.window),
-            style = textStyle
+            text = stringResource(id =  R.string.no_places),
+            style = MaterialTheme.typography.body2.copy(
+                color = MaterialTheme.colors.error
+            )
         )
-        chunkedList.forEach { childList ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                childList.forEachIndexed { index, place ->
-                    ClickableIcon(
-                        painter = painterResource(id = R.drawable.ic_bed),
-                        selected = (selectedIndex == index)
-                    ) {
-                        selectedIndex = index
-                        onPlaceClicked(place)
+    }
+    else {
+        var selectedIndex by remember { mutableStateOf(-1) }
+        val textStyle = MaterialTheme.typography.caption.copy(
+            color = MaterialTheme.colors.onSurface
+        )
+        val chunkedList = places.chunked(2)
+        Column(
+            modifier = Modifier
+                .background(color = MaterialTheme.colors.secondary)
+                .border(
+                    width = 4.dp,
+                    color = MaterialTheme.colors.onSurface,
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .clip(RoundedCornerShape(5.dp))
+                .aspectRatio(16f / 9f)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.window),
+                style = textStyle
+            )
+            chunkedList.forEach { childList ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    childList.forEachIndexed { index, place ->
+                        ClickableIcon(
+                            painter = painterResource(id = R.drawable.ic_bed),
+                            selected = (selectedIndex == index)
+                        ) {
+                            selectedIndex = index
+                            onPlaceClicked(place)
+                        }
                     }
                 }
             }
+            Text(
+                text = stringResource(id = R.string.door),
+                style = textStyle
+            )
         }
-        Text(
-            text = stringResource(id = R.string.door),
-            style = textStyle
-        )
     }
 }
 

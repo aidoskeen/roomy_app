@@ -38,6 +38,7 @@
     <string name="triple_room">Triple room</string>
     <string name="room_information">Room information:</string>
     <string name="no_rooms">No rooms are available</string>
+    <string name="no_places">No places are available</string>
     <string name="date_of_booking">Date</string>
     <string name="address">Address</string>
     <string name="make_payment">Pay for rent</string>

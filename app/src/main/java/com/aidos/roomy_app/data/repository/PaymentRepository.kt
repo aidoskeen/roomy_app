@@ -8,7 +8,7 @@ interface PaymentRepository {
 
     suspend fun getPayment(id: String): MonthlyPayment
 
-    suspend fun createPayment(payment: MonthlyPayment)
+    suspend fun createPayments(dormitoryId: Int)
 
     suspend fun updatePayment(id: String, updatedPayment: MonthlyPayment)
 
