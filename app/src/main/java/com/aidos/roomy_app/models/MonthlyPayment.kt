@@ -7,4 +7,4 @@ data class MonthlyPayment(
     val month: String = "",
     val dueDate: String = "",
     val paymentStatus: PaymentStatus = PaymentStatus.NONE,
-)
+) : java.io.Serializable

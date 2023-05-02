@@ -47,6 +47,7 @@
     <string name="button_announce">Announce</string>
     <string name="announcement_text">Announcement text</string>
     <string name="check_requests">View requests</string>
+    <string name="view_payments">View Payments</string>
     <string name="request_management">Request Management</string>
     <string name="room_management">Room management</string>
     <string name="administration_menu_title">Dormitory administration</string>
@@ -57,6 +58,7 @@
     <string name="due_date_label">Due date</string>
     <string name="invoice">Invoice for this month</string>
     <string name="payment_title">Payment</string>
+    <string name="all_payments_title">All payments</string>
     <string name="payment_id_label">Payment ID</string>
     <string name="rent_price_label">Rent price</string>
     <string name="resident_label">Resident</string>

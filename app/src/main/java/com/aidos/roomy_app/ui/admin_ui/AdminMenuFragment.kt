@@ -107,6 +107,12 @@ class AdminMenuFragment : DaggerFragment() {
                     )
 
                     Divider(modifier = dividerModifier, color = dividerColor)
+                    
+                    MenuOption(
+                        text = stringResource(id = R.string.view_payments)
+                    ) {
+                        
+                    }
 
                 }
             }

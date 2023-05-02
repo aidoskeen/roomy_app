@@ -11,5 +11,5 @@ data class Place(
     val monthlyPayment: MonthlyPayment? = MonthlyPayment(""),
     val requestStatus: RequestStatus = RequestStatus.NONE,
     val roomNumber: Int? = null
-) {
+) : java.io.Serializable {
 }

@@ -120,7 +120,7 @@ fun BookedRoomForm(
 fun InvoiceItemRow(
     modifier: Modifier = Modifier,
     payment: MonthlyPayment?,
-    painter: Painter,
+    painter: Painter? = null,
     onItemClicked: () -> Unit
 ) {
     if (payment== null) return
@@ -131,17 +131,20 @@ fun InvoiceItemRow(
             .padding(top = 12.dp, bottom = 12.dp)
             .background(
                 color = MaterialTheme.colors.secondaryVariant,
-                shape = RoundedCornerShape(5.dp)),
+                shape = RoundedCornerShape(5.dp)
+            ),
     ) {
-        Surface(
-            modifier = Modifier
-                .size(64.dp)
-                .aspectRatio(1f),
-            RoundedCornerShape(4.dp),
-            color = MaterialTheme.colors.surface
-        ) {
-            ImageInBox(painter)
-        }
+        if (painter != null)
+            Surface(
+                modifier = Modifier
+                    .size(64.dp)
+                    .aspectRatio(1f),
+                RoundedCornerShape(4.dp),
+                color = MaterialTheme.colors.surface
+            ) {
+                ImageInBox(painter)
+            }
+        else Spacer(Modifier.width(15.dp))
         Spacer(Modifier.width(24.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
 
@@ -175,8 +178,7 @@ fun InvoiceItemRow(
 fun InvoiceForm(
     payment: MonthlyPayment,
     resident: User.Resident,
-    place: Place,
-    room: Room
+    place: Place
 ) {
     val invoiceContent: List<Pair<String, String>> = listOf(
         stringResource(id = R.string.resident_label) to resident.getFullName(),
@@ -244,6 +246,6 @@ fun InvoiceFormPreview() {
     val resident = User.Resident(1, "Aidos", "Alimkhan")
 
     RoomyMainTheme {
-        InvoiceForm(payment = payment, resident = resident, place = place, room = room)
+        InvoiceForm(payment = payment, resident = resident, place = place)
     }
 }

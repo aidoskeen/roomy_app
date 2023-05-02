@@ -90,4 +90,9 @@ abstract class ViewModelModule {
     @ViewModelKey(EditRoomViewModel::class)
     abstract fun bindEditViewModel(editRoomViewModel: EditRoomViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(PaymentListViewModel::class)
+    abstract fun bindEditViewModel(paymentListViewModel: PaymentListViewModel): ViewModel
+
 }

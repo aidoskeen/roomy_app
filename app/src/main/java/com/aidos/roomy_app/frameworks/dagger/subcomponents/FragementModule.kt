@@ -55,4 +55,7 @@ abstract class FragementModule {
 
     @ContributesAndroidInjector
     abstract fun contributeEditRoomFragment(): EditRoomFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeEditPaymentFragment(): PaymentListFragment
 }

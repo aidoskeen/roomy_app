@@ -25,6 +25,10 @@ class DefaultPlaceRepository @Inject constructor(
         return result
     }
 
+    override suspend fun getPlace(id: Int): Place {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getAllPlacesInDormitory(dormitoryId: Int): List<Place> {
         val rooms = roomRemoteDataSource.getDormitoryRooms(dormitoryId = dormitoryId)
         val allPlaces = mutableListOf<Place>()

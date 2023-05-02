@@ -54,7 +54,12 @@ class MyRoomFragment : DaggerFragment() {
             val image = painterResource(id = R.drawable.ic_launcher_foreground)
             RoomyMainTheme {
                 BookedRoomForm(image = image, room = room, place = place) {
-                    findNavController().navigate(R.id.action_myRoomFragment_to_invoiceFragment)
+                    findNavController().navigate(R.id.action_myRoomFragment_to_invoiceFragment,
+                    Bundle().apply
+                     {
+                         putSerializable(InvoiceFragment.KEY_PAYMENT, payment)
+                         putSerializable(InvoiceFragment.KEY_PLACE, place)
+                     })
                 }
             }
         }

@@ -20,6 +20,14 @@ import javax.inject.Inject
 
 class InvoiceFragment : DaggerFragment() {
 
+    companion object {
+        const val KEY_PAYMENT = "KEY_PAYMENT"
+        const val KEY_PLACE = "KEY_PLACE"
+    }
+
+    fun invoiceArgs(): MonthlyPayment? = requireArguments().getSerializable(KEY_PAYMENT) as? MonthlyPayment
+    fun placeArgs() : Place? = requireArguments().getSerializable(KEY_PLACE) as? Place
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var binding: FragmentInvoiceBinding? = null
@@ -39,17 +47,17 @@ class InvoiceFragment : DaggerFragment() {
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = binding ?: return
-        val payment = MonthlyPayment(paymentId = "1","December", paymentStatus = PaymentStatus.PAID, dueDate = "2023/03/23")
-        val place = Place(price = 100L, monthlyPayment = payment)
-        val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
-        val resident = User.Resident(1, "Aidos", "Alimkhan")
+        val payment = invoiceArgs() ?: viewModel.createDummyPayment()
+        val place = placeArgs() ?: viewModel.createDummyPlace(payment)
+        val resident = place.livingResident ?: User.Resident(-1, "No", "resident is living")
         binding.invComposeView.setContent {
             RoomyMainTheme {
-                InvoiceForm(payment = payment, resident = resident, place = place, room = room)
+                InvoiceForm(payment = payment, resident = resident, place = place)
             }
         }
     }
