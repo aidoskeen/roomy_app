@@ -10,8 +10,10 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -71,8 +73,8 @@ class LoginFragment : DaggerFragment() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    val username = remember { mutableStateOf(TextFieldValue()) }
-                    val password = remember { mutableStateOf(TextFieldValue()) }
+                    var username by remember { mutableStateOf(TextFieldValue()) }
+                    var password by remember { mutableStateOf(TextFieldValue()) }
 
                     Text(
                         text = stringResource(id = R.string.login_label),
@@ -81,16 +83,16 @@ class LoginFragment : DaggerFragment() {
                     //Username input
                     InputField(
                         label = { Text(text = stringResource(id = R.string.username)) },
-                        value = username.value,
-                        onValueChange = { username.value = it })
+                        value = username,
+                        onValueChange = { username = it })
 
                     //Password input
                     InputField(
                         label = { Text(text = stringResource(id = R.string.password)) },
-                        value = password.value,
+                        value = password,
                         visualTransformation = PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                        onValueChange = { password.value = it })
+                        onValueChange = { password = it })
 
                     Spacer(modifier = Modifier.height(20.dp))
 

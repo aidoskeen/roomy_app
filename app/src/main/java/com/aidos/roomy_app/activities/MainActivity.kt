@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.ui.resident_ui.AnnouncementsFragment
 import com.aidos.roomy_app.ui.resident_ui.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -42,7 +43,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.news -> {
-                    navController.navigate(R.id.action_global_announcementsFragment)
+                    navController.navigate(R.id.action_global_announcementsFragment,
+                    Bundle().apply
+                     {
+                         putSerializable(AnnouncementsFragment.KEY_DORMITORY, viewModel.dormitoryFlow.value)
+                     })
                     true
                 }
                 R.id.profile -> {

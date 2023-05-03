@@ -2,8 +2,9 @@ package com.aidos.roomy_app.data.repository
 
 import com.aidos.roomy_app.data.remote_data_source.PaymentsRemoteDataSource
 import com.aidos.roomy_app.models.MonthlyPayment
+import javax.inject.Inject
 
-class DefaultPaymentRepository (
+class DefaultPaymentRepository @Inject constructor(
     private val paymentsDataSource: PaymentsRemoteDataSource
         ) : PaymentRepository {
     override suspend fun getPayments(): List<MonthlyPayment> = paymentsDataSource.getPayments()

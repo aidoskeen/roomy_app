@@ -22,7 +22,7 @@ class UserRemoteData @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getUserByLoginData(login: String, password: String): User {
+    override suspend fun getUserByLoginData(login: String, password: String): User? {
         TODO("Not yet implemented")
     }
 

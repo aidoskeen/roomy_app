@@ -25,7 +25,7 @@ class DefaultUserRepository @Inject constructor(
 
     override suspend fun deleteUser(id: String) = dataSource.removeUser(id)
 
-    override suspend fun getUserByLoginData(login: String, password: String): User {
+    override suspend fun getUserByLoginData(login: String, password: String): User? {
         val user = dataSource.getUserByLoginData(login, password)
         if (user is User.Resident)
             _currentResidentFlow.value = user

@@ -92,7 +92,11 @@ class AdminMenuFragment : DaggerFragment() {
 
                     MenuOption(
                         text = stringResource(id = R.string.check_requests),
-                        onClick = { findNavController().navigate(R.id.action_adminMenuFragment_to_requestsFragment) }
+                        onClick = { findNavController().navigate(R.id.action_adminMenuFragment_to_requestsFragment,
+                            Bundle().apply {
+                                putSerializable(RequestsFragment.KEY_ADMIN_DORMITORY, dormitory)
+                            }
+                        ) }
                     )
 
                     Divider(color = dividerColor, modifier = dividerModifier)
@@ -111,7 +115,10 @@ class AdminMenuFragment : DaggerFragment() {
                     MenuOption(
                         text = stringResource(id = R.string.view_payments)
                     ) {
-                        
+                        findNavController().navigate(R.id.action_adminMenuFragment_to_paymentListFragment,
+                        Bundle().apply
+                         { putSerializable(PaymentListFragment.KEY_DORMITORY_ID, dormitory.dormitoryId) }
+                        )
                     }
 
                 }

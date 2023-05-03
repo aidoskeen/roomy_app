@@ -93,6 +93,6 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(PaymentListViewModel::class)
-    abstract fun bindEditViewModel(paymentListViewModel: PaymentListViewModel): ViewModel
+    abstract fun bindPaymentListViewModel(paymentListViewModel: PaymentListViewModel): ViewModel
 
 }

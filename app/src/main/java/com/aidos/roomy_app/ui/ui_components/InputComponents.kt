@@ -38,8 +38,9 @@ fun InputField(
     TextField(
         label = label,
         value = value,
-        onValueChange = { onValueChange(value) },
-        visualTransformation = visualTransformation
+        onValueChange = { onValueChange(it) },
+        visualTransformation = visualTransformation,
+        keyboardOptions = keyboardOptions
     )
 }
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.databinding.FragmentProfileBinding
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
+import com.aidos.roomy_app.ui.ui_components.ProfileScreen
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -39,10 +40,10 @@ class ProfileFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-
+        val resident = currentResidentArgs() ?: User.Resident(-1, "Fake","User For Test Purposes")
         binding.composeView.setContent {
             RoomyMainTheme {
-
+                ProfileScreen(user = resident)
             }
         }
     }

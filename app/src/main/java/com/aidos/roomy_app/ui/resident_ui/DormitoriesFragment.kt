@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
+import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.databinding.FragmentDormitoriesBinding
 import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.enums.RoomType
@@ -31,6 +32,10 @@ class DormitoriesFragment : DaggerFragment() {
     private var binding: FragmentDormitoriesBinding? = null
     private val viewModel: DormitoriesViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[DormitoriesViewModel::class.java]
+    }
+
+    private val mainViewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -90,6 +95,7 @@ class DormitoriesFragment : DaggerFragment() {
                             painter = painterResource(id = R.drawable.ic_launcher_foreground),
                             label = stringResource(id = R.string.dorm_item_label),
                             onItemClicked = {
+                                mainViewModel.setDormitory(dormitory)
                                 findNavController().navigate(R.id.action_dormitoriesFragment_to_roomsFragment,
                                 Bundle().apply
                                  {
