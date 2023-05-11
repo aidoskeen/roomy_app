@@ -24,6 +24,7 @@ class UserRemoteData @Inject constructor(
     companion object {
         private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
         private const val URL_LOGIN = "${HOST_ADDRESS}user/login"
+        private const val URL_REGISTRATION = "${HOST_ADDRESS}user/registration"
     }
 
     override suspend fun fetchUsers(): List<User> {
@@ -37,7 +38,7 @@ class UserRemoteData @Inject constructor(
     override suspend fun createUser(user: User): HostActionStatus {
         val userJson = gson.toJson(user)
         val response = withContext(dispatcher) {
-            hostConnection.sendPost(URL_LOGIN, userJson.toString())
+            hostConnection.sendPost(URL_REGISTRATION, userJson.toString())
         }
 
         return if (response == "Error") {
