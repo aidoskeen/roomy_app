@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -48,22 +49,24 @@ class AnnouncementsFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-        val dormitory = dormitoryArgs()
+        val dormitory = viewModel.generateFakeDormitory()
 
         binding.composeView.setContent {
                 Column(
                     modifier = Modifier
                         .scrollable(rememberScrollState(), orientation = Orientation.Vertical)
                         .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = stringResource(id = R.string.nothing_to_show),
+                        text = stringResource(id = R.string.announcements_title),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 4.dp),
                         style = MaterialTheme.typography.h4,
-                        color = MaterialTheme.colors.onSurface
+                        color = MaterialTheme.colors.onSurface,
+                        textAlign = TextAlign.Center
                     )
 
                     if (dormitory != null && dormitory.announcements.isNotEmpty()) {

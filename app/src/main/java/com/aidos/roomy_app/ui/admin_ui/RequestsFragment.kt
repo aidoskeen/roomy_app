@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
@@ -63,10 +64,10 @@ class RequestsFragment : DaggerFragment() {
         val binding = binding ?: return
 
         binding.composeView.setContent {
-            val requests by viewModel.requestsStateFlow.collectAsState()
+            val requestsState by viewModel.requestsStateFlow.collectAsState()
             val message by viewModel.messageStateFlow.collectAsState()
             val requestTitle = stringResource(id = R.string.request_management)
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            val requests = requestsState.ifEmpty { viewModel.generateFakePlaces() }
 
             RoomyMainTheme {
                 Column(
@@ -86,11 +87,15 @@ class RequestsFragment : DaggerFragment() {
                             RequestItem(request = request,
                                 onAcceptClicked = {
                                     viewModel.setRequestStatus(request, RequestStatus.ACCEPTED)
+                                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                                 },
                                 onRejectClicked = {
                                     viewModel.setRequestStatus(request, RequestStatus.REJECTED)
+                                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                                 }
                             )
+
+                            Divider(Modifier.padding(horizontal = 8.dp))
                         }
                     else
                         Text(

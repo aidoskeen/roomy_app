@@ -1,21 +1,16 @@
 package com.aidos.roomy_app.ui.ui_components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -33,7 +28,6 @@ import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 
 @Composable
 fun RoomEditForm(
-    image: Painter,
     room: Room,
     roomSizesList: List<String>,
     roomTypesList: List<String>,
@@ -56,18 +50,6 @@ fun RoomEditForm(
             color = MaterialTheme.colors.onSurface
         )
 
-        Image(
-            painter = image,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .heightIn(max = 170.dp)
-                .widthIn(max = 300.dp)
-                .aspectRatio(16f / 9f)
-                .clip(RoundedCornerShape(16.dp))
-        )
-
         Divider(thickness = 1.dp)
         val roomNumberTitle = stringResource(id = R.string.room_number)
         val typeTitle = stringResource(id = R.string.room_type)
@@ -79,26 +61,23 @@ fun RoomEditForm(
             currentValue = room.roomNumber.toString(),
             onValueChanged = { newRoom = newRoom.copy(roomNumber = it.toInt()) } )
 
-
-        TextRowWithDropDownList(
+        EditableTextRow(
             label = roomSizeTitle,
-            items = roomSizesList,
-            onItemChosen = {
+            currentValue = room.roomSize.toString(),
+            onValueChanged = {
                 val size = when (it) {
                     "SMALL" -> RoomSize.SMALL
                     "BIG" -> RoomSize.BIG
                     "MEDIUM" -> RoomSize.MEDIUM
                     else -> RoomSize.SMALL
                 }
+                newRoom = newRoom.copy(roomSize = size)
+            } )
 
-                newRoom = newRoom.copy(roomSize = size)}
-        )
-
-
-        TextRowWithDropDownList(
+        EditableTextRow(
             label = typeTitle,
-            items = roomTypesList,
-            onItemChosen = {
+            currentValue = room.roomType.toString(),
+            onValueChanged = {
                 val type = when (it) {
                     "SINGLE" -> RoomType.SINGLE
                     "DOUBLE" -> RoomType.DOUBLE
@@ -107,8 +86,7 @@ fun RoomEditForm(
                 }
 
                 newRoom = newRoom.copy(roomType = type)
-            }
-        )
+            } )
 
         Divider()
 
@@ -144,11 +122,12 @@ fun TextRowWithDropDownList(
     label: String = "",
     onItemChosen: (String) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expandedState by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { expandedState != expandedState },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -161,9 +140,9 @@ fun TextRowWithDropDownList(
         )
 
         DropDownList(
-            expanded = expanded,
+            expanded = expandedState,
             items = items,
-            onDismissRequest = { expanded = it },
+            onDismissRequest = { expandedState = it },
             onItemChosen = onItemChosen
         )
     }
@@ -249,7 +228,6 @@ fun PreviewRoomEditForm() {
     val roomTypesList = listOf("SINGLE", "DOUBLE")
     RoomyMainTheme {
         RoomEditForm(
-            image = image,
             room = room,
             onButtonClick = { },
             roomSizesList = roomSizesList,

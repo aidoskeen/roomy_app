@@ -56,7 +56,7 @@ fun BookedRoomForm(
         )
 
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            painter = image,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -107,7 +107,7 @@ fun BookedRoomForm(
             style = MaterialTheme.typography.h4,
             color = MaterialTheme.colors.onSurface
         )
-        InvoiceItemRow(payment = place.monthlyPayment, painter = image, onItemClicked = onInvoiceClicked)
+        InvoiceItemRow(payment = place.monthlyPayment, painter = painterResource(id = R.drawable.ic_money), onItemClicked = onInvoiceClicked)
         RoomyButton(
             text = stringResource(id = R.string.make_payment),
             onClick = { /*TODO*/ }
@@ -121,6 +121,7 @@ fun InvoiceItemRow(
     modifier: Modifier = Modifier,
     payment: MonthlyPayment?,
     painter: Painter? = null,
+    resident: User.Resident? = null,
     onItemClicked: () -> Unit
 ) {
     if (payment== null) return
@@ -128,22 +129,20 @@ fun InvoiceItemRow(
     Row(
         modifier = modifier
             .clickable(onClick = onItemClicked)
-            .padding(top = 12.dp, bottom = 12.dp)
+            .padding(top = 10.dp, bottom = 10.dp, start = 8.dp, end = 8.dp)
             .background(
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = RoundedCornerShape(5.dp)
             ),
     ) {
         if (painter != null)
-            Surface(
+            ImageInBox(
                 modifier = Modifier
                     .size(64.dp)
                     .aspectRatio(1f),
-                RoundedCornerShape(4.dp),
-                color = MaterialTheme.colors.surface
-            ) {
-                ImageInBox(painter)
-            }
+                painter = painter
+            )
+
         else Spacer(Modifier.width(15.dp))
         Spacer(Modifier.width(24.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -165,9 +164,20 @@ fun InvoiceItemRow(
                 label = stringResource(id = R.string.payment_title),
                 value = paymentString
             )
+            if (resident != null) {
+                TextRow(
+                    value = resident.getFullName(),
+                    label = stringResource(id = R.string.resident_label)
+                )
+            }
+
+            TextRow()
+            val dateLabelRes =
+                if (payment.paymentStatus == PaymentStatus.PAID) R.string.date_of_payment
+                else R.string.pay_until
 
             TextRow(
-                label = stringResource(id = R.string.date_of_payment),
+                label = stringResource(id = dateLabelRes),
                 value = payment.dueDate
             )
         }
@@ -189,7 +199,7 @@ fun InvoiceForm(
     )
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
             text = stringResource(id = R.string.invoice),
@@ -204,7 +214,8 @@ fun InvoiceForm(
         invoiceContent.forEach {
             TextRow(
                 label = it.first,
-                value = it.second
+                value = it.second,
+                textStyle = MaterialTheme.typography.body1
             )
         }
     }

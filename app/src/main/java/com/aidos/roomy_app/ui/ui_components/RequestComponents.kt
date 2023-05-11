@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,7 +38,10 @@ fun RequestItem(
     onRejectClicked: () -> Unit
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        shape = RoundedCornerShape(8.dp),
         color = MaterialTheme.colors.surface
     ) {
         Column(
@@ -97,6 +101,7 @@ fun TextRow(
     modifier: Modifier = Modifier,
     label: String = "",
     value: String = "",
+    textStyle: TextStyle = MaterialTheme.typography.subtitle2
 ) {
     Row(
         modifier = Modifier
@@ -108,7 +113,7 @@ fun TextRow(
             text = label,
             modifier = modifier,
             textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.subtitle2,
+            style = textStyle,
             color = MaterialTheme.colors.onSurface
         )
 
@@ -116,7 +121,7 @@ fun TextRow(
             text = value,
             modifier = modifier,
             textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.subtitle2,
+            style = textStyle,
             color = MaterialTheme.colors.onSurface
         )
     }
@@ -149,9 +154,16 @@ fun RoomBookingForm(
             color = MaterialTheme.colors.onSurface
         )
         val places = room.places.filter { it.livingResident == null }
-
+        Text(
+            text = stringResource(id = R.string.click_on_place),
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.onSurface
+        )
         PlaceSelector(
-            places = room.places,
+            places = places,
             onPlaceClicked = { place ->  chosenPlace = place }
         )
 

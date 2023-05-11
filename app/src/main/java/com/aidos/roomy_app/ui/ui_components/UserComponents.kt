@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aidos.roomy_app.R
@@ -23,14 +24,39 @@ fun ProfileScreen(user: User) {
     Column(
         modifier = Modifier
             .wrapContentHeight()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
+        Text(
+            text = stringResource(id = R.string.profile_title),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.h4,
+            color = MaterialTheme.colors.onSurface
+        )
         val contentColor = MaterialTheme.colors.onSurface
+
+        TextRow(
+            label = stringResource(id = R.string.username),
+            value = user.username
+        )
+
+        Divider(Modifier.background(contentColor))
+
         TextRow(
             label = stringResource(id = R.string.fullname),
             value = user.getFullName()
+        )
+
+        Divider(Modifier.background(contentColor))
+
+        TextRow(
+            label = stringResource(id = R.string.contract_expiry),
+            value = "2023/07/30"
         )
 
         Divider(Modifier.background(contentColor))
@@ -63,7 +89,7 @@ fun ProfileScreen(user: User) {
         horizontalArrangement = Arrangement.Center) {
             Text(
                 text = stringResource(id = R.string.edit_data),
-                style = MaterialTheme.typography.subtitle1.copy(
+                style = MaterialTheme.typography.body1.copy(
                     color = contentColor
                 )
             )

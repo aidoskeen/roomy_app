@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.aidos.roomy_app.data.repository.DefaultPaymentRepository
 import com.aidos.roomy_app.data.repository.PaymentRepository
 import com.aidos.roomy_app.data.repository.PlaceRepository
+import com.aidos.roomy_app.enums.PaymentStatus
 import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.models.MonthlyPayment
 import com.aidos.roomy_app.models.Place
@@ -43,5 +44,18 @@ class PaymentListViewModel @Inject constructor(
                 placeRepository.getAllPlacesInDormitory(dormitoryId)
             }
         }
+    }
+
+    fun generateFakePayments(): List<MonthlyPayment> {
+        val payments = mutableListOf<MonthlyPayment>()
+        for (i in 0..10) {
+            payments.add(MonthlyPayment(
+                "",
+                "MAY",
+                dueDate = "2023/05/05",
+                paymentStatus = PaymentStatus.PAID)
+            )
+        }
+        return payments
     }
 }

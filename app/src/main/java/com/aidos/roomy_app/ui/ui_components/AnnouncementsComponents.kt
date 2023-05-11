@@ -106,7 +106,7 @@ fun AnnouncementRow(
             modifier = Modifier,
             text = announcement.title,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h4,
+            style = MaterialTheme.typography.subtitle1,
             color = MaterialTheme.colors.onSurface,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis

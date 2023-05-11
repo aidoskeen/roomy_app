@@ -5,19 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.activities.MainViewModel
 import com.aidos.roomy_app.databinding.FragmentDormitoriesBinding
-import com.aidos.roomy_app.enums.RoomSize
-import com.aidos.roomy_app.enums.RoomType
-import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.DormitoryItemRow
 import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
@@ -54,32 +55,10 @@ class DormitoriesFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-        val room1 = Room(1, RoomType.DOUBLE, RoomSize.SMALL, listOf(), "Regular room")
-        val room2 = Room(2, RoomType.SINGLE, RoomSize.MEDIUM, listOf(), "Regular room")
-        val room3 = Room(3, RoomType.TRIPLE, RoomSize.BIG, listOf(), "Regular room")
         viewModel.loadDormitories()
-//        val dormList = listOf(
-//            Dormitory(
-//                dormitoryId = 11,
-//                address = "Sauletekio 25",
-//                rooms = listOf(room1, room2, room3),
-//                "VGTU"
-//            ),
-//            Dormitory(
-//                dormitoryId = 11,
-//                address = "Sauletekio 25",
-//                rooms = listOf(),
-//                "VGTU"
-//            ),
-//            Dormitory(
-//                dormitoryId = 11,
-//                address = "Sauletekio 25",
-//                rooms = listOf(),
-//                "VGTU"
-//            )
-//        )
+
         binding.dormsComposeView.setContent {
-            val viewState by viewModel.dormitoriesStateFlow.collectAsState()
+            val dormitoriesState by viewModel.dormitoriesStateFlow.collectAsState()
             RoomyMainTheme {
                 Column {
                     RoomyTopAppBar(
@@ -88,11 +67,14 @@ class DormitoriesFragment : DaggerFragment() {
                         label = "Roomy",
                         onUserIconClick = { }
                     )
-
-                    viewState.forEach { dormitory ->
+                    val dormitories = dormitoriesState.ifEmpty { viewModel.createFakeDormitories() }
+                    dormitories.forEach { dormitory ->
+                        val icon = if (dormitory.university.uppercase() == "VGTU")
+                            painterResource(id = R.drawable.vgtu_image)
+                            else painterResource(id = R.drawable.ic_dormitory)
                         DormitoryItemRow(
                             item = dormitory,
-                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                            painter = icon,
                             label = stringResource(id = R.string.dorm_item_label),
                             onItemClicked = {
                                 mainViewModel.setDormitory(dormitory)
@@ -102,6 +84,11 @@ class DormitoriesFragment : DaggerFragment() {
                                      putSerializable(RoomsFragment.KEY_DORMITORY, dormitory)  }
                                 )
                             })
+
+                        Divider(
+                            modifier = Modifier.padding(top = 12.dp, start = 12.dp, end = 12.dp),
+                            color = MaterialTheme.colors.onSurface
+                        )
                     }
                 }
             }

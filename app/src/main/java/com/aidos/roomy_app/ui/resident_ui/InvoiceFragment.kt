@@ -54,7 +54,7 @@ class InvoiceFragment : DaggerFragment() {
         val binding = binding ?: return
         val payment = invoiceArgs() ?: viewModel.createDummyPayment()
         val place = placeArgs() ?: viewModel.createDummyPlace(payment)
-        val resident = place.livingResident ?: User.Resident(-1, "No", "resident is living")
+        val resident = place.livingResident ?: User.Resident(-1, "Aidos", "Alimkhan")
         binding.invComposeView.setContent {
             RoomyMainTheme {
                 InvoiceForm(payment = payment, resident = resident, place = place)

@@ -9,10 +9,11 @@
     <string name="login_button">Log in</string>
     <string name="logout_button">Log out</string>
     <string name="login_label">Login</string>
+    <string name="admin_login_label">Administrator login</string>
     <string name="edit_data">Edit</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="registration">Registration</string>
-    <string name="admin_login_label">I am the administrator</string>
+    <string name="admin_login_button">I am the administrator</string>
     <string name="user_not_authorized">User is not authorized</string>
     <string name="no_room">No room</string>
     <string name="dorm_item_label">Dormitory:</string>
@@ -23,8 +24,10 @@
     <string name="requester">Requester: </string>
     <string name="accepted">Accepted</string>
     <string name="rejected">Rejected</string>
-
+    <string name="contract_expiry">Contract expiry date</string>
     <string name="room_booking_label">Book a room</string>
+    <string name="room_choosing_label">Choose a room</string>
+    <string name="click_on_place">Click on bed to choose a place</string>
     <string name="room_item_label">Room:</string>
     <string name="room_title">Room</string>
     <string name="room_size">Room size:</string>
@@ -66,9 +69,11 @@
     <string name="paid_status">Paid</string>
     <string name="overdue_status">Overdue</string>
     <string name="not_paid_status">Not paid yet</string>
+    <string name="pay_until">Pay until</string>
     <string name="home_title">Home</string>
     <string name="my_room_title">My room</string>
     <string name="recent_announcements">News</string>
+    <string name="announcements_title">Announcements</string>
     <string name="profile_title">Profile</string>
     <string name="request_sent_message">Request is sent</string>
     <string name="error_message">Error occurred. Try again.</string>

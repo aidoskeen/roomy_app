@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentRoomsBinding
+import com.aidos.roomy_app.enums.RoomType
 import com.aidos.roomy_app.models.Dormitory
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
@@ -68,7 +69,6 @@ class RoomsFragment : DaggerFragment() {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = MaterialTheme.colors.background)
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -82,7 +82,7 @@ class RoomsFragment : DaggerFragment() {
                     Text(
                         modifier = Modifier
                             .padding(25.dp),
-                        text = AnnotatedString(stringResource(id = R.string.dorm_item_label)),
+                        text = AnnotatedString(stringResource(id = R.string.room_choosing_label)),
                         style = MaterialTheme.typography.h4.copy(
                             color = MaterialTheme.colors.onSurface
                         ),
@@ -98,9 +98,10 @@ class RoomsFragment : DaggerFragment() {
                         )
                     } else {
                         dormitory.rooms.forEach { room ->
+                            val iconId = R.drawable.ic_resident_bed
                             RoomItemRow(
                                 item = room,
-                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                painter = painterResource(id = iconId),
                                 onItemClicked = { navigateToBooking(room = room, resident = resident) }
                             )
 

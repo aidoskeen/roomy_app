@@ -1,5 +1,6 @@
 package com.aidos.roomy_app.ui.resident_ui
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aidos.roomy_app.R
@@ -27,7 +28,7 @@ class BookingViewModel @Inject constructor(
     val placeRepository: PlaceRepository,
     val userRepository: UserRepository
 ): ViewModel() {
-
+    val onFinish = MutableLiveData<Unit>()
     private val _uiState = MutableStateFlow(BookingUiState())
     val uiState: StateFlow<BookingUiState> = _uiState.asStateFlow()
 
@@ -51,6 +52,8 @@ class BookingViewModel @Inject constructor(
             val result = placeRepository.updatePlace(place)
             if (result == HostActionStatus.SUCCESS) {
                 showMessage(MessageItem(R.string.request_sent_message))
+                delay(1000)
+                onFinish.postValue(Unit)
             }
             else showMessage(MessageItem(R.string.error_message))
         }

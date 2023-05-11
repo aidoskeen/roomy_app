@@ -40,7 +40,7 @@ class ProfileFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-        val resident = currentResidentArgs() ?: User.Resident(-1, "Fake","User For Test Purposes")
+        val resident = viewModel.generateFakeResident()
         binding.composeView.setContent {
             RoomyMainTheme {
                 ProfileScreen(user = resident)

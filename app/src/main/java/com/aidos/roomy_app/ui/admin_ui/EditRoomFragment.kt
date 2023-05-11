@@ -8,6 +8,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.ViewModelProvider
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentEditRoomBinding
+import com.aidos.roomy_app.enums.RoomSize
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.ui.resident_ui.BookingFragment
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
@@ -45,11 +46,20 @@ class EditRoomFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = binding ?: return
+        val roomSizes = listOf("BIG", "MEDIUM", "SMALL")
+        val roomTypes = listOf("SINGLE", "DOUBLE", "TRIPLE")
         val roomToBeEdited = roomArgs()
         binding.composeView.setContent {
             RoomyMainTheme {
                 if (roomToBeEdited != null) {
-
+                    RoomEditForm(
+                        room = roomToBeEdited,
+                        roomSizesList = roomSizes,
+                        roomTypesList = roomTypes,
+                        onButtonClick = {
+                            //TODO
+                        }
+                    )
                 }
             }
         }

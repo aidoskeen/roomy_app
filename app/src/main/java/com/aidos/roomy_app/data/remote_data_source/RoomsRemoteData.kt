@@ -17,6 +17,22 @@ class RoomsRemoteData @Inject constructor(
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) : RoomsRemoteDataSource {
     private val gson = GsonBuilder().create()
+    override suspend fun getRoomByNumber(roomNumber: Int): Room? {
+        val response = withContext(dispatcher) {
+            hostConnection.sendGetRequest(URL_GET_ROOM_BY_NUMBER + "$roomNumber")
+        }
+
+        if (response == "")  return null
+        else
+            return try {
+                gson.fromJson(response, Room::class.java)
+            }
+            catch (ex: Exception) {
+                ex.printStackTrace()
+                null
+            }
+    }
+
     override suspend fun getDormitoryRooms(dormitoryId: Int): List<Room> {
         val response = withContext(dispatcher) {
             hostConnection.sendGetRequest(URL_GET_ROOMS_BY_DORMITORY)
@@ -35,13 +51,6 @@ class RoomsRemoteData @Inject constructor(
             }
     }
 
-    override suspend fun getRoom(id: String): Room {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun createRoom(room: Room, dormitoryId: Int) {
-        TODO("Not yet implemented")
-    }
 
     override suspend fun updateRoom(dormitoryId: Int, updatedRoom: Room) {
         TODO("Not yet implemented")
@@ -52,12 +61,10 @@ class RoomsRemoteData @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteAllRooms() {
-        TODO("Not yet implemented")
-    }
 
     companion object {
         private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
         private const val URL_GET_ROOMS_BY_DORMITORY = "${HOST_ADDRESS}room/allRooms"
+        private const val URL_GET_ROOM_BY_NUMBER = "${HOST_ADDRESS}room/byNumber/"
     }
 }

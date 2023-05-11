@@ -18,10 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentBookingBinding
 import com.aidos.roomy_app.databinding.FragmentLoginBinding
 import com.aidos.roomy_app.enums.RequestStatus
+import com.aidos.roomy_app.enums.RoomSize
+import com.aidos.roomy_app.enums.RoomType
+import com.aidos.roomy_app.models.Place
 import com.aidos.roomy_app.models.Room
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
@@ -116,6 +120,10 @@ class BookingFragment : DaggerFragment() {
                         Text(text = stringResource(id = R.string.user_not_authorized))
                 }
             }
+        }
+
+        viewModel.onFinish.observe(viewLifecycleOwner) {
+            findNavController().popBackStack()
         }
     }
 }

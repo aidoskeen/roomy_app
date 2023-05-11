@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -76,7 +77,7 @@ class RegistrationFragment : DaggerFragment() {
 
                     Text(
                         text = stringResource(id = R.string.registration),
-                        style = TextStyle(fontSize = 40.sp)
+                        style = MaterialTheme.typography.h2.copy(color = MaterialTheme.colors.primary)
                     )
                     //Name
                     InputField(
@@ -109,13 +110,6 @@ class RegistrationFragment : DaggerFragment() {
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         onValueChange = { repeatedPassword.value = it })
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    //Button for signing in
-                    RoomyButton(
-                        onClick = { /*TODO*/ },
-                        text = stringResource(id = R.string.login_button)
-                    )
 
                     Spacer(modifier = Modifier.height(20.dp))
 

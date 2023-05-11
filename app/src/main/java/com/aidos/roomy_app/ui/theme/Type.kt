@@ -29,7 +29,7 @@ val Typography = Typography(
         letterSpacing = 0.25.sp
     ),
     subtitle1 = TextStyle(
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
         letterSpacing = 0.15.sp
     ),
@@ -41,7 +41,7 @@ val Typography = Typography(
     body1 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.15.sp
     ),
     body2 = TextStyle(
         fontWeight = FontWeight.Normal,

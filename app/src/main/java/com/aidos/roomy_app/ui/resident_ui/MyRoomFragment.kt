@@ -1,9 +1,12 @@
 package com.aidos.roomy_app.ui.resident_ui
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,16 +18,13 @@ import com.aidos.roomy_app.enums.RoomType
 import com.aidos.roomy_app.models.MonthlyPayment
 import com.aidos.roomy_app.models.Place
 import com.aidos.roomy_app.models.Room
+import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.BookedRoomForm
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class MyRoomFragment : DaggerFragment() {
-
-    companion object {
-        const val KEY_ROOM = "KEY_ROOM"
-    }
 
     private var binding: FragmentMyRoomBinding? = null
     @Inject
@@ -33,6 +33,10 @@ class MyRoomFragment : DaggerFragment() {
         ViewModelProvider(this, viewModelFactory)[MyRoomViewModel::class.java]
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.loadData()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,19 +50,18 @@ class MyRoomFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-        val payment = MonthlyPayment(paymentId = "1",month = "December", paymentStatus = PaymentStatus.PAID, dueDate = "2023/03/23")
-        val place = Place(price = 100L, monthlyPayment = payment)
-        val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
 
         binding.composeView.setContent {
-            val image = painterResource(id = R.drawable.ic_launcher_foreground)
+            val myRoomState by viewModel.myRoomState.collectAsState()
+
+            val image = painterResource(id = R.drawable.ic_image_room)
             RoomyMainTheme {
-                BookedRoomForm(image = image, room = room, place = place) {
+                BookedRoomForm(image = image, room = myRoomState.room, place = myRoomState.place) {
                     findNavController().navigate(R.id.action_myRoomFragment_to_invoiceFragment,
                     Bundle().apply
                      {
-                         putSerializable(InvoiceFragment.KEY_PAYMENT, payment)
-                         putSerializable(InvoiceFragment.KEY_PLACE, place)
+                         putSerializable(InvoiceFragment.KEY_PAYMENT, myRoomState.place.monthlyPayment)
+                         putSerializable(InvoiceFragment.KEY_PLACE, myRoomState.place)
                      })
                 }
             }

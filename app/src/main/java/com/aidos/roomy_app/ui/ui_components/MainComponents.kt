@@ -54,32 +54,19 @@ fun RoomyTopAppBar(
             }
         },
         backgroundColor = backgroundColor,
-        actions = {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                IconButton(
-                    onClick = { /* TODO: Open search */ }
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .clickable(onClick = onUserIconClick),
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = null
-                    )
-                }
-
-            }
-        },
         modifier = modifier
     )
 }
 
 @Composable
 fun ImageInBox(
-    painter: Painter
+    painter: Painter,
+    modifier: Modifier = Modifier
 ) {
-    Box (
-        modifier = Modifier.padding(start = 15.dp)
-            ){
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(4.dp))
+    ) {
         Image(
             painter = painter,
             contentDescription = null,
@@ -103,12 +90,18 @@ private fun RoomItemColumn(
     ) {
         Surface(
             modifier = Modifier
+                .padding(start = 15.dp)
                 .size(64.dp)
                 .aspectRatio(1f),
             RoundedCornerShape(4.dp),
             color = MaterialTheme.colors.surface
         ) {
-            ImageInBox(painter)
+            Image(
+                painter = painter,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
         Spacer(Modifier.height(8.dp))
         Column(
@@ -119,7 +112,7 @@ private fun RoomItemColumn(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = item.roomNumber.toString(),
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.body1
             )
             Spacer(Modifier.height(4.dp))
             Text(
@@ -146,12 +139,17 @@ fun DormitoryItemRow(
     ) {
         Surface(
             modifier = Modifier
+                .padding(start = 15.dp, end = 10.dp)
                 .size(64.dp)
                 .aspectRatio(1f),
-            RoundedCornerShape(4.dp),
-            color = MaterialTheme.colors.surface
+            RoundedCornerShape(4.dp)
         ) {
-            ImageInBox(painter)
+            Image(
+                painter = painter,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
         Spacer(Modifier.width(24.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -171,10 +169,16 @@ fun DormitoryItemRow(
             }
 
             Spacer(Modifier.height(4.dp))
+
             Text(
-                text = item.address
-                        + " " + item.university + " Rooms: ",
-                style = MaterialTheme.typography.caption
+                text = ("${item.university}, ${item.address}"),
+                style = MaterialTheme.typography.body2
+                    .copy(color = textColor)
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = ("Available rooms: ${item.rooms.size}"),
+                style = MaterialTheme.typography.body2
                     .copy(color = textColor)
             )
         }
@@ -192,17 +196,14 @@ fun RoomItemRow(
     Row(
         modifier = modifier
             .clickable { onItemClicked(item) }
-            .padding(top = 12.dp, bottom = 12.dp)
+            .padding(12.dp)
     ) {
-        Surface(
+        ImageInBox(
             modifier = Modifier
                 .size(64.dp)
                 .aspectRatio(1f),
-            RoundedCornerShape(4.dp),
-            color = MaterialTheme.colors.surface
-        ) {
-            ImageInBox(painter)
-        }
+            painter = painter
+        )
 
         Spacer(Modifier.width(24.dp))
         Column(modifier = Modifier.fillMaxWidth()) {

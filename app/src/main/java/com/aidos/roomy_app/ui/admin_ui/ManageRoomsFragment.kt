@@ -38,7 +38,7 @@ class ManageRoomsFragment : DaggerFragment() {
         const val DORMITORY = "DORMITORY"
     }
 
-    private fun dormitoryArgs() = requireArguments().getSerializable(RoomsFragment.KEY_DORMITORY) as? Dormitory
+    private fun dormitoryArgs() = requireArguments().getSerializable(DORMITORY) as? Dormitory
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -69,7 +69,6 @@ class ManageRoomsFragment : DaggerFragment() {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = MaterialTheme.colors.background)
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -89,7 +88,7 @@ class ManageRoomsFragment : DaggerFragment() {
                         ),
                         textAlign = TextAlign.Center
                     )
-                    val dormitory = dormitoryArgs()
+                    val dormitory = viewModel.createFakeDormitory()
                     if (dormitory == null) {
                         Text(
                             text = stringResource(id = R.string.no_rooms),
@@ -115,8 +114,9 @@ class ManageRoomsFragment : DaggerFragment() {
 
     private fun navigateToRoomEdit(room: Room) {
         findNavController().navigate(R.id.action_manageRoomsFragment_to_editRoomFragment,
-            Bundle().apply
-            {}
+            Bundle().apply {
+                putSerializable(EditRoomFragment.ROOM, room)
+            }
         )
     }
 }

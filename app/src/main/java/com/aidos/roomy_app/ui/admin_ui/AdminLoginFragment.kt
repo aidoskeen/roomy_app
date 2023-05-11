@@ -67,7 +67,7 @@ class AdminLoginFragment : DaggerFragment() {
                     val password = remember { mutableStateOf(TextFieldValue()) }
 
                     Text(
-                        text = stringResource(id = R.string.login_label),
+                        text = stringResource(id = R.string.admin_login_label),
                         style = MaterialTheme.typography.h2.copy(color = MaterialTheme.colors.primary)
                     )
                     //Username input

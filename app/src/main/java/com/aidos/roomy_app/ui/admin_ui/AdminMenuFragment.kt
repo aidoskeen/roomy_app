@@ -106,7 +106,7 @@ class AdminMenuFragment : DaggerFragment() {
                         onClick = {  findNavController().navigate(R.id.action_adminMenuFragment_to_manageRoomsFragment,
                             Bundle().apply
                             {
-                                putSerializable(RoomsFragment.KEY_DORMITORY, dormitory)  }
+                                putSerializable(ManageRoomsFragment.DORMITORY, dormitory)  }
                         ) }
                     )
 

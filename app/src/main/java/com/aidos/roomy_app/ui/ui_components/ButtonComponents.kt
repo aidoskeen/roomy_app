@@ -40,7 +40,7 @@ fun RoomyButton(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.subtitle1
+            style = MaterialTheme.typography.body1
         )
     }
 }
@@ -64,7 +64,7 @@ fun SmallButton(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.subtitle1
+            style = MaterialTheme.typography.body1
         )
     }
 }

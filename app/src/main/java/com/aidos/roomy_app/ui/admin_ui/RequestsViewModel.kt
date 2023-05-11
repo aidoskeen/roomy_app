@@ -45,9 +45,25 @@ class RequestsViewModel @Inject constructor(
                 userRepository.updateResident(updatedResident as User.Resident)
                 placeRepository.updatePlace(updatedPlace)
             }
-            if (status == HostActionStatus.SUCCESS){
-                _messageStateFlow.update { status.toString() }
-            }
+
+            _messageStateFlow.update { status.toString() }
+
         }
+    }
+
+    fun generateFakePlaces(): List<Place> {
+        val placeList = mutableListOf<Place>()
+        for (i in 0..10) {
+            placeList.add(
+                Place(
+                    placeId = i,
+                    price = 100L,
+                    requestStatus = RequestStatus.PENDING,
+                    livingResident = User.Resident(id = -1, name = "Aidos", "Alimkhan"),
+                    roomNumber = i + 100
+                )
+            )
+        }
+        return placeList
     }
 }

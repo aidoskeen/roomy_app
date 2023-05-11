@@ -7,10 +7,9 @@ import javax.inject.Inject
 class DefaultRoomRepository @Inject constructor(
     val roomsRemoteDataSource: RoomsRemoteDataSource
 ): RoomRepository {
+    override suspend fun getRoomByNumber(roomNumber: Int): Room? = roomsRemoteDataSource.getRoomByNumber(roomNumber)
 
     override suspend fun getDormitoryRooms(dormitoryId: Int): List<Room> = roomsRemoteDataSource.getDormitoryRooms(dormitoryId)
-
-    override suspend fun addRoomToDormitory(room: Room, dormitoryId: Int)  = roomsRemoteDataSource.createRoom(room, dormitoryId)
 
     override suspend fun updateRoom(dormitoryId: Int, room: Room) = roomsRemoteDataSource.updateRoom(dormitoryId, room)
 
