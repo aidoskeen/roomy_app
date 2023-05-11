@@ -5,7 +5,7 @@ import com.aidos.roomy_app.models.MonthlyPayment
 
 interface PaymentsRemoteDataSource {
 
-  suspend fun getPayments(): List<MonthlyPayment>
+  suspend fun getPayments(dormitoryId: Int): List<MonthlyPayment>
 
   suspend fun getPayment(id: String): MonthlyPayment
 

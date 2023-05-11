@@ -42,7 +42,7 @@ class HostConnection {
         return response.toString()
     }
 
-    fun sendPost(urlPost: String?, postDataParams: String?): String? {
+    fun sendPost(urlPost: String?, postDataParams: String?): String {
         val url = URL(urlPost)
         val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
         println(postDataParams)

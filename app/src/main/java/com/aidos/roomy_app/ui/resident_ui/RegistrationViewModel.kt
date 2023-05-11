@@ -15,9 +15,8 @@ class RegistrationViewModel @Inject constructor(
 
     fun createUser(user: User) {
         viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                userRepository.createUser(user)
-            }
+            userRepository.createUser(user)
+
         }
     }
 }

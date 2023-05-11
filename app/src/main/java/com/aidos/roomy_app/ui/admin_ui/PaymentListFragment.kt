@@ -46,7 +46,7 @@ class PaymentListFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadPayments()
+        viewModel.loadPayments(dormitoryIdArgs())
         viewModel.loadPlaces(dormitoryIdArgs())
     }
     override fun onCreateView(

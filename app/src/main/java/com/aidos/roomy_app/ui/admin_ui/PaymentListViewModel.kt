@@ -19,16 +19,17 @@ class PaymentListViewModel @Inject constructor(
     private val placeRepository: PlaceRepository
 ) : ViewModel() {
 
+
     private val _paymentsStateFlow = MutableStateFlow<List<MonthlyPayment>>(listOf())
     val paymentsStateFlow = _paymentsStateFlow
 
     private val _placesStateFlow = MutableStateFlow<List<Place>>(listOf())
     val placesStateFlow : StateFlow<List<Place>> = _placesStateFlow
 
-    fun loadPayments() {
+    fun loadPayments(dormitoryId: Int) {
         viewModelScope.launch {
             _paymentsStateFlow.update {
-                paymentRepository.getPayments()
+                paymentRepository.getPayments(dormitoryId)
             }
         }
     }

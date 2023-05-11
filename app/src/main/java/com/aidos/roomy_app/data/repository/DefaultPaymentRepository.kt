@@ -7,12 +7,10 @@ import javax.inject.Inject
 class DefaultPaymentRepository @Inject constructor(
     private val paymentsDataSource: PaymentsRemoteDataSource
         ) : PaymentRepository {
-    override suspend fun getPayments(): List<MonthlyPayment> = paymentsDataSource.getPayments()
+    override suspend fun getPayments(dormitoryId: Int): List<MonthlyPayment> = paymentsDataSource.getPayments(dormitoryId)
 
     override suspend fun getPayment(id: String): MonthlyPayment = paymentsDataSource.getPayment(id)
-    override suspend fun createPayments(dormitoryId: Int) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun createPayments(dormitoryId: Int) = paymentsDataSource.createPayments(dormitoryId)
 
     override suspend fun updatePayment(id: String, updatedPayment: MonthlyPayment) = paymentsDataSource.updatePayment(id, updatedPayment)
 
