@@ -42,30 +42,28 @@ class HostConnection {
         return response.toString()
     }
 
-    fun sendPost(urlPost: String?, postDataParams: String?): String {
+    fun sendPost(urlPost: String?, postDataParams: String): String {
         val url = URL(urlPost)
         val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
         println(postDataParams)
-        httpURLConnection.requestMethod = "POST"
 
-        val outputStream = httpURLConnection.getOutputStream()
-        val bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "UTF-8"))
-        bufferedWriter.write(postDataParams)
-        bufferedWriter.close()
-        outputStream!!.close()
+        httpURLConnection.setRequestProperty("Content-Type", "application/json")
+        httpURLConnection.setRequestProperty("Accept", "application/json")
+        httpURLConnection.requestMethod = "POST"
+        httpURLConnection.doInput = true
+        httpURLConnection.doOutput = true
+        val outputStream = httpURLConnection.outputStream
+
+        val outputStreamWriter = OutputStreamWriter(outputStream, "UTF-8")
+        outputStreamWriter.write(postDataParams)
+        outputStreamWriter.flush()
+
         val code: Int = httpURLConnection.responseCode
         Log.d("HostConnection","Response code: $code")
         return if (code == HttpURLConnection.HTTP_OK) {
-            val `in` = BufferedReader(InputStreamReader(httpURLConnection.getInputStream()))
-            var line: String?
-            val response = StringBuffer()
-            while (`in`.readLine().also { line = it } != null) {
-                response.append(line)
-                break
-            }
-            `in`.close()
-            response.toString()
+            getResponseFromInputStream(InputStreamReader(httpURLConnection.inputStream))
         } else {
+          println(httpURLConnection.errorStream)
             "Error"
         }
     }

@@ -23,8 +23,9 @@ class UserRemoteData @Inject constructor(
 
     companion object {
         private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
-        private const val URL_LOGIN = "${HOST_ADDRESS}user/login"
-        private const val URL_REGISTRATION = "${HOST_ADDRESS}user/registration"
+        private const val URL_LOGIN = "${HOST_ADDRESS}/user/authentication"
+        private const val URL_REGISTRATION = "${HOST_ADDRESS}/user/registration"
+        private const val URL_UPDATE = "${HOST_ADDRESS}/user/update"
     }
 
     override suspend fun fetchUsers(): List<User> {
@@ -43,9 +44,6 @@ class UserRemoteData @Inject constructor(
 
         return if (response == "Error") {
             Log.e("UserRemoteData", "Connection error")
-            HostActionStatus.ERROR
-        } else if (response.isEmpty()) {
-            Log.e("UserRemoteData", "JSON is empty")
             HostActionStatus.ERROR
         } else HostActionStatus.SUCCESS
     }
@@ -72,8 +70,10 @@ class UserRemoteData @Inject constructor(
         else gson.fromJson(response, User.Resident::class.java)
     }
 
-    override suspend fun updateResident(resident: User.Resident) {
-        TODO("Not yet implemented")
+    override suspend fun updateResident(resident: User.Resident, properties: String) {
+        val response = withContext(dispatcher) {
+            hostConnection.sendPut(URL_UPDATE + "/${resident.id}", properties)
+        }
     }
 
 }

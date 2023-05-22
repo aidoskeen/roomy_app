@@ -14,12 +14,12 @@ class UserDeserializer() {
                                               _: Type,
                                               _: JsonDeserializationContext ->
             val residentJson = element.asJsonObject
-            val id = residentJson.get("usedId").asInt
+            val id = residentJson.get("userId")?.asInt
             val name = residentJson.get("name").asString
             val surname = residentJson.get("surname").asString
             val username = residentJson.get("username").asString
             val password = residentJson.get("password").asString
-            val roomNumber = residentJson.get("roomNumber").asInt
+            val roomNumber = residentJson.get("roomNumber")?.asInt
 
             User.Resident(
                 id = id,

@@ -56,7 +56,6 @@ class DormitoriesFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
         viewModel.loadDormitories()
-
         binding.dormsComposeView.setContent {
             val dormitoriesState by viewModel.dormitoriesStateFlow.collectAsState()
             RoomyMainTheme {
@@ -67,7 +66,7 @@ class DormitoriesFragment : DaggerFragment() {
                         label = "Roomy",
                         onUserIconClick = { }
                     )
-                    val dormitories = dormitoriesState.ifEmpty { viewModel.createFakeDormitories() }
+                    val dormitories = dormitoriesState
                     dormitories.forEach { dormitory ->
                         val icon = if (dormitory.university.uppercase() == "VGTU")
                             painterResource(id = R.drawable.vgtu_image)

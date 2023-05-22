@@ -63,7 +63,7 @@ class RoomsFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-        val resident = User.Resident(1, name = "Aidos", surname = "Alimkhan")
+        val resident = viewModel.getCurrentUser()
         binding.roomsComposeView.setContent {
             RoomyMainTheme {
                 Column(

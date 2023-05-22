@@ -14,9 +14,8 @@ class DefaultPlaceRepository @Inject constructor(
     private val roomRemoteDataSource: RoomsRemoteDataSource
 ) : PlaceRepository {
     override suspend fun updatePlace(place: Place): HostActionStatus {
-        val gson = GsonBuilder().create()
         val resident = if (place.livingResident != null)
-            "{\"resident\":${gson.toJson(place.livingResident)}"
+            "{\"residentId\":${place.livingResident.id},"
         else "{"
         val properties = resident +
                 "\"available\":\"${place.available}\"," +

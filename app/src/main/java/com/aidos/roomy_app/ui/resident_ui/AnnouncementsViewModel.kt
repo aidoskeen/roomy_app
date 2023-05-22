@@ -11,14 +11,11 @@ class AnnouncementsViewModel @Inject constructor(
     fun generateFakeDormitory(): Dormitory {
         val annoucements = listOf(
             Announcement(1,
-            "Update on big rooms", "From may 1st, 3 people will live in big rooms"
+            "Renovation","Rooms will be renovated"
             ),
             Announcement(2,
-            "Price change",
-            "The price will be increased by 50 euros"
-            ),
-            Announcement(3,
-            "Renovation", "Floors from 3 to 10 will be renovated"
+            "Changes in rules",
+                "From may 1st, rules will be changed"
             )
         )
         return Dormitory(1, announcements = annoucements)

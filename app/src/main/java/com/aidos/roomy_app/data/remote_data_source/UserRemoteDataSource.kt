@@ -15,5 +15,5 @@ interface UserRemoteDataSource {
 
     suspend fun getUserByLoginData(login: String, password: String): User?
 
-    suspend fun updateResident(resident: User.Resident)
+    suspend fun updateResident(resident: User.Resident, properties: String)
 }

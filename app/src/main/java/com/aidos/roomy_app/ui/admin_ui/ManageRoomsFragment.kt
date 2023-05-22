@@ -13,6 +13,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -59,10 +61,11 @@ class ManageRoomsFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.loadDormitories()
         val binding = binding ?: return
 
         binding.composeView.setContent {
+            val dormitoryState by viewModel.dormitoriesStateFlow.collectAsState()
             RoomyMainTheme {
                 val title = stringResource(id = R.string.room_management)
                 val label = stringResource(id = R.string.room_item_label)
@@ -88,7 +91,8 @@ class ManageRoomsFragment : DaggerFragment() {
                         ),
                         textAlign = TextAlign.Center
                     )
-                    val dormitory = viewModel.createFakeDormitory()
+                    val dormitory = if (dormitoryState.isNotEmpty()) dormitoryState.first()
+                                    else null
                     if (dormitory == null) {
                         Text(
                             text = stringResource(id = R.string.no_rooms),

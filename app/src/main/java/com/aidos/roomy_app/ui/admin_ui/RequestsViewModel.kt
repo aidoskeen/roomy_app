@@ -42,7 +42,6 @@ class RequestsViewModel @Inject constructor(
         val updatedResident = place.livingResident?.copy(roomNumber = place.roomNumber)
         viewModelScope.launch {
             val status = withContext(Dispatchers.Default) {
-                userRepository.updateResident(updatedResident as User.Resident)
                 placeRepository.updatePlace(updatedPlace)
             }
 
@@ -53,14 +52,14 @@ class RequestsViewModel @Inject constructor(
 
     fun generateFakePlaces(): List<Place> {
         val placeList = mutableListOf<Place>()
-        for (i in 0..10) {
+        for (i in 0..2) {
             placeList.add(
                 Place(
-                    placeId = i,
+                    placeId = i + 1,
                     price = 100L,
                     requestStatus = RequestStatus.PENDING,
                     livingResident = User.Resident(id = -1, name = "Aidos", "Alimkhan"),
-                    roomNumber = i + 100
+                    roomNumber = i + 17
                 )
             )
         }

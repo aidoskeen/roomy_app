@@ -8,5 +8,6 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
+    fun getCurrentResident() = userRepository.getCurrentUserFlow().value
     fun generateFakeResident() = User.Resident(-1, "Aidos","Alimkhan", username = "aidos123")
 }

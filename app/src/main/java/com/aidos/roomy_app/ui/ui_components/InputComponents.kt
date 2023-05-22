@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -77,30 +78,35 @@ fun MessageBox(
     message: MessageItem
 ) {
     val textColor = MaterialTheme.colors.onSurface
-    Row(
+    Surface(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(color = MaterialTheme.colors.surface)
+            .background(color = Color.Green)
             .requiredHeight(65.dp)
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-        ,
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if (message.iconRes != null) {
-            Icon(
-                modifier = Modifier.weight(1f),
-                painter = painterResource(id = message.iconRes),
-                contentDescription = null
-            )
-        }
-        Text(
-            modifier = Modifier.weight(1f),
-            text = stringResource(id = message.textRes),
-            style = MaterialTheme.typography.caption.copy(textColor)
-        )
+            .padding(horizontal = 20.dp),
+        color = Color.Green
 
+    ) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (message.iconRes != null) {
+                Icon(
+                    modifier = Modifier.weight(1f),
+                    painter = painterResource(id = message.iconRes),
+                    contentDescription = null
+                )
+            }
+            Text(
+                modifier = Modifier.weight(1f),
+                text = stringResource(id = message.textRes),
+                style = MaterialTheme.typography.body1.copy(textColor)
+            )
+
+        }
     }
 }
 

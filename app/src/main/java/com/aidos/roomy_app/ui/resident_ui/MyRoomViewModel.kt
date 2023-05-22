@@ -56,10 +56,10 @@ class MyRoomViewModel @Inject constructor(
         }
     }
 
-    private fun generateFakePayment() = MonthlyPayment(paymentId = "1",month = "December", paymentStatus = PaymentStatus.NONE, dueDate = "2023/06/08")
+    private fun generateFakePayment() = MonthlyPayment(paymentId = "1",month = "MAY", paymentStatus = PaymentStatus.NONE, dueDate = "2023/06/08")
     private fun generateFakeRoom(): Room {
         val place = Place(price = 100L, monthlyPayment = generateFakePayment())
-        val room = Room(11, RoomType.SINGLE, RoomSize.SMALL, listOf(place))
+        val room = Room(17, RoomType.DOUBLE, RoomSize.MEDIUM, listOf(place))
         return room
     }
 }

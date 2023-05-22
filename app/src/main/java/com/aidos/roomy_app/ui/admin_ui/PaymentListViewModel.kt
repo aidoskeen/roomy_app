@@ -48,7 +48,7 @@ class PaymentListViewModel @Inject constructor(
 
     fun generateFakePayments(): List<MonthlyPayment> {
         val payments = mutableListOf<MonthlyPayment>()
-        for (i in 0..10) {
+        for (i in 0..3) {
             payments.add(MonthlyPayment(
                 "",
                 "MAY",

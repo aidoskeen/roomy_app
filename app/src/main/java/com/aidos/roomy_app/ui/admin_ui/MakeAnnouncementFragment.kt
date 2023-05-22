@@ -44,11 +44,14 @@ class MakeAnnouncementFragment : DaggerFragment() {
 
         binding.composeView.setContent {
             var text by  remember { mutableStateOf("") }
+            var titleText by  remember { mutableStateOf("") }
             RoomyMainTheme {
                 MakeAnnouncementForm(
                     text = text,
+                    titleText = titleText,
                     onValueChange = { text = it },
-                    onButtonClick = { }
+                    onButtonClick = { },
+                    onTitleValueChange = { titleText = it }
                 )
             }
         }

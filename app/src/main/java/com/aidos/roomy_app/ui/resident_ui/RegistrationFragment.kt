@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
@@ -25,8 +26,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentRegistrationBinding
+import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.InputField
 import com.aidos.roomy_app.ui.ui_components.RoomyButton
@@ -56,6 +59,15 @@ class RegistrationFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.onRegistrationResult.observe(viewLifecycleOwner) { success ->
+            if (success)  Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(requireContext(), "Registration failed", Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.onSuccess.observe(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
 
         binding?.regComposeView?.setContent {
             RoomyMainTheme {
@@ -112,10 +124,16 @@ class RegistrationFragment : DaggerFragment() {
 
 
                     Spacer(modifier = Modifier.height(20.dp))
+                    val user = User.Resident(
+                        name = name.value.text,
+                        surname = surname.value.text,
+                        username = username.value.text,
+                        password = username.value.text,
+                    )
 
                     //Button for registration
                     RoomyButton(
-                        onClick = { /*TODO*/ },
+                        onClick = { viewModel.createUser(user) },
                         text = stringResource(id = R.string.registration)
                     )
 

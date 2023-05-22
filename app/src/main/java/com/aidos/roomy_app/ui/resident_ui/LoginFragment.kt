@@ -26,7 +26,6 @@ import com.aidos.roomy_app.databinding.FragmentLoginBinding
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 import com.aidos.roomy_app.ui.ui_components.InputField
 import com.aidos.roomy_app.ui.ui_components.RoomyButton
-import com.aidos.roomy_app.ui.ui_components.RoomyTopAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -56,8 +55,11 @@ class LoginFragment : DaggerFragment() {
         val binding = binding ?: return
         val bottomNavBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavBar.visibility = View.GONE
-        viewModel.onError.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        viewModel.onLogin.observe(viewLifecycleOwner) { success ->
+            if (success)
+                findNavController().navigate(R.id.action_loginFragment_to_dormitoriesFragment)
+            else
+                Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
         }
 
         binding.loginComposeView.setContent {
@@ -95,11 +97,7 @@ class LoginFragment : DaggerFragment() {
 
                     //Button for signing in
                     RoomyButton(
-                        onClick = {
-                            viewModel.logIn(username.text, password.text)
-                            if (loginSuccessful)
-                                findNavController().navigate(R.id.action_loginFragment_to_dormitoriesFragment)
-                                  },
+                        onClick = { viewModel.logIn(username.text, password.text) },
                         text = stringResource(id = R.string.login_button)
                     )
 

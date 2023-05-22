@@ -21,7 +21,7 @@ class DefaultUserRepository @Inject constructor(
 
     override suspend fun getAdmins(): List<User.Administrator> = dataSource.fetchUsers().filterIsInstance(User.Administrator::class.java)
 
-    override suspend fun createUser(user: User) { dataSource.createUser(user) }
+    override suspend fun createUser(user: User) = dataSource.createUser(user)
 
     override suspend fun deleteUser(id: String) = dataSource.removeUser(id)
 
@@ -32,6 +32,9 @@ class DefaultUserRepository @Inject constructor(
         return user
     }
 
-    override suspend fun updateResident(resident: User.Resident) = dataSource.updateResident(resident)
+    override suspend fun updateResident(resident: User.Resident, placeId: String) {
+        val properties = "{\"placeId:\"\"$placeId\"}"
+        dataSource.updateResident(resident, properties)
+    }
 
 }
