@@ -15,7 +15,10 @@
             app:destination="@id/registrationFragment" />
         <action
             android:id="@+id/action_loginFragment_to_dormitoriesFragment"
-            app:destination="@id/dormitoriesFragment" />
+            app:destination="@id/dormitoriesFragment"
+            app:popUpTo="@+id/dormitoriesFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 
     <fragment
@@ -95,13 +98,20 @@
 
     <action
         android:id="@+id/action_global_announcementsFragment"
-        app:destination="@id/announcementsFragment"/>
+        app:destination="@id/announcementsFragment"
+        app:popUpTo="@+id/dormitoriesFragment"
+        app:popUpToInclusive="false"/>
 
     <action
         android:id="@+id/action_global_myRoomFragment"
-        app:destination="@id/myRoomFragment"/>
+        app:destination="@id/myRoomFragment"
+        app:popUpTo="@+id/dormitoriesFragment"
+        app:popUpToInclusive="false" />
 
     <action
         android:id="@+id/action_global_profileFragment"
-        app:destination="@id/profileFragment"/>
+        app:destination="@id/profileFragment"
+        app:popUpTo="@+id/dormitoriesFragment"
+        app:popUpToInclusive="false"
+        />
 </navigation>
