@@ -20,4 +20,6 @@ class AnnouncementsViewModel @Inject constructor(
         )
         return Dormitory(1, announcements = annoucements)
     }
+
+
 }

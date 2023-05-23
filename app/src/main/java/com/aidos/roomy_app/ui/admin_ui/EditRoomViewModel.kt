@@ -13,11 +13,9 @@ class EditRoomViewModel @Inject constructor(
     private val roomRepository: RoomRepository
 ): ViewModel() {
 
-    fun updateRoom(dormitoryId: Int, room: Room) {
+    fun updateRoom(room: Room) {
         viewModelScope.launch {
-            withContext(Dispatchers.Default) {
-                roomRepository.updateRoom(dormitoryId, room)
-            }
+            roomRepository.updateRoom(room)
         }
     }
 }

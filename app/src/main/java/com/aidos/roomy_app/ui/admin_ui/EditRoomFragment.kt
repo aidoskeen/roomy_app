@@ -57,7 +57,7 @@ class EditRoomFragment : DaggerFragment() {
                         roomSizesList = roomSizes,
                         roomTypesList = roomTypes,
                         onButtonClick = {
-                            //TODO
+                            viewModel.updateRoom(it)
                         }
                     )
                 }

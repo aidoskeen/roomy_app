@@ -27,12 +27,10 @@ import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 
 @Composable
 fun MakeAnnouncementForm(
-    text: String = "",
-    titleText: String = "",
-    onTitleValueChange: (String) -> Unit,
-    onValueChange: (String) -> Unit,
-    onButtonClick: () -> Unit
+    onButtonClick: (Announcement) -> Unit
 ) {
+    var text by  remember { mutableStateOf("") }
+    var titleText by  remember { mutableStateOf("") }
     val title = stringResource(id = R.string.make_announcement)
     val announcementLabel = stringResource(id = R.string.announcement_text)
     Column(modifier = Modifier
@@ -70,7 +68,7 @@ fun MakeAnnouncementForm(
                     },
                 label = { Text(text = "Title") },
                 value = titleText,
-                onValueChange = { onTitleValueChange(it) },
+                onValueChange = { titleText = it },
             )
 
             TextField(
@@ -86,7 +84,7 @@ fun MakeAnnouncementForm(
                     .padding(bottom = 20.dp, top = 15.dp),
                 value = text,
                 label = { Text(text = announcementLabel) },
-                onValueChange = { onValueChange(it) },
+                onValueChange = { text = it },
                 textStyle = MaterialTheme.typography.caption,
             )
 
@@ -97,7 +95,7 @@ fun MakeAnnouncementForm(
                         bottom.linkTo(parent.bottom)
                     },
                 text = stringResource(id = R.string.button_announce),
-                onClick = onButtonClick
+                onClick = { onButtonClick(Announcement(title = titleText, text = text)) }
             )
         }
     }
@@ -160,7 +158,7 @@ fun AnnouncementRow(
 @Preview(name = "Announcement Form review dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun MakeAnnouncementPreview() {
     RoomyMainTheme {
-        MakeAnnouncementForm(onValueChange = {}, onButtonClick = {}, text = "", onTitleValueChange = {})
+        MakeAnnouncementForm(onButtonClick = {})
     }
 
 }

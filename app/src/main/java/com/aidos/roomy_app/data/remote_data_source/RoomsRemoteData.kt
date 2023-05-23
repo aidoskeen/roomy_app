@@ -2,6 +2,7 @@ package com.aidos.roomy_app.data.remote_data_source
 
 import android.util.Log
 import com.aidos.roomy_app.data.ResponseModels.DormitoryResponse
+import com.aidos.roomy_app.enums.HostActionStatus
 import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
 import com.aidos.roomy_app.models.Room
 import com.google.gson.Gson
@@ -52,8 +53,14 @@ class RoomsRemoteData @Inject constructor(
     }
 
 
-    override suspend fun updateRoom(dormitoryId: Int, updatedRoom: Room) {
-        TODO("Not yet implemented")
+    override suspend fun updateRoom(updatedRoom: Room): HostActionStatus {
+        val roomJson = gson.toJson(updatedRoom)
+        val response = withContext(dispatcher) {
+            hostConnection.sendPut(URL_UPDATE_ROOM_BY_DORMITORY, roomJson.toString())
+        }
+        return if (response == "ERROR") HostActionStatus.ERROR
+        else HostActionStatus.SUCCESS
+
     }
 
 
@@ -66,5 +73,6 @@ class RoomsRemoteData @Inject constructor(
         private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
         private const val URL_GET_ROOMS_BY_DORMITORY = "${HOST_ADDRESS}room/allRooms"
         private const val URL_GET_ROOM_BY_NUMBER = "${HOST_ADDRESS}room/byNumber/"
+        private const val URL_UPDATE_ROOM_BY_DORMITORY = "${HOST_ADDRESS}room/updateRoom/"
     }
 }
