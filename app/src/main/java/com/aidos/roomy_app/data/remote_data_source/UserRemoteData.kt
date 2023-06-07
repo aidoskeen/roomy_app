@@ -1,6 +1,7 @@
 package com.aidos.roomy_app.data.remote_data_source
 
 import android.util.Log
+import com.aidos.roomy_app.data.Constants.HOST_ADDRESS
 import com.aidos.roomy_app.data.DeserializationTools.UserDeserializer
 import com.aidos.roomy_app.enums.HostActionStatus
 import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
@@ -15,14 +16,12 @@ class UserRemoteData @Inject constructor(
     val hostConnection: HostConnection,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) : UserRemoteDataSource {
-    private val deserializer = UserDeserializer().getResidentDeserializer()
-    private val gson = GsonBuilder()
-        .registerTypeAdapter(User.Resident::class.java, deserializer)
-        .create()
+    private val residentDeserializer = UserDeserializer().getResidentDeserializer()
+    private val adminDeserializer = UserDeserializer().getAdminDeserializer()
+    private
 
 
     companion object {
-        private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
         private const val URL_LOGIN = "${HOST_ADDRESS}/user/authentication"
         private const val URL_REGISTRATION = "${HOST_ADDRESS}/user/registration"
         private const val URL_UPDATE = "${HOST_ADDRESS}/user/update"
@@ -37,6 +36,7 @@ class UserRemoteData @Inject constructor(
     }
 
     override suspend fun createUser(user: User): HostActionStatus {
+        val gson = GsonBuilder().create()
         val userJson = gson.toJson(user)
         val response = withContext(dispatcher) {
             hostConnection.sendPost(URL_REGISTRATION, userJson.toString())
@@ -52,7 +52,10 @@ class UserRemoteData @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getUserByLoginData(login: String, password: String): User? {
+    override suspend fun getResidentByLoginData(login: String, password: String): User.Resident? {
+        val gson = GsonBuilder()
+            .registerTypeAdapter(User.Resident::class.java, residentDeserializer)
+            .create()
         val json = JsonObject()
         json.addProperty("login", login)
         json.addProperty("password", password)
@@ -68,6 +71,27 @@ class UserRemoteData @Inject constructor(
             null
         }
         else gson.fromJson(response, User.Resident::class.java)
+    }
+
+    override suspend fun getAdminByLoginData(login: String, password: String): User.Administrator? {
+        val gson = GsonBuilder()
+            .registerTypeAdapter(User.Administrator::class.java, adminDeserializer)
+            .create()
+        val json = JsonObject()
+        json.addProperty("login", login)
+        json.addProperty("password", password)
+        val response = withContext(dispatcher){
+            hostConnection.sendPost(URL_LOGIN, json.toString())
+        }
+
+        return if (response == "Error") {
+            Log.e("UserRemoteData", "Connection error")
+            null
+        } else if (response.isEmpty()) {
+            Log.e("UserRemoteData", "JSON is empty")
+            null
+        }
+        else gson.fromJson(response, User.Administrator::class.java)
     }
 
     override suspend fun updateResident(resident: User.Resident, properties: String) {

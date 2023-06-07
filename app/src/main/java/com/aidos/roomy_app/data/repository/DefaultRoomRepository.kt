@@ -12,6 +12,8 @@ class DefaultRoomRepository @Inject constructor(
 
     override suspend fun getDormitoryRooms(dormitoryId: Int): List<Room> = roomsRemoteDataSource.getDormitoryRooms(dormitoryId)
 
+    override suspend fun getRoomByResident(residentId: Int): Room? = roomsRemoteDataSource.getRoomByResident(residentId)
+
     override suspend fun updateRoom(room: Room): HostActionStatus = roomsRemoteDataSource.updateRoom(room)
 
     override suspend fun deleteRoom(roomNumber: Int, dormitoryId: Int) = roomsRemoteDataSource.deleteRoom(roomNumber, dormitoryId)

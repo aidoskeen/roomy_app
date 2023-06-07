@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import com.aidos.roomy_app.R
 import com.aidos.roomy_app.databinding.FragmentProfileBinding
 import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
@@ -41,9 +44,18 @@ class ProfileFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
         val resident = viewModel.getCurrentResident()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.profileFragment, true)
+            .build()
+
         binding.composeView.setContent {
             RoomyMainTheme {
-                ProfileScreen(user = resident)
+                ProfileScreen(
+                    user = resident,
+                    onClick = {
+                        findNavController().navigate(R.id.action_profileFragment_to_loginFragment, null, navOptions)
+                    }
+                )
             }
         }
     }

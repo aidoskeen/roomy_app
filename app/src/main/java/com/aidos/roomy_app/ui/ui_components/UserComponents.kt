@@ -20,7 +20,10 @@ import com.aidos.roomy_app.models.User
 import com.aidos.roomy_app.ui.theme.RoomyMainTheme
 
 @Composable
-fun ProfileScreen(user: User) {
+fun ProfileScreen(
+    user: User,
+    onClick:() -> Unit
+) {
     Column(
         modifier = Modifier
             .wrapContentHeight()
@@ -98,7 +101,8 @@ fun ProfileScreen(user: User) {
 
         RoomyButton(
             text = stringResource(id = R.string.logout_button),
-            onClick = { /*TODO*/ })
+            onClick = onClick
+        )
     }
 }
 
@@ -114,7 +118,7 @@ fun PreviewProfileForm() {
     )
 
     RoomyMainTheme {
-        ProfileScreen(user = resident)
+        ProfileScreen(user = resident) {}
     }
 }
 
@@ -134,6 +138,6 @@ fun PreviewProfileFormAdmin() {
     )
 
     RoomyMainTheme {
-        ProfileScreen(user = admin)
+        ProfileScreen(user = admin) {}
     }
 }

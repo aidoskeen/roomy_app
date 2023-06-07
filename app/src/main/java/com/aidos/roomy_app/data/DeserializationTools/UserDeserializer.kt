@@ -1,5 +1,7 @@
 package com.aidos.roomy_app.data.DeserializationTools
 
+import com.aidos.roomy_app.models.Dormitory
+import com.aidos.roomy_app.models.MonthlyPayment
 import com.aidos.roomy_app.models.User
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
@@ -28,6 +30,39 @@ class UserDeserializer() {
                 username = username,
                 password = password,
                 roomNumber = roomNumber
+            )
+        }
+        return deserializer
+    }
+
+    fun getAdminDeserializer(): JsonDeserializer<User.Administrator> {
+        val deserializer = JsonDeserializer { element: JsonElement,
+                                              _: Type,
+                                              _: JsonDeserializationContext ->
+
+            val parser = GsonBuilder()
+                .registerTypeAdapter(Dormitory::class.java, DormitoryDeserializer().getDormitoryJsonDeserializer())
+                .create()
+            val adminJson = element.asJsonObject
+            val id = adminJson.get("userId")?.asInt
+            val name = adminJson.get("name").asString
+            val surname = adminJson.get("surname").asString
+            val username = adminJson.get("username").asString
+            val password = adminJson.get("password").asString
+            val dormitory = try {
+                parser.fromJson(adminJson.getAsJsonObject("dormitory"), Dormitory::class.java)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+                null
+            }
+
+            User.Administrator(
+                id = id,
+                name = name,
+                surname = surname,
+                username = username,
+                password = password,
+                dormitory = dormitory
             )
         }
         return deserializer

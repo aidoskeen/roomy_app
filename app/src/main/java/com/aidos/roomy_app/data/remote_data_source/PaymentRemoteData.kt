@@ -1,5 +1,6 @@
 package com.aidos.roomy_app.data.remote_data_source
 
+import com.aidos.roomy_app.data.Constants.HOST_ADDRESS
 import com.aidos.roomy_app.data.DeserializationTools.PaymentDeserializer
 import com.aidos.roomy_app.enums.HostActionStatus
 import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
@@ -22,7 +23,6 @@ class PaymentRemoteData @Inject constructor(
         .create()
 
     companion object {
-        private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
         private const val URL_CREATE = "${HOST_ADDRESS}dormitory/createPayments"
         private const val URL_GET_PAYMENTS = "${HOST_ADDRESS}payment/getAllPayments"
     }

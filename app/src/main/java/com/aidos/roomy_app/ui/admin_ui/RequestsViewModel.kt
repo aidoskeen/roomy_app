@@ -38,7 +38,7 @@ class RequestsViewModel @Inject constructor(
     }
 
     fun setRequestStatus(place: Place, requestStatus: RequestStatus) {
-        val updatedPlace = place.copy(requestStatus = requestStatus)
+        val updatedPlace = place.copy(requestStatus = requestStatus, roomNumber = place.roomNumber)
         val updatedResident = place.livingResident?.copy(roomNumber = place.roomNumber)
         viewModelScope.launch {
             val status = withContext(Dispatchers.Default) {

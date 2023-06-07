@@ -18,9 +18,9 @@ class DormitoryDeserializer() {
                 _: JsonDeserializationContext ->
             val roomsDeserializer = RoomDeserializer().getRoomListJsonDeserializer()
             val typeRoom = object : TypeToken<List<Room>>() {}.type
-            val typeAnnouncement = object : TypeToken<List<Room>>() {}.type
+            val typeAnnouncement = object : TypeToken<List<Announcement>>() {}.type
             val parser = GsonBuilder()
-                .registerTypeAdapter(typeAnnouncement, roomsDeserializer)
+                .registerTypeAdapter(typeRoom, roomsDeserializer)
                 .create()
 
             val dormitoryJson = element.asJsonObject

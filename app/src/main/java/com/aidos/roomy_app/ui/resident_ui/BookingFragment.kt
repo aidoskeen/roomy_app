@@ -110,7 +110,7 @@ class BookingFragment : DaggerFragment() {
                                 date = currentDate
                             ) { place ->
                                 val updatedPlace = place.copy(
-                                    livingResident = resident,
+                                    livingResident = resident.copy(roomNumber = room.roomNumber) as User.Resident,
                                     requestStatus = RequestStatus.PENDING
                                 )
 

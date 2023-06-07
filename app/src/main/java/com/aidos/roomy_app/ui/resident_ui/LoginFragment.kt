@@ -97,7 +97,7 @@ class LoginFragment : DaggerFragment() {
 
                     //Button for signing in
                     RoomyButton(
-                        onClick = { viewModel.logIn(username.text, password.text) },
+                        onClick = { viewModel.logInAsResident(username.text, password.text) },
                         text = stringResource(id = R.string.login_button)
                     )
 

@@ -14,10 +14,12 @@ class DefaultPlaceRepository @Inject constructor(
     private val roomRemoteDataSource: RoomsRemoteDataSource
 ) : PlaceRepository {
     override suspend fun updatePlace(place: Place): HostActionStatus {
+        val roomNumber = if (place.roomNumber != null)
+            "\"roomNumber\":${place.roomNumber}," else ""
         val resident = if (place.livingResident != null)
-            "{\"residentId\":${place.livingResident.id},"
-        else "{"
-        val properties = resident +
+            "{\"residentId\":${place.livingResident.id}," else "{"
+
+        val properties = resident + roomNumber +
                 "\"available\":\"${place.available}\"," +
                 "\"requestStatus\":\"${place.requestStatus}\" }"
         val result = dataSource.updatePlace(place.placeId.toString(), properties)
@@ -31,11 +33,10 @@ class DefaultPlaceRepository @Inject constructor(
     override suspend fun getAllPlacesInDormitory(dormitoryId: Int): List<Place> {
         val rooms = roomRemoteDataSource.getDormitoryRooms(dormitoryId = dormitoryId)
         val allPlaces = mutableListOf<Place>()
-        rooms.forEach {
-            allPlaces.addAll(it.places)
+        rooms.forEach { room ->
+            allPlaces.addAll(room.places.map { it.copy(roomNumber = room.roomNumber) })
         }
-        allPlaces.filter { it.requestStatus != RequestStatus.NONE }
 
-        return allPlaces
+        return allPlaces.filter { it.requestStatus == RequestStatus.PENDING }
     }
 }

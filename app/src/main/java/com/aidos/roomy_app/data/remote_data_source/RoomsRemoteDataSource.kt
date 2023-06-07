@@ -7,7 +7,7 @@ import com.aidos.roomy_app.models.Room
 interface RoomsRemoteDataSource {
     suspend fun getRoomByNumber(roomNumber: Int): Room?
     suspend fun getDormitoryRooms(dormitoryId: Int): List<Room>
-
+    suspend fun getRoomByResident(residentId: Int): Room?
     suspend fun updateRoom(updatedRoom: Room): HostActionStatus
 
     suspend fun deleteRoom(roomNumber: Int, dormitoryId: Int)

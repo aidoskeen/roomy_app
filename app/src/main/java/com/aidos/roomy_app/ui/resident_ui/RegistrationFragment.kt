@@ -128,7 +128,7 @@ class RegistrationFragment : DaggerFragment() {
                         name = name.value.text,
                         surname = surname.value.text,
                         username = username.value.text,
-                        password = username.value.text,
+                        password = password.value.text,
                     )
 
                     //Button for registration

@@ -1,5 +1,6 @@
 package com.aidos.roomy_app.data.remote_data_source
 
+import com.aidos.roomy_app.data.Constants.HOST_ADDRESS
 import com.aidos.roomy_app.enums.HostActionStatus
 import com.aidos.roomy_app.frameworks.dagger.subcomponents.DefaultDispatcher
 import com.aidos.roomy_app.models.Place
@@ -31,7 +32,6 @@ class PlaceRemoteData @Inject constructor(
 
 
     companion object {
-        private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
         private const val URL_UPDATE = "${HOST_ADDRESS}place/updatePlace"
         private const val URL_GET = "${HOST_ADDRESS}place/getPlace"
     }

@@ -1,6 +1,7 @@
 package com.aidos.roomy_app.data.remote_data_source
 
 import android.util.Log
+import com.aidos.roomy_app.data.Constants.HOST_ADDRESS
 import com.aidos.roomy_app.data.DeserializationTools.DormitoryDeserializer
 import com.aidos.roomy_app.data.ResponseModels.DormitoryResponse
 import com.aidos.roomy_app.enums.HostActionStatus
@@ -63,7 +64,6 @@ class DormitoryRemoteData @Inject constructor(
     }
 
     companion object {
-        private const val HOST_ADDRESS = "http://192.168.0.215:8080/RoomyAppServer/"
         private const val URL_ALL_DORMITORIES = "${HOST_ADDRESS}dormitory/allDormitories"
         private const val URL_NEW_ANNOUNCEMENT = "${HOST_ADDRESS}dormitory/newAnnouncement"
     }

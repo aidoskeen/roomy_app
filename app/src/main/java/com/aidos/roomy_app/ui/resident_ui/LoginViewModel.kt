@@ -4,11 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aidos.roomy_app.data.repository.UserRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
@@ -20,14 +18,30 @@ class LoginViewModel @Inject constructor(
     val onLogin = MutableLiveData<Boolean>()
     val loginSuccessful: StateFlow<Boolean> = _loginSuccessful
 
-    fun logIn(username: String, password: String) {
+    fun logInAsResident(username: String, password: String) {
         viewModelScope.launch {
             if (username == "sysadmin" && password == "sysadmin"){
                 onLogin.postValue(true)
                 return@launch
             }
 
-            val user = userRepository.getUserByLoginData(username, password)
+            val user = userRepository.getResidentByLoginData(username, password)
+
+            if (user == null) {
+                onLogin.postValue(false)
+            }
+            else onLogin.postValue(true)
+        }
+    }
+
+    fun logInAsAdministrator(username: String, password: String) {
+        viewModelScope.launch {
+            if (username == "sysadmin" && password == "sysadmin"){
+                onLogin.postValue(true)
+                return@launch
+            }
+
+            val user = userRepository.getAdminByLoginData(username, password)
 
             if (user == null) {
                 onLogin.postValue(false)

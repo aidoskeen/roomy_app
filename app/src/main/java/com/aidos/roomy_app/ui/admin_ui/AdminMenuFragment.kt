@@ -57,7 +57,7 @@ class AdminMenuFragment : DaggerFragment() {
         val room2 = Room(2, RoomType.SINGLE, RoomSize.MEDIUM, listOf(), "Regular room")
         val room3 = Room(3, RoomType.TRIPLE, RoomSize.BIG, listOf(), "Regular room")
         val dormitory = Dormitory(
-            dormitoryId = 11,
+            dormitoryId = 1,
             address = "Sauletekio 25",
             rooms = listOf(room1, room2, room3),
             "VGTU"

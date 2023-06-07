@@ -44,8 +44,9 @@ class MyRoomViewModel @Inject constructor(
     fun loadData() {
         viewModelScope.launch {
             if (resident.id != -1) {
-                val room = resident.roomNumber?.let { roomRepository.getRoomByNumber(it) }
-                val place = room?.places?.find { it.livingResident == resident }
+
+                val room = resident.id?.let { roomRepository.getRoomByResident(residentId = it) }
+                val place = room?.places?.find { it.livingResident?.id == resident.id }
                 if (place != null) {
                     _placeFlow.value = place
                 }

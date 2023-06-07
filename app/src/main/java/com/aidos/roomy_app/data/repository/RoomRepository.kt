@@ -7,8 +7,7 @@ interface RoomRepository {
 
     suspend fun getRoomByNumber(roomNumber: Int): Room?
     suspend fun getDormitoryRooms(dormitoryId: Int): List<Room>
-
+    suspend fun getRoomByResident(residentId: Int): Room?
     suspend fun updateRoom(room: Room): HostActionStatus
-
     suspend fun deleteRoom(roomNumber: Int, dormitoryId: Int)
 }
